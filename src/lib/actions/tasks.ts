@@ -137,9 +137,9 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
-    .select('family_id, expected_due_date')
+    .select('family_id, expected_due_date, expected_pregnancy_date')
     .eq('id', user.id)
-    .single() as { data: { family_id: string | null; expected_due_date: string | null } | null; error: { code: string; message: string } | null };
+    .single() as { data: { family_id: string | null; expected_due_date: string | null; expected_pregnancy_date: string | null } | null; error: { code: string; message: string } | null };
 
   if (profileError) {
     console.error('[initializeTasksFromTemplates] Profile lookup failed:', profileError.code, profileError.message);
@@ -171,10 +171,18 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
   if (localTemplates.length === 0) return { success: true, message: 'テンプレートがありません' };
 
   const dueDateBase = profile.expected_due_date ? new Date(profile.expected_due_date + 'T00:00:00') : null;
+  const pregnancyDateBase = profile.expected_pregnancy_date ? new Date(profile.expected_pregnancy_date + 'T00:00:00') : null;
 
   const tasks = localTemplates.map((t) => {
     let due_date: string | null = null;
-    if (dueDateBase && (t.days_offset || t.days_offset === 0)) {
+
+    if (t.stage_id === 'prenatal_care' && pregnancyDateBase) {
+      // 妊活: 妊娠予定時期を基準に
+      const d = new Date(pregnancyDateBase);
+      d.setDate(d.getDate() + (t.days_offset ?? -30));
+      due_date = d.toISOString().split('T')[0];
+    } else if (t.stage_id !== 'prenatal_care' && dueDateBase && (t.days_offset || t.days_offset === 0)) {
+      // 妊娠・産後・育児: 出産予定日を基準
       const d = new Date(dueDateBase);
       d.setDate(d.getDate() + t.days_offset);
       due_date = d.toISOString().split('T')[0];

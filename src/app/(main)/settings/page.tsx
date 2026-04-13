@@ -1,12 +1,12 @@
-import Link from 'next/link';
 import { getProfile } from '@/lib/actions/profile';
-import { STAGE_MAP } from '@/data/seed/stages';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
 import { APP_VERSION } from '@/data/release-notes';
 import { signOut } from '@/lib/actions/auth';
 import { Button } from '@/components/ui/button';
+import { ProfileSection } from '@/components/settings/profile-section';
+import { ScheduleSection } from '@/components/settings/schedule-section';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -20,33 +20,11 @@ export default async function SettingsPage() {
     <div className="space-y-5">
       <h1 className="text-2xl font-bold">設定</h1>
 
-      {/* Profile */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">👤 プロフィール</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">ニックネーム</span>
-            <span className="font-medium">{profile?.nickname || '未設定'}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">ライフステージ</span>
-            <span className="font-medium">
-              {profile?.current_stage
-                ? `${STAGE_MAP[profile.current_stage]?.emoji} ${STAGE_MAP[profile.current_stage]?.label}`
-                : '未設定'}
-            </span>
-          </div>
-          <Separator className="my-2" />
-          <Link
-            href="/settings/profile"
-            className="block text-primary hover:underline text-sm"
-          >
-            プロフィールを編集 →
-          </Link>
-        </CardContent>
-      </Card>
+      {/* Profile - inline edit */}
+      {profile && <ProfileSection profile={profile} />}
+
+      {/* Schedule - due dates */}
+      {profile && <ScheduleSection profile={profile} />}
 
       {/* Theme */}
       <Card>
@@ -67,10 +45,6 @@ export default async function SettingsPage() {
           <div className="flex justify-between">
             <span className="text-muted-foreground">バージョン</span>
             <span className="font-mono text-xs">{APP_VERSION}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">開発</span>
-            <span>Sprout Team</span>
           </div>
           <Separator className="my-2" />
           <p className="text-xs text-muted-foreground">
