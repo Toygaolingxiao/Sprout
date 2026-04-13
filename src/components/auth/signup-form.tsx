@@ -23,6 +23,13 @@ export function SignupForm() {
     }
   }
 
+  async function handleGoogleSignUp() {
+    const result = await signInWithGoogle()
+    if (result?.error) {
+      setError(result.error)
+    }
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -60,7 +67,7 @@ export function SignupForm() {
           </span>
         </div>
 
-        <form action={signInWithGoogle}>
+        <form action={handleGoogleSignUp}>
           <Button variant="outline" className="w-full" type="submit">
             Googleで登録
           </Button>
