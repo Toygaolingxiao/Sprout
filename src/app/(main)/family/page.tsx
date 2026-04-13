@@ -3,6 +3,12 @@ import { getProfile } from '@/lib/actions/profile';
 import { STAGE_MAP } from '@/data/seed/stages';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '家族 | Sprout',
+  description: '家族メンバーの管理',
+};
 import { InviteSection } from '@/components/family/invite-section';
 
 export default async function FamilyPage() {

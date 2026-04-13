@@ -2,7 +2,13 @@ import { getTasks, initializeTasksFromTemplates, getTaskStats } from '@/lib/acti
 import { getProfile } from '@/lib/actions/profile';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import { DashboardClient } from './dashboard-client';
+import type { Metadata } from 'next';
 import type { LifeStage, Task } from '@/types';
+
+export const metadata: Metadata = {
+  title: 'ホーム | Sprout',
+  description: '今日のやることを確認しましょう',
+};
 
 export default async function DashboardPage() {
   const profile = await getProfile();
