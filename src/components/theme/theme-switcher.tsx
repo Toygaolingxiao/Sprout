@@ -18,6 +18,7 @@ export function ThemeSwitcher() {
           <button
             key={t.id}
             onClick={() => setTheme(t.id)}
+            aria-label={`テーマを${t.label}に変更`}
             className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
               theme === t.id
                 ? 'border-primary bg-primary/5 shadow-sm'

@@ -104,6 +104,7 @@ export function TaskItem({ task }: TaskItemProps) {
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
+              aria-expanded={isExpanded}
               className="mt-1.5 text-xs text-primary/80 hover:text-primary flex items-center gap-1 transition-colors"
             >
               <span>{isExpanded ? '▼' : '▶'}</span>
@@ -118,6 +119,7 @@ export function TaskItem({ task }: TaskItemProps) {
             className="text-destructive hover:text-destructive h-8 w-8 p-0"
             onClick={handleDelete}
             disabled={isPending}
+            aria-label={`${task.title}を削除`}
           >
             ✕
           </Button>

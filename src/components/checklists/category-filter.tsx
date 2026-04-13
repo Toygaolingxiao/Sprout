@@ -12,11 +12,15 @@ interface CategoryFilterProps {
 
 export function CategoryFilter({ value, onChange }: CategoryFilterProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+    <div role="group" aria-label="カテゴリフィルター" className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
       <Badge
         variant={value === 'all' ? 'default' : 'outline'}
         className="cursor-pointer"
+        role="button"
+        tabIndex={0}
+        aria-pressed={value === 'all'}
         onClick={() => onChange('all')}
+        onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onChange('all'); } }}
       >
         すべて
       </Badge>
@@ -25,6 +29,10 @@ export function CategoryFilter({ value, onChange }: CategoryFilterProps) {
           key={cat.id}
           variant={value === cat.id ? 'default' : 'outline'}
           className="cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-pressed={value === cat.id}
+          onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onChange(cat.id); } }}
           style={
             value === cat.id
               ? { backgroundColor: cat.color, borderColor: cat.color }
