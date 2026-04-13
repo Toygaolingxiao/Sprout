@@ -95,7 +95,10 @@ export function TaskItem({ task }: TaskItemProps) {
               {task.description}
             </p>
           )}
-          {task.due_date && (
+          {task.due_date && !task.is_completed && (
+            <DueDateBadge dueDate={task.due_date} />
+          )}
+          {task.due_date && task.is_completed && (
             <p className="mt-1 text-xs text-muted-foreground">
               📅 {task.due_date}
             </p>
@@ -134,5 +137,42 @@ export function TaskItem({ task }: TaskItemProps) {
         </div>
       )}
     </div>
+  );
+}
+
+function DueDateBadge({ dueDate }: { dueDate: string }) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(dueDate + 'T00:00:00');
+  const diffDays = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+  let label: string;
+  let className: string;
+
+  if (diffDays < 0) {
+    label = `${Math.abs(diffDays)}日超過`;
+    className = 'text-red-600 bg-red-50';
+  } else if (diffDays === 0) {
+    label = '今日';
+    className = 'text-orange-600 bg-orange-50';
+  } else if (diffDays <= 7) {
+    label = `あと${diffDays}日`;
+    className = 'text-orange-600 bg-orange-50';
+  } else if (diffDays <= 30) {
+    label = `あと${diffDays}日`;
+    className = 'text-amber-600 bg-amber-50';
+  } else {
+    const weeks = Math.floor(diffDays / 7);
+    label = `あと${weeks}週`;
+    className = 'text-muted-foreground bg-muted/50';
+  }
+
+  return (
+    <p className="mt-1 flex items-center gap-1.5 text-xs">
+      <span className="text-muted-foreground">📅 {dueDate}</span>
+      <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-medium ${className}`}>
+        {label}
+      </span>
+    </p>
   );
 }

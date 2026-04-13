@@ -23,7 +23,7 @@ interface DashboardClientProps {
   profile: Profile | null;
   tasks: Task[];
   currentStage: LifeStage;
-  stats: { stages: StageStats[]; upcoming: { stage_id: string; due_date: string | null }[] } | null;
+  stats: { stages: StageStats[]; upcoming: { stage_id: string; due_date: string | null; title: string }[] } | null;
   dbOffline: boolean;
   dbError?: string;
 }
@@ -115,6 +115,42 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
         <CategoryFilter value={categoryFilter} onChange={setCategoryFilter} />
         <GenderFilter value={genderFilter} onChange={setGenderFilter} />
       </div>
+
+      {/* Upcoming schedule */}
+      {stats?.upcoming && stats.upcoming.length > 0 && (
+        <div>
+          <h2 className="text-sm font-semibold text-muted-foreground mb-2">📅 直近のスケジュール</h2>
+          <Card>
+            <CardContent className="py-3 px-4 space-y-2">
+              {stats.upcoming.map((item, i) => {
+                const stageInfo = STAGE_MAP[item.stage_id as LifeStage];
+                const due = new Date(item.due_date + 'T00:00:00');
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const diffDays = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                const relLabel = diffDays === 0 ? '今日' : diffDays <= 7 ? `あと${diffDays}日` : diffDays <= 30 ? `あと${diffDays}日` : `あと${Math.floor(diffDays / 7)}週`;
+                const urgencyClass = diffDays <= 7 ? 'text-orange-600 bg-orange-50' : diffDays <= 30 ? 'text-amber-600 bg-amber-50' : 'text-muted-foreground bg-muted/50';
+
+                return (
+                  <div key={i} className="flex items-center gap-2 text-sm">
+                    <span className="text-xs">{stageInfo?.emoji}</span>
+                    <span className="flex-1 truncate">{item.title}</span>
+                    <span className={`text-[10px] font-medium rounded-full px-2 py-0.5 whitespace-nowrap ${urgencyClass}`}>
+                      {relLabel}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground whitespace-nowrap">{item.due_date}</span>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
+          {profile?.expected_due_date && (
+            <p className="text-xs text-muted-foreground mt-1.5 text-center">
+              🍼 出産予定日: {profile.expected_due_date}
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Priority tasks — next 5 to do */}
       {priorityTasks.length > 0 && (
