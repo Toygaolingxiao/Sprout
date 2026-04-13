@@ -21,14 +21,17 @@ interface TaskItemProps {
 export function TaskItem({ task }: TaskItemProps) {
   const [isPending, startTransition] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
+  const isLocal = task.id.startsWith('local-');
 
   function handleToggle() {
+    if (isLocal) return;
     startTransition(async () => {
       await toggleTask(task.id, !task.is_completed);
     });
   }
 
   function handleDelete() {
+    if (isLocal) return;
     startTransition(async () => {
       await deleteTask(task.id);
     });
@@ -47,6 +50,7 @@ export function TaskItem({ task }: TaskItemProps) {
         <Checkbox
           checked={task.is_completed}
           onCheckedChange={handleToggle}
+          disabled={isLocal}
           className="mt-0.5"
         />
         <div className="flex-1 min-w-0">
