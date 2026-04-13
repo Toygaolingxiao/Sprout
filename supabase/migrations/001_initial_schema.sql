@@ -91,7 +91,9 @@ CREATE TABLE checklist_templates (
   title TEXT NOT NULL,
   description TEXT,
   sort_order INT NOT NULL DEFAULT 0,
-  reference_url TEXT
+  reference_url TEXT,
+  target_gender TEXT NOT NULL DEFAULT 'both',
+  tips TEXT
 );
 
 -- ============================================================
@@ -112,6 +114,8 @@ CREATE TABLE tasks (
   due_date DATE,
   sort_order INT NOT NULL DEFAULT 0,
   is_custom BOOLEAN NOT NULL DEFAULT false,
+  target_gender TEXT NOT NULL DEFAULT 'both',
+  tips TEXT,
   created_by UUID NOT NULL REFERENCES profiles(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -287,6 +291,8 @@ CREATE POLICY "Used_by can be set by authenticated user"
 CREATE POLICY "Anyone can read stages" ON stages FOR SELECT USING (true);
 CREATE POLICY "Anyone can read categories" ON categories FOR SELECT USING (true);
 CREATE POLICY "Anyone can read templates" ON checklist_templates FOR SELECT USING (true);
+CREATE POLICY "Authenticated can insert templates" ON checklist_templates FOR INSERT WITH CHECK (true);
+CREATE POLICY "Authenticated can delete templates" ON checklist_templates FOR DELETE USING (true);
 CREATE POLICY "Anyone can read knowledge" ON knowledge_articles FOR SELECT USING (true);
 
 -- Tasks

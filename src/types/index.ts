@@ -4,6 +4,7 @@
 export type LifeStage = 'prenatal_care' | 'pregnancy' | 'postpartum' | 'childcare';
 export type ActivityAction = 'complete' | 'uncomplete' | 'create' | 'update' | 'delete';
 export type CategoryId = 'procedure' | 'shopping' | 'health' | 'money' | 'other';
+export type TargetGender = 'both' | 'female' | 'male';
 
 export interface Profile {
   id: string;
@@ -52,6 +53,8 @@ export interface ChecklistTemplate {
   description: string | null;
   sort_order: number;
   reference_url: string | null;
+  target_gender: TargetGender;
+  tips: string | null;
 }
 
 export interface Task {
@@ -69,6 +72,8 @@ export interface Task {
   due_date: string | null;
   sort_order: number;
   is_custom: boolean;
+  target_gender: TargetGender;
+  tips: string | null;
   created_by: string;
   created_at: string;
   updated_at: string;
