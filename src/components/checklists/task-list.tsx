@@ -26,9 +26,9 @@ export function TaskList({ tasks }: TaskListProps) {
       ))}
       {completed.length > 0 && (
         <details className="mt-4" open>
-          <summary className="cursor-pointer text-sm text-muted-foreground mb-2 flex items-center gap-2">
+          <summary className="cursor-pointer text-sm text-muted-foreground mb-2 flex items-center gap-2 select-none">
             <span>✅ 完了済み ({completed.length})</span>
-            <span className="text-[10px]">タップで復活できます</span>
+            <span className="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded-full">タップで復活</span>
           </summary>
           <div className="space-y-2">
             {completed.map((task) => (

@@ -42,8 +42,8 @@ export function TaskItem({ task }: TaskItemProps) {
 
   return (
     <div
-      className={`rounded-lg border transition-colors ${
-        task.is_completed ? 'bg-muted/50' : 'bg-card'
+      className={`rounded-xl border transition-all ${
+        task.is_completed ? 'bg-green-50/40 border-green-200/50' : 'bg-card shadow-sm'
       } ${isPending ? 'opacity-50' : ''}`}
     >
       <div className="flex items-start gap-3 p-3">
@@ -92,7 +92,7 @@ export function TaskItem({ task }: TaskItemProps) {
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-1.5 text-xs text-primary hover:underline flex items-center gap-1"
+              className="mt-1.5 text-xs text-primary/80 hover:text-primary flex items-center gap-1 transition-colors"
             >
               <span>{isExpanded ? '▼' : '▶'}</span>
               <span>{isExpanded ? '要点を閉じる' : '要点・注意事項を見る'}</span>
@@ -112,9 +112,9 @@ export function TaskItem({ task }: TaskItemProps) {
         )}
       </div>
       {isExpanded && task.tips && (
-        <div className="mx-3 mb-3 ml-10 rounded-md bg-muted/60 p-3">
-          <p className="text-xs font-medium text-foreground mb-1.5">💡 要点・注意事項</p>
-          <div className="text-xs text-muted-foreground space-y-0.5 whitespace-pre-line leading-relaxed">
+        <div className="mx-3 mb-3 ml-10 rounded-lg bg-amber-50/70 border border-amber-100 p-3">
+          <p className="text-xs font-medium text-amber-800 mb-1.5">💡 要点・注意事項</p>
+          <div className="text-xs text-amber-700/80 space-y-0.5 whitespace-pre-line leading-relaxed">
             {task.tips}
           </div>
         </div>
