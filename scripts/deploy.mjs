@@ -1,9 +1,6 @@
-#!/bin/sh
-# .git/hooks/post-push doesn't exist natively in git.
-# Use this script manually or via npm script: npm run deploy
-#
-# Usage: node scripts/deploy.mjs
-# Requires VERCEL_DEPLOY_HOOK_URL env variable or .env.local entry
+// Trigger Vercel deploy via webhook
+// Usage: node scripts/deploy.mjs
+// Requires VERCEL_DEPLOY_HOOK_URL env variable or .env.local entry
 
 const url = process.env.VERCEL_DEPLOY_HOOK_URL;
 if (!url) {
