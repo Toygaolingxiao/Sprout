@@ -22,9 +22,12 @@ export default async function StageChecklistPage({ params }: Props) {
 
   let tasks = await getTasks(stageId as LifeStage);
   let dbOffline = false;
+  let dbError = '';
 
   if (tasks.length === 0 && initResult && 'error' in initResult) {
     dbOffline = true;
+    dbError = String(initResult.error);
+    console.error('[StageChecklistPage] DB offline, error:', dbError);
     tasks = CHECKLIST_TEMPLATES
       .filter((t) => t.stage_id === stageId)
       .map((t, i) => ({
@@ -93,6 +96,7 @@ export default async function StageChecklistPage({ params }: Props) {
         <Card className="border-amber-400 bg-amber-50">
           <CardContent className="py-3">
             <p className="text-sm text-amber-800">⚠️ DB接続待機中 — プレビュー表示です</p>
+            {dbError && <p className="text-xs text-amber-600 mt-1">原因: {dbError}</p>}
           </CardContent>
         </Card>
       )}

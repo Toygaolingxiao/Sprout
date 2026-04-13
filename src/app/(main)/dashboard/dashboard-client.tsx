@@ -25,9 +25,10 @@ interface DashboardClientProps {
   currentStage: LifeStage;
   stats: { stages: StageStats[]; upcoming: { stage_id: string; due_date: string | null }[] } | null;
   dbOffline: boolean;
+  dbError?: string;
 }
 
-export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline }: DashboardClientProps) {
+export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError }: DashboardClientProps) {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | 'all'>('all');
   const [genderFilter, setGenderFilter] = useState<TargetGender | 'all'>('all');
 
@@ -62,6 +63,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
         <Card className="border-amber-400 bg-amber-50">
           <CardContent className="py-3">
             <p className="text-sm text-amber-800">⚠️ DB接続待機中 — プレビュー表示です</p>
+            {dbError && <p className="text-xs text-amber-600 mt-1">原因: {dbError}</p>}
           </CardContent>
         </Card>
       )}
