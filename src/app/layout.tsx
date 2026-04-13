@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -13,9 +13,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
+
 export const metadata: Metadata = {
   title: "Sprout 🌱 - 夫婦で育てる、新しい命の準備",
   description: "妊活・出産準備・産後ケア・育児を夫婦で管理するチェックリストアプリ",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Sprout',
+  },
 };
 
 export default function RootLayout({

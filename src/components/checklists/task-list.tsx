@@ -25,9 +25,10 @@ export function TaskList({ tasks }: TaskListProps) {
         <TaskItem key={task.id} task={task} />
       ))}
       {completed.length > 0 && (
-        <details className="mt-4">
-          <summary className="cursor-pointer text-sm text-muted-foreground mb-2">
-            完了済み ({completed.length})
+        <details className="mt-4" open>
+          <summary className="cursor-pointer text-sm text-muted-foreground mb-2 flex items-center gap-2">
+            <span>✅ 完了済み ({completed.length})</span>
+            <span className="text-[10px]">タップで復活できます</span>
           </summary>
           <div className="space-y-2">
             {completed.map((task) => (
