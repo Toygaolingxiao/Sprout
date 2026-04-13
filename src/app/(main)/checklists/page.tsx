@@ -3,6 +3,12 @@ import { STAGES } from '@/data/seed/stages';
 import { getTaskStats } from '@/lib/actions/tasks';
 import { getProfile } from '@/lib/actions/profile';
 import { Card, CardContent } from '@/components/ui/card';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'チェックリスト | Sprout',
+  description: '妊活・妊娠・産後・育児のチェックリスト',
+};
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import type { LifeStage } from '@/types';

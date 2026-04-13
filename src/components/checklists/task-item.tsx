@@ -5,6 +5,7 @@ import { toggleTask, deleteTask } from '@/lib/actions/tasks';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import { CATEGORY_MAP } from '@/data/seed/categories';
 import type { Task } from '@/types';
 
@@ -26,14 +27,24 @@ export function TaskItem({ task }: TaskItemProps) {
   function handleToggle() {
     if (isLocal) return;
     startTransition(async () => {
-      await toggleTask(task.id, !task.is_completed);
+      const result = await toggleTask(task.id, !task.is_completed);
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(!task.is_completed ? '✅ 完了しました！' : '↩️ 復活しました');
+      }
     });
   }
 
   function handleDelete() {
     if (isLocal) return;
     startTransition(async () => {
-      await deleteTask(task.id);
+      const result = await deleteTask(task.id);
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.success('🗑️ 削除しました');
+      }
     });
   }
 

@@ -5,6 +5,7 @@ import { createTask } from '@/lib/actions/tasks';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
 import { CATEGORIES } from '@/data/seed/categories';
 import type { LifeStage, CategoryId } from '@/types';
 
@@ -18,14 +19,19 @@ export function TaskForm({ stageId }: TaskFormProps) {
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      await createTask({
+      const result = await createTask({
         title: formData.get('title') as string,
         stage_id: stageId,
         category_id: formData.get('category_id') as CategoryId,
         description: (formData.get('description') as string) || undefined,
         due_date: (formData.get('due_date') as string) || undefined,
       });
-      setIsOpen(false);
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.success('➕ タスクを追加しました');
+        setIsOpen(false);
+      }
     });
   }
 
