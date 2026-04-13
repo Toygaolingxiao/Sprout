@@ -12,9 +12,9 @@ export default function NotFound() {
           <p className="text-sm text-muted-foreground">
             お探しのページは存在しないか、移動した可能性があります。
           </p>
-          <Button asChild className="mt-2">
-            <Link href="/dashboard">ホームに戻る</Link>
-          </Button>
+          <Link href="/dashboard">
+            <Button className="mt-2">ホームに戻る</Button>
+          </Link>
         </CardContent>
       </Card>
     </div>
