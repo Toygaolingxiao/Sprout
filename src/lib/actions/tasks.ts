@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, CategoryId, Task } from '@/types';
 
 export async function getTasks(stageId?: LifeStage): Promise<Task[]> {
@@ -148,27 +149,20 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   if (count && count > 0) return { success: true, message: '既にタスクが存在します' };
 
-  // Get templates for this stage
-  const { data: templates } = await supabase
-    .from('checklist_templates')
-    .select('*')
-    .eq('stage_id', stageId)
-    .order('sort_order', { ascending: true });
+  // Use local seed data directly (no DB template dependency)
+  const localTemplates = CHECKLIST_TEMPLATES.filter((t) => t.stage_id === stageId);
 
-  if (!templates || templates.length === 0) return { success: true, message: 'テンプレートがありません' };
+  if (localTemplates.length === 0) return { success: true, message: 'テンプレートがありません' };
 
-  const typedTemplates = templates as { id: string; stage_id: string; category_id: string; title: string; description: string | null; sort_order: number; target_gender: string; tips: string | null }[];
-
-  const tasks = typedTemplates.map((t) => ({
+  const tasks = localTemplates.map((t) => ({
     family_id: profile.family_id!,
     stage_id: t.stage_id,
     category_id: t.category_id,
-    template_id: t.id,
     title: t.title,
-    description: t.description,
+    description: t.description ?? null,
     sort_order: t.sort_order,
     target_gender: t.target_gender,
-    tips: t.tips,
+    tips: t.tips ?? null,
     is_custom: false,
     created_by: user.id,
   }));
