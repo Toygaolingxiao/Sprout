@@ -31,10 +31,10 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     sort_order: 2,
   },
   {
-    stage_id: 'prenatal_care', category_id: 'health', target_gender: 'female',
-    title: '産婦人科でブライダルチェックを受ける',
-    description: '子宮・卵巣の状態、ホルモン値、性感染症など総合検査',
-    tips: '・費用は自費で1〜3万円程度\n・子宮筋腫、子宮内膜症、卵管の状態などをチェック\n・AMH検査（卵巣予備能）も合わせて受けると良い\n・結果に問題があっても早期発見・早期治療で妊娠の可能性を高められる',
+    stage_id: 'prenatal_care', category_id: 'health', target_gender: 'both',
+    title: 'ブライダルチェック（婚前健診）を受ける',
+    description: '男女ともに妊活前の総合検査。産婦人科・泌尿器科で受診',
+    tips: '【女性】産婦人科で子宮・卵巣の状態、ホルモン値、性感染症など総合検査（自費1〜3万円）\n・AMH検査（卵巣予備能）も合わせて受けると良い\n【男性】泌尿器科で精液検査、性感染症、ホルモン検査など（自費5,000〜1.5万円）\n・不妊の原因の約半数は男性側にある\n・結果に問題があっても早期発見・早期治療で妊娠の可能性を高められる',
     sort_order: 3,
   },
   {

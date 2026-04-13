@@ -52,7 +52,8 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
+:root,
+[data-theme="green"] {
   --background: oklch(0.985 0.002 90);
   --foreground: oklch(0.25 0.02 50);
   --card: oklch(0.995 0.001 90);
@@ -85,6 +86,63 @@
   --sidebar-accent-foreground: oklch(0.30 0.03 50);
   --sidebar-border: oklch(0.90 0.015 90);
   --sidebar-ring: oklch(0.55 0.16 145);
+  --theme-gradient-from: #f0fdf4;
+  --theme-gradient-via: #ffffff;
+  --theme-gradient-to: #fffbeb80;
+  --theme-completed-bg: #f0fdf440;
+  --theme-completed-border: #bbf7d080;
+  --theme-tip-bg: #fffbeb70;
+  --theme-tip-border: #fef3c7;
+  --theme-tip-title: #92400e;
+  --theme-tip-text: #b45309cc;
+  --theme-restore-bg: #f0fdf4;
+  --theme-restore-text: #16a34a;
+}
+
+[data-theme="pink"] {
+  --background: oklch(0.985 0.005 350);
+  --foreground: oklch(0.25 0.02 340);
+  --card: oklch(0.995 0.003 350);
+  --card-foreground: oklch(0.25 0.02 340);
+  --popover: oklch(0.995 0.003 350);
+  --popover-foreground: oklch(0.25 0.02 340);
+  --primary: oklch(0.60 0.18 350);
+  --primary-foreground: oklch(0.99 0.005 350);
+  --secondary: oklch(0.95 0.02 350);
+  --secondary-foreground: oklch(0.30 0.03 340);
+  --muted: oklch(0.95 0.01 350);
+  --muted-foreground: oklch(0.50 0.02 340);
+  --accent: oklch(0.93 0.04 340);
+  --accent-foreground: oklch(0.30 0.03 340);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.91 0.02 350);
+  --input: oklch(0.91 0.02 350);
+  --ring: oklch(0.60 0.18 350);
+  --chart-1: oklch(0.60 0.18 350);
+  --chart-2: oklch(0.65 0.12 320);
+  --chart-3: oklch(0.60 0.15 30);
+  --chart-4: oklch(0.55 0.10 260);
+  --chart-5: oklch(0.65 0.15 145);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.97 0.008 350);
+  --sidebar-foreground: oklch(0.25 0.02 340);
+  --sidebar-primary: oklch(0.60 0.18 350);
+  --sidebar-primary-foreground: oklch(0.99 0.005 350);
+  --sidebar-accent: oklch(0.95 0.02 350);
+  --sidebar-accent-foreground: oklch(0.30 0.03 340);
+  --sidebar-border: oklch(0.91 0.02 350);
+  --sidebar-ring: oklch(0.60 0.18 350);
+  --theme-gradient-from: #fdf2f8;
+  --theme-gradient-via: #ffffff;
+  --theme-gradient-to: #faf5ff80;
+  --theme-completed-bg: #fdf2f840;
+  --theme-completed-border: #fbcfe880;
+  --theme-tip-bg: #fdf2f870;
+  --theme-tip-border: #fce7f3;
+  --theme-tip-title: #9d174d;
+  --theme-tip-text: #be185dcc;
+  --theme-restore-bg: #fdf2f8;
+  --theme-restore-text: #db2777;
 }
 
 .dark {

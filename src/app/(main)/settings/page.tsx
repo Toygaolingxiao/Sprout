@@ -3,6 +3,7 @@ import { getProfile } from '@/lib/actions/profile';
 import { STAGE_MAP } from '@/data/seed/stages';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { ThemeSwitcher } from '@/components/theme/theme-switcher';
 
 export default async function SettingsPage() {
   const profile = await getProfile();
@@ -35,6 +36,15 @@ export default async function SettingsPage() {
           >
             プロフィールを編集
           </Link>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">外観</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ThemeSwitcher />
         </CardContent>
       </Card>
     </div>
