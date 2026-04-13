@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -60,7 +60,7 @@ export default function SignupPage() {
           </span>
         </div>
 
-        <form action={async () => { 'use server'; await signInWithGoogle(); }}>
+        <form action={async () => { "use server"; await signInWithGoogle(); }}>
           <Button variant="outline" className="w-full" type="submit">
             Googleで登録
           </Button>

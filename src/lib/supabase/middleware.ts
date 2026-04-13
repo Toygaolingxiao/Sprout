@@ -25,9 +25,15 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const {
+      data: { user: sessionUser },
+    } = await supabase.auth.getUser();
+    user = sessionUser;
+  } catch {
+    // Supabase connection failed — treat as unauthenticated
+  }
 
   // Redirect unauthenticated users to login (except public routes)
   const publicPaths = ['/login', '/signup', '/reset-password', '/auth/callback', '/invite'];
