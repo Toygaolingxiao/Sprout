@@ -137,9 +137,9 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
-    .select('family_id')
+    .select('family_id, expected_due_date')
     .eq('id', user.id)
-    .single() as { data: { family_id: string | null } | null; error: { code: string; message: string } | null };
+    .single() as { data: { family_id: string | null; expected_due_date: string | null } | null; error: { code: string; message: string } | null };
 
   if (profileError) {
     console.error('[initializeTasksFromTemplates] Profile lookup failed:', profileError.code, profileError.message);
@@ -170,18 +170,29 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   if (localTemplates.length === 0) return { success: true, message: 'テンプレートがありません' };
 
-  const tasks = localTemplates.map((t) => ({
-    family_id: profile.family_id!,
-    stage_id: t.stage_id,
-    category_id: t.category_id,
-    title: t.title,
-    description: t.description ?? null,
-    sort_order: t.sort_order,
-    target_gender: t.target_gender,
-    tips: t.tips ?? null,
-    is_custom: false,
-    created_by: user.id,
-  }));
+  const dueDateBase = profile.expected_due_date ? new Date(profile.expected_due_date + 'T00:00:00') : null;
+
+  const tasks = localTemplates.map((t) => {
+    let due_date: string | null = null;
+    if (dueDateBase && (t.days_offset || t.days_offset === 0)) {
+      const d = new Date(dueDateBase);
+      d.setDate(d.getDate() + t.days_offset);
+      due_date = d.toISOString().split('T')[0];
+    }
+    return {
+      family_id: profile.family_id!,
+      stage_id: t.stage_id,
+      category_id: t.category_id,
+      title: t.title,
+      description: t.description ?? null,
+      sort_order: t.sort_order,
+      target_gender: t.target_gender,
+      tips: t.tips ?? null,
+      is_custom: false,
+      created_by: user.id,
+      due_date,
+    };
+  });
 
   const { error } = await supabase.from('tasks').insert(tasks as Record<string, unknown>[]);
 
@@ -210,12 +221,12 @@ export async function getTaskStats() {
 
   const { data: tasks } = await supabase
     .from('tasks')
-    .select('stage_id, is_completed, due_date')
+    .select('stage_id, is_completed, due_date, title')
     .eq('family_id', profile.family_id);
 
   if (!tasks) return null;
 
-  const typedTasks = tasks as { stage_id: string; is_completed: boolean; due_date: string | null }[];
+  const typedTasks = tasks as { stage_id: string; is_completed: boolean; due_date: string | null; title: string }[];
 
   const stages = ['prenatal_care', 'pregnancy', 'postpartum', 'childcare'] as const;
   const stats = stages.map((stageId) => {

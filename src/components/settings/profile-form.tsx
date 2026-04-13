@@ -72,6 +72,18 @@ export function ProfileForm({ profile }: ProfileFormProps) {
               ))}
             </select>
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="expected_due_date">出産予定日</Label>
+            <Input
+              id="expected_due_date"
+              name="expected_due_date"
+              type="date"
+              defaultValue={profile.expected_due_date ?? ''}
+            />
+            <p className="text-xs text-muted-foreground">
+              設定するとタスクの推奨時期が自動計算されます
+            </p>
+          </div>
           <Button type="submit" disabled={isPending}>
             {isPending ? '保存中...' : '保存'}
           </Button>

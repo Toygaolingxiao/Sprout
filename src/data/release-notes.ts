@@ -1,6 +1,17 @@
-export const APP_VERSION = '1.2.0';
+export const APP_VERSION = '1.3.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.3.0',
+    date: '2026-04-13',
+    items: [
+      '🍼 出産予定日を設定可能に（設定 > プロフィール）',
+      '📅 予定日から逆算してタスクのスケジュールを自動計算',
+      '⏰ タスクに残り日数バッジ表示（あと○日/○週）',
+      '📋 ダッシュボードに「直近のスケジュール」セクション追加',
+      '🔄 予定日変更時にタスク期限を自動再計算',
+    ],
+  },
   {
     version: '1.2.0',
     date: '2026-04-13',

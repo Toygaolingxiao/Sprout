@@ -1,6 +1,8 @@
 "use server";
 
+import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, Profile } from '@/types';
 
 /**
@@ -45,14 +47,71 @@ export async function updateProfile(formData: FormData) {
 
   const nickname = formData.get('nickname') as string;
   const currentStage = formData.get('current_stage') as LifeStage;
+  const expectedDueDateRaw = formData.get('expected_due_date') as string;
+  const expectedDueDate = expectedDueDateRaw || null;
 
   const { error } = await supabase
     .from('profiles')
-    .update({ nickname, current_stage: currentStage })
+    .update({
+      nickname,
+      current_stage: currentStage,
+      expected_due_date: expectedDueDate,
+    } as Record<string, unknown>)
     .eq('id', user.id);
 
   if (error) return { error: error.message };
+
+  // 予定日が設定されたら、テンプレートタスクのdue_dateを再計算
+  if (expectedDueDate) {
+    await recalculateTaskDueDates(user.id, expectedDueDate);
+  }
+
+  revalidatePath('/dashboard');
+  revalidatePath('/checklists');
+  revalidatePath('/settings');
   return { success: 'プロフィールを更新しました' };
+}
+
+/** 出産予定日から各タスクのdue_dateを逆算して更新 */
+async function recalculateTaskDueDates(userId: string, dueDate: string) {
+  const supabase = await createClient();
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('family_id')
+    .eq('id', userId)
+    .single() as { data: { family_id: string | null } | null };
+
+  if (!profile?.family_id) return;
+
+  // テンプレートベースのタスク（is_custom=false）のdue_dateを再計算
+  const { data: tasks } = await supabase
+    .from('tasks')
+    .select('id, title, stage_id, is_custom')
+    .eq('family_id', profile.family_id)
+    .eq('is_custom', false) as { data: { id: string; title: string; stage_id: string; is_custom: boolean }[] | null };
+
+  if (!tasks) return;
+
+  const dueDateObj = new Date(dueDate + 'T00:00:00');
+
+  for (const task of tasks) {
+    // タイトルでテンプレートを照合してdays_offsetを取得
+    const template = CHECKLIST_TEMPLATES.find(
+      (t) => t.title === task.title && t.stage_id === task.stage_id
+    );
+
+    if (!template?.days_offset && template?.days_offset !== 0) continue;
+
+    const taskDate = new Date(dueDateObj);
+    taskDate.setDate(taskDate.getDate() + template.days_offset);
+    const taskDateStr = taskDate.toISOString().split('T')[0];
+
+    await supabase
+      .from('tasks')
+      .update({ due_date: taskDateStr })
+      .eq('id', task.id);
+  }
 }
 
 export async function getProfile(): Promise<Profile | null> {

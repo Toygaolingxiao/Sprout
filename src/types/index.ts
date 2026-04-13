@@ -12,6 +12,7 @@ export interface Profile {
   avatar_url: string | null;
   current_stage: LifeStage;
   family_id: string | null;
+  expected_due_date: string | null;
   created_at: string;
   updated_at: string;
 }
