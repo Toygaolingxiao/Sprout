@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import { CATEGORIES } from '@/data/seed/categories';

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { TaskItem } from './task-item';
 import type { Task, CategoryId } from '@/types';
