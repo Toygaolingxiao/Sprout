@@ -36,7 +36,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   // Redirect unauthenticated users to login (except public routes)
-  const publicPaths = ['/login', '/signup', '/reset-password', '/auth/callback', '/invite'];
+  const publicPaths = ['/login', '/signup', '/reset-password', '/auth/callback', '/invite', '/api/'];
   const isPublicPath = publicPaths.some((path) => request.nextUrl.pathname.startsWith(path));
 
   if (!user && !isPublicPath && request.nextUrl.pathname !== '/') {

@@ -130,22 +130,38 @@ export async function deleteTask(taskId: string) {
 export async function initializeTasksFromTemplates(stageId: LifeStage) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: '認証されていません' };
+  if (!user) {
+    console.error('[initializeTasksFromTemplates] Not authenticated');
+    return { error: '認証されていません' };
+  }
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('family_id')
     .eq('id', user.id)
-    .single() as { data: { family_id: string | null } | null };
+    .single() as { data: { family_id: string | null } | null; error: { code: string; message: string } | null };
 
-  if (!profile?.family_id) return { error: '家族グループが見つかりません' };
+  if (profileError) {
+    console.error('[initializeTasksFromTemplates] Profile lookup failed:', profileError.code, profileError.message);
+    return { error: `プロフィール取得エラー: ${profileError.code} - ${profileError.message}` };
+  }
+
+  if (!profile?.family_id) {
+    console.error('[initializeTasksFromTemplates] No family_id for user', user.id);
+    return { error: '家族グループが見つかりません' };
+  }
 
   // Check if tasks already exist for this stage
-  const { count } = await supabase
+  const { count, error: countError } = await supabase
     .from('tasks')
     .select('*', { count: 'exact', head: true })
     .eq('family_id', profile.family_id)
     .eq('stage_id', stageId);
+
+  if (countError) {
+    console.error('[initializeTasksFromTemplates] Task count check failed:', countError.code, countError.message);
+    return { error: `タスク確認エラー: ${countError.code} - ${countError.message}` };
+  }
 
   if (count && count > 0) return { success: true, message: '既にタスクが存在します' };
 
@@ -169,7 +185,10 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   const { error } = await supabase.from('tasks').insert(tasks as Record<string, unknown>[]);
 
-  if (error) return { error: error.message };
+  if (error) {
+    console.error('[initializeTasksFromTemplates] Insert failed:', error.code, error.message);
+    return { error: error.message };
+  }
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');
