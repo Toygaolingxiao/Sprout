@@ -1,17 +1,14 @@
 "use client";
 
 import { TaskItem } from './task-item';
-import type { Task, CategoryId } from '@/types';
+import type { Task } from '@/types';
 
 interface TaskListProps {
   tasks: Task[];
-  filter?: CategoryId | 'all';
 }
 
-export function TaskList({ tasks, filter = 'all' }: TaskListProps) {
-  const filtered = filter === 'all' ? tasks : tasks.filter((t) => t.category_id === filter);
-
-  if (filtered.length === 0) {
+export function TaskList({ tasks }: TaskListProps) {
+  if (tasks.length === 0) {
     return (
       <div className="py-8 text-center text-muted-foreground">
         <p>タスクがありません</p>
@@ -19,8 +16,8 @@ export function TaskList({ tasks, filter = 'all' }: TaskListProps) {
     );
   }
 
-  const incomplete = filtered.filter((t) => !t.is_completed);
-  const completed = filtered.filter((t) => t.is_completed);
+  const incomplete = tasks.filter((t) => !t.is_completed);
+  const completed = tasks.filter((t) => t.is_completed);
 
   return (
     <div className="space-y-2">

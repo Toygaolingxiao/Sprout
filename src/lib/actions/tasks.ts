@@ -157,7 +157,7 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   if (!templates || templates.length === 0) return { success: true, message: 'テンプレートがありません' };
 
-  const typedTemplates = templates as { id: string; stage_id: string; category_id: string; title: string; description: string | null; sort_order: number }[];
+  const typedTemplates = templates as { id: string; stage_id: string; category_id: string; title: string; description: string | null; sort_order: number; target_gender: string; tips: string | null }[];
 
   const tasks = typedTemplates.map((t) => ({
     family_id: profile.family_id!,
@@ -167,6 +167,8 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
     title: t.title,
     description: t.description,
     sort_order: t.sort_order,
+    target_gender: t.target_gender,
+    tips: t.tips,
     is_custom: false,
     created_by: user.id,
   }));
