@@ -13,10 +13,13 @@ export default async function DashboardPage() {
 
   let tasks = await getTasks(currentStage);
   let dbOffline = false;
+  let dbError = '';
 
   // Fallback to local templates if DB unavailable
   if (tasks.length === 0 && initResult && 'error' in initResult) {
     dbOffline = true;
+    dbError = String(initResult.error);
+    console.error('[DashboardPage] DB offline, error:', dbError);
     tasks = CHECKLIST_TEMPLATES
       .filter((t) => t.stage_id === currentStage)
       .map((t, i) => ({
@@ -51,6 +54,7 @@ export default async function DashboardPage() {
       currentStage={currentStage}
       stats={stats}
       dbOffline={dbOffline}
+      dbError={dbError}
     />
   );
 }
