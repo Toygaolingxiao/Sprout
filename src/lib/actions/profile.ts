@@ -49,6 +49,8 @@ export async function updateProfile(formData: FormData) {
   const currentStage = formData.get('current_stage') as LifeStage;
   const expectedDueDateRaw = formData.get('expected_due_date') as string;
   const expectedDueDate = expectedDueDateRaw || null;
+  const expectedPregnancyDateRaw = formData.get('expected_pregnancy_date') as string;
+  const expectedPregnancyDate = expectedPregnancyDateRaw || null;
 
   const { error } = await supabase
     .from('profiles')
@@ -56,15 +58,14 @@ export async function updateProfile(formData: FormData) {
       nickname,
       current_stage: currentStage,
       expected_due_date: expectedDueDate,
+      expected_pregnancy_date: expectedPregnancyDate,
     } as Record<string, unknown>)
     .eq('id', user.id);
 
   if (error) return { error: error.message };
 
   // 予定日が設定されたら、テンプレートタスクのdue_dateを再計算
-  if (expectedDueDate) {
-    await recalculateTaskDueDates(user.id, expectedDueDate);
-  }
+  await recalculateTaskDueDates(user.id, expectedDueDate, expectedPregnancyDate);
 
   revalidatePath('/dashboard');
   revalidatePath('/checklists');
@@ -72,8 +73,14 @@ export async function updateProfile(formData: FormData) {
   return { success: 'プロフィールを更新しました' };
 }
 
-/** 出産予定日から各タスクのdue_dateを逆算して更新 */
-async function recalculateTaskDueDates(userId: string, dueDate: string) {
+/** 出産予定日・妊娠予定時期から各タスクのdue_dateを逆算して更新 */
+async function recalculateTaskDueDates(
+  userId: string,
+  dueDate: string | null,
+  pregnancyDate: string | null,
+) {
+  if (!dueDate && !pregnancyDate) return;
+
   const supabase = await createClient();
 
   const { data: profile } = await supabase
@@ -93,24 +100,37 @@ async function recalculateTaskDueDates(userId: string, dueDate: string) {
 
   if (!tasks) return;
 
-  const dueDateObj = new Date(dueDate + 'T00:00:00');
+  const dueDateObj = dueDate ? new Date(dueDate + 'T00:00:00') : null;
+  const pregnancyDateObj = pregnancyDate ? new Date(pregnancyDate + 'T00:00:00') : null;
 
   for (const task of tasks) {
-    // タイトルでテンプレートを照合してdays_offsetを取得
     const template = CHECKLIST_TEMPLATES.find(
       (t) => t.title === task.title && t.stage_id === task.stage_id
     );
 
-    if (!template?.days_offset && template?.days_offset !== 0) continue;
+    if (!template) continue;
 
-    const taskDate = new Date(dueDateObj);
-    taskDate.setDate(taskDate.getDate() + template.days_offset);
-    const taskDateStr = taskDate.toISOString().split('T')[0];
+    let taskDateStr: string | null = null;
 
-    await supabase
-      .from('tasks')
-      .update({ due_date: taskDateStr })
-      .eq('id', task.id);
+    if (task.stage_id === 'prenatal_care' && pregnancyDateObj) {
+      // 妊活タスク: 妊娠予定時期を基準に逆算（days_offsetがnullの場合は予定時期の30日前）
+      const base = new Date(pregnancyDateObj);
+      const offset = template.days_offset ?? -30;
+      base.setDate(base.getDate() + offset);
+      taskDateStr = base.toISOString().split('T')[0];
+    } else if (task.stage_id !== 'prenatal_care' && dueDateObj && (template.days_offset || template.days_offset === 0)) {
+      // 妊娠・産後・育児: 出産予定日を基準
+      const taskDate = new Date(dueDateObj);
+      taskDate.setDate(taskDate.getDate() + template.days_offset);
+      taskDateStr = taskDate.toISOString().split('T')[0];
+    }
+
+    if (taskDateStr) {
+      await supabase
+        .from('tasks')
+        .update({ due_date: taskDateStr })
+        .eq('id', task.id);
+    }
   }
 }
 
