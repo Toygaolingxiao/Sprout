@@ -28,6 +28,18 @@ interface DashboardClientProps {
   dbError?: string;
 }
 
+function daysUntilDue(dateStr: string): string {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(dateStr + 'T00:00:00');
+  const diff = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  if (diff < 0) return `${Math.abs(diff)}日前`;
+  if (diff === 0) return '今日';
+  if (diff <= 30) return `あと${diff}日`;
+  const weeks = Math.floor(diff / 7);
+  return `あと${weeks}週`;
+}
+
 export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError }: DashboardClientProps) {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | 'all'>('all');
   const [genderFilter, setGenderFilter] = useState<TargetGender | 'all'>('all');
@@ -56,6 +68,21 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
           おかえりなさい{profile?.nickname ? `、${profile.nickname}さん` : ''} 👋
         </h1>
         <p className="text-sm text-muted-foreground mt-1">今日も一歩ずつ、ふたりで進みましょう</p>
+        {(profile?.expected_due_date || profile?.expected_pregnancy_date) && (
+          <div className="mt-3 flex flex-wrap gap-3 text-xs">
+            {profile?.expected_pregnancy_date && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/60 px-2.5 py-1 font-medium text-foreground/80">
+                🌱 妊娠予定 <span className="font-semibold">{profile.expected_pregnancy_date}</span>
+              </span>
+            )}
+            {profile?.expected_due_date && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/60 px-2.5 py-1 font-medium text-foreground/80">
+                🍼 出産予定 <span className="font-semibold">{profile.expected_due_date}</span>
+                <span className="text-muted-foreground">({daysUntilDue(profile.expected_due_date)})</span>
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* DB offline warning */}
@@ -144,11 +171,6 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
               })}
             </CardContent>
           </Card>
-          {profile?.expected_due_date && (
-            <p className="text-xs text-muted-foreground mt-1.5 text-center">
-              🍼 出産予定日: {profile.expected_due_date}
-            </p>
-          )}
         </div>
       )}
 
