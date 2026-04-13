@@ -16,7 +16,7 @@ interface GenderFilterProps {
 
 export function GenderFilter({ value, onChange }: GenderFilterProps) {
   return (
-    <div className="flex gap-1.5">
+    <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
       {GENDER_OPTIONS.map((opt) => (
         <Button
           key={opt.value}

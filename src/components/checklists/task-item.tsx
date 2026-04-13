@@ -43,7 +43,7 @@ export function TaskItem({ task }: TaskItemProps) {
   return (
     <div
       className={`rounded-lg border transition-colors ${
-        task.is_completed ? 'bg-muted/50 opacity-70' : 'bg-card'
+        task.is_completed ? 'bg-muted/50' : 'bg-card'
       } ${isPending ? 'opacity-50' : ''}`}
     >
       <div className="flex items-start gap-3 p-3">
@@ -88,7 +88,7 @@ export function TaskItem({ task }: TaskItemProps) {
               📅 {task.due_date}
             </p>
           )}
-          {task.tips && !task.is_completed && (
+          {task.tips && (
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
