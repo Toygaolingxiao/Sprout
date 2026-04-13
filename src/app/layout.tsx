@@ -23,9 +23,30 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 };
 
+const siteUrl = 'https://sprout-rose.vercel.app';
+
 export const metadata: Metadata = {
   title: "Sprout 🌱 - 夫婦で育てる、新しい命の準備",
   description: "妊活・出産準備・産後ケア・育児を夫婦で管理するチェックリストアプリ",
+  metadataBase: new URL(siteUrl),
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/icons/icon-192.png',
+  },
+  openGraph: {
+    title: 'Sprout 🌱 - 夫婦で育てる、新しい命の準備',
+    description: '妊活・出産準備・産後ケア・育児を夫婦で管理するチェックリストアプリ',
+    url: siteUrl,
+    siteName: 'Sprout',
+    locale: 'ja_JP',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Sprout 🌱',
+    description: '夫婦で育てる、新しい命の準備',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

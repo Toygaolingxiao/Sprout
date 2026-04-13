@@ -1,6 +1,18 @@
-export const APP_VERSION = '1.1.0';
+export const APP_VERSION = '1.2.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.2.0',
+    date: '2026-04-13',
+    items: [
+      '🔗 OGP（Open Graph）メタデータ対応',
+      '📲 PWAマニフェスト＆アイコン追加',
+      '🌐 サイトマップ自動生成',
+      '🤖 robots.txt追加',
+      '♿ アクセシビリティ改善（ARIA属性、キーボード操作）',
+      '🌱 SVGファビコン追加',
+    ],
+  },
   {
     version: '1.1.0',
     date: '2026-04-13',

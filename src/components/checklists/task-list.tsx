@@ -26,7 +26,7 @@ export function TaskList({ tasks }: TaskListProps) {
       ))}
       {completed.length > 0 && (
         <details className="mt-4" open>
-          <summary className="cursor-pointer text-sm text-muted-foreground mb-2 flex items-center gap-2 select-none">
+          <summary aria-label={`完了済みタスク ${completed.length}件`} className="cursor-pointer text-sm text-muted-foreground mb-2 flex items-center gap-2 select-none">
             <span>✅ 完了済み ({completed.length})</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: 'var(--theme-restore-bg)', color: 'var(--theme-restore-text)' }}>タップで復活</span>
           </summary>

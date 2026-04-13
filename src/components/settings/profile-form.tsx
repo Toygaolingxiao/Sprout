@@ -61,6 +61,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
             <select
               id="current_stage"
               name="current_stage"
+              aria-label="ライフステージを選択"
               defaultValue={profile.current_stage}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             >
