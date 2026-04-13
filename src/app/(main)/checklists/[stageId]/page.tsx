@@ -16,7 +16,7 @@ export default async function StageChecklistPage({ params }: Props) {
   if (!stage) notFound();
 
   // Initialize from templates if needed
-  await initializeTasksFromTemplates(stageId as LifeStage);
+  const initResult = await initializeTasksFromTemplates(stageId as LifeStage);
 
   const tasks = await getTasks(stageId as LifeStage);
 
@@ -29,6 +29,17 @@ export default async function StageChecklistPage({ params }: Props) {
         </h1>
         <p className="text-muted-foreground">{stage.description}</p>
       </div>
+
+      {initResult && 'error' in initResult && (
+        <Card className="border-destructive">
+          <CardContent className="pt-4">
+            <p className="text-sm text-destructive">DB接続エラー: {initResult.error}</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Supabase SQL Editorで 003_fix_postgrest.sql → 004_fix_test_user.sql を実行してください
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader className="pb-3">
