@@ -10,9 +10,10 @@ import type { Task, LifeStage, CategoryId, TargetGender } from '@/types';
 interface ChecklistClientProps {
   tasks: Task[];
   stageId: LifeStage;
+  dbOffline?: boolean;
 }
 
-export function ChecklistClient({ tasks, stageId }: ChecklistClientProps) {
+export function ChecklistClient({ tasks, stageId, dbOffline }: ChecklistClientProps) {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | 'all'>('all');
   const [genderFilter, setGenderFilter] = useState<TargetGender | 'all'>('all');
 
@@ -29,7 +30,7 @@ export function ChecklistClient({ tasks, stageId }: ChecklistClientProps) {
         <GenderFilter value={genderFilter} onChange={setGenderFilter} />
       </div>
       <TaskList tasks={filteredTasks} />
-      <TaskForm stageId={stageId} />
+      {!dbOffline && <TaskForm stageId={stageId} />}
     </div>
   );
 }

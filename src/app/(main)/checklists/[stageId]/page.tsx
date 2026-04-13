@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { getTasks, initializeTasksFromTemplates } from '@/lib/actions/tasks';
 import { STAGE_MAP, STAGES } from '@/data/seed/stages';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import { ProgressOverview } from '@/components/checklists/progress-overview';
 import { ChecklistClient } from './checklist-client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import type { LifeStage, Task } from '@/types';
 
 interface Props {
@@ -16,13 +18,11 @@ export default async function StageChecklistPage({ params }: Props) {
   const stage = STAGE_MAP[stageId as LifeStage];
   if (!stage) notFound();
 
-  // Initialize from templates if needed
   const initResult = await initializeTasksFromTemplates(stageId as LifeStage);
 
   let tasks = await getTasks(stageId as LifeStage);
   let dbOffline = false;
 
-  // Fallback: if DB is unavailable, show local templates as read-only tasks
   if (tasks.length === 0 && initResult && 'error' in initResult) {
     dbOffline = true;
     tasks = CHECKLIST_TEMPLATES
@@ -50,37 +50,62 @@ export default async function StageChecklistPage({ params }: Props) {
       } satisfies Task));
   }
 
+  const completed = tasks.filter((t) => t.is_completed).length;
+  const total = tasks.length;
+  const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
+      {/* Back + Stage tabs */}
+      <div className="flex items-center gap-2 -mx-1 px-1 overflow-x-auto pb-1">
+        {STAGES.map((s) => {
+          const isActive = s.id === stageId;
+          return (
+            <Link
+              key={s.id}
+              href={`/checklists/${s.id}`}
+              className={`flex-shrink-0 flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-medium transition-all ${
+                isActive
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+              }`}
+            >
+              <span>{s.emoji}</span>
+              <span>{s.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Stage header + progress */}
       <div>
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <span>{stage.emoji}</span>
-          <span>{stage.label}</span>
-        </h1>
-        <p className="text-muted-foreground">{stage.description}</p>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold flex items-center gap-2">
+            <span>{stage.emoji}</span>
+            <span>{stage.label}</span>
+          </h1>
+          <Badge variant="secondary">{completed}/{total} ({pct}%)</Badge>
+        </div>
+        <p className="text-sm text-muted-foreground mt-0.5">{stage.description}</p>
       </div>
 
       {dbOffline && (
-        <Card className="border-amber-500">
-          <CardContent className="pt-4">
-            <p className="text-sm text-amber-700">⚠️ DB接続待機中 — テンプレート項目をプレビュー表示しています</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              チェックのON/OFFはDB接続後に有効になります。ページをリロードしてください。
-            </p>
+        <Card className="border-amber-400 bg-amber-50">
+          <CardContent className="py-3">
+            <p className="text-sm text-amber-800">⚠️ DB接続待機中 — プレビュー表示です</p>
           </CardContent>
         </Card>
       )}
 
+      {/* Progress by category */}
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">進捗</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="pt-4 pb-3">
           <ProgressOverview tasks={tasks} />
         </CardContent>
       </Card>
 
-      <ChecklistClient tasks={tasks} stageId={stageId as LifeStage} />
+      {/* Full checklist */}
+      <ChecklistClient tasks={tasks} stageId={stageId as LifeStage} dbOffline={dbOffline} />
     </div>
   );
 }
