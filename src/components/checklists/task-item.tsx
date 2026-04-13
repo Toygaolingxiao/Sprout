@@ -43,8 +43,9 @@ export function TaskItem({ task }: TaskItemProps) {
   return (
     <div
       className={`rounded-xl border transition-all ${
-        task.is_completed ? 'bg-green-50/40 border-green-200/50' : 'bg-card shadow-sm'
+        task.is_completed ? 'border-primary/15' : 'bg-card shadow-sm'
       } ${isPending ? 'opacity-50' : ''}`}
+      style={task.is_completed ? { background: 'var(--theme-completed-bg)', borderColor: 'var(--theme-completed-border)' } : undefined}
     >
       <div className="flex items-start gap-3 p-3">
         <Checkbox
@@ -112,9 +113,9 @@ export function TaskItem({ task }: TaskItemProps) {
         )}
       </div>
       {isExpanded && task.tips && (
-        <div className="mx-3 mb-3 ml-10 rounded-lg bg-amber-50/70 border border-amber-100 p-3">
-          <p className="text-xs font-medium text-amber-800 mb-1.5">💡 要点・注意事項</p>
-          <div className="text-xs text-amber-700/80 space-y-0.5 whitespace-pre-line leading-relaxed">
+        <div className="mx-3 mb-3 ml-10 rounded-lg p-3" style={{ background: 'var(--theme-tip-bg)', borderColor: 'var(--theme-tip-border)', borderWidth: '1px', borderStyle: 'solid' }}>
+          <p className="text-xs font-medium mb-1.5" style={{ color: 'var(--theme-tip-title)' }}>💡 要点・注意事項</p>
+          <div className="text-xs space-y-0.5 whitespace-pre-line leading-relaxed" style={{ color: 'var(--theme-tip-text)' }}>
             {task.tips}
           </div>
         </div>

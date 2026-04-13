@@ -51,7 +51,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
   return (
     <div className="space-y-6">
       {/* Greeting */}
-      <div className="rounded-2xl bg-gradient-to-br from-green-50 to-amber-50/60 p-5 border border-green-100/50">
+      <div className="rounded-2xl p-5 border border-primary/10" style={{ background: `linear-gradient(to bottom right, var(--theme-gradient-from), var(--theme-gradient-to))` }}>
         <h1 className="text-xl font-bold text-foreground">
           おかえりなさい{profile?.nickname ? `、${profile.nickname}さん` : ''} 👋
         </h1>
