@@ -51,8 +51,8 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
   return (
     <div className="space-y-6">
       {/* Greeting */}
-      <div>
-        <h1 className="text-2xl font-bold">
+      <div className="rounded-2xl bg-gradient-to-br from-green-50 to-amber-50/60 p-5 border border-green-100/50">
+        <h1 className="text-xl font-bold text-foreground">
           おかえりなさい{profile?.nickname ? `、${profile.nickname}さん` : ''} 👋
         </h1>
         <p className="text-sm text-muted-foreground mt-1">今日も一歩ずつ、ふたりで進みましょう</p>
@@ -149,25 +149,25 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       {stats && (
         <div>
           <h2 className="text-sm font-semibold text-muted-foreground mb-3">📊 他のステージ</h2>
-          <div className="grid gap-2 grid-cols-2">
+          <div className="grid gap-3 grid-cols-2">
             {stats.stages
               .filter((s) => s.stage_id !== currentStage)
               .map((s) => {
                 const info = STAGE_MAP[s.stage_id as LifeStage];
                 return (
                   <Link key={s.stage_id} href={`/checklists/${s.stage_id}`}>
-                    <Card className="hover:shadow-sm transition-shadow">
-                      <CardContent className="py-3 px-3">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <span className="text-sm">{info.emoji}</span>
-                          <span className="text-xs font-medium">{info.label}</span>
+                    <Card className="hover:shadow-md transition-all border-primary/5 hover:border-primary/15">
+                      <CardContent className="py-3.5 px-3.5">
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <span className="text-base">{info.emoji}</span>
+                          <span className="text-xs font-semibold">{info.label}</span>
                           {s.total > 0 && (
                             <span className="text-[10px] text-muted-foreground ml-auto">
                               {s.completed}/{s.total}
                             </span>
                           )}
                         </div>
-                        {s.total > 0 && <Progress value={s.percentage} className="h-1" />}
+                        {s.total > 0 && <Progress value={s.percentage} className="h-1.5" />}
                       </CardContent>
                     </Card>
                   </Link>
