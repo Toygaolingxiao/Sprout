@@ -17,19 +17,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/10" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>
-      <div className="container flex h-14 items-center gap-6 px-4 max-w-lg mx-auto">
-        <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg text-primary">
+      <div className="container flex h-14 items-center gap-4 px-4 max-w-2xl mx-auto">
+        <Link href="/dashboard" className="flex items-center gap-1.5 font-bold text-lg text-primary flex-shrink-0">
           <span className="text-2xl">🌱</span>
           <span>Sprout</span>
         </Link>
-        <nav className="hidden sm:flex items-center gap-1 flex-1">
+        <nav className="hidden sm:flex items-center gap-1 flex-1 min-w-0">
           {DESKTOP_NAV.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
                   isActive
                     ? 'bg-muted text-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -40,7 +40,7 @@ export function Header() {
             );
           })}
         </nav>
-        <div className="ml-auto">
+        <div className="ml-auto flex-shrink-0">
           <form action={signOut}>
             <Button variant="ghost" size="sm" type="submit">
               ログアウト
