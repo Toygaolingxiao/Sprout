@@ -4,6 +4,7 @@ import { STAGE_MAP } from '@/data/seed/stages';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
+import { APP_VERSION } from '@/data/release-notes';
 import { signOut } from '@/lib/actions/auth';
 import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
@@ -65,7 +66,7 @@ export default async function SettingsPage() {
         <CardContent className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">バージョン</span>
-            <span className="font-mono text-xs">1.0.0</span>
+            <span className="font-mono text-xs">{APP_VERSION}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-muted-foreground">開発</span>
