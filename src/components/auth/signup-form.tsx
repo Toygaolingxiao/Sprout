@@ -58,6 +58,13 @@ export function SignupForm() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? '登録中...' : 'アカウント作成'}
           </Button>
+          <p className="text-xs text-muted-foreground text-center">
+            登録により
+            <Link href="/terms" className="text-primary hover:underline">利用規約</Link>
+            および
+            <Link href="/privacy" className="text-primary hover:underline">プライバシーポリシー</Link>
+            に同意したものとみなします
+          </p>
         </form>
 
         <div className="relative">
