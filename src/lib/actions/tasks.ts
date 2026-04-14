@@ -163,8 +163,6 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
     return { error: `タスク確認エラー: ${countError.code} - ${countError.message}` };
   }
 
-  if (count && count > 0) return { success: true, message: '既にタスクが存在します' };
-
   // Use local seed data directly (no DB template dependency)
   const localTemplates = CHECKLIST_TEMPLATES.filter((t) => t.stage_id === stageId);
 
@@ -172,6 +170,52 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 
   const dueDateBase = profile.expected_due_date ? new Date(profile.expected_due_date + 'T00:00:00') : null;
   const pregnancyDateBase = profile.expected_pregnancy_date ? new Date(profile.expected_pregnancy_date + 'T00:00:00') : null;
+
+  if (count && count > 0) {
+    // Sync new templates: find templates not yet in user's tasks for this stage
+    const { data: existingTasks } = await supabase
+      .from('tasks')
+      .select('title')
+      .eq('family_id', profile.family_id)
+      .eq('stage_id', stageId)
+      .eq('is_custom', false);
+
+    const existingTitles = new Set((existingTasks ?? []).map((t: { title: string }) => t.title));
+    const newTemplates = localTemplates.filter((t) => !existingTitles.has(t.title));
+
+    if (newTemplates.length === 0) return { success: true, message: '既にタスクが存在します' };
+
+    const newTasks = newTemplates.map((t) => {
+      let due_date: string | null = null;
+      if (t.stage_id === 'prenatal_care' && pregnancyDateBase) {
+        const d = new Date(pregnancyDateBase);
+        d.setDate(d.getDate() + (t.days_offset ?? -30));
+        due_date = d.toISOString().split('T')[0];
+      } else if (t.stage_id !== 'prenatal_care' && dueDateBase && (t.days_offset || t.days_offset === 0)) {
+        const d = new Date(dueDateBase);
+        d.setDate(d.getDate() + t.days_offset);
+        due_date = d.toISOString().split('T')[0];
+      }
+      return {
+        family_id: profile.family_id!,
+        stage_id: t.stage_id,
+        category_id: t.category_id,
+        title: t.title,
+        description: t.description ?? null,
+        sort_order: t.sort_order,
+        target_gender: t.target_gender,
+        tips: t.tips ?? null,
+        is_custom: false,
+        created_by: user.id,
+        due_date,
+      };
+    });
+
+    await supabase.from('tasks').insert(newTasks as Record<string, unknown>[]);
+    revalidatePath('/checklists');
+    revalidatePath('/dashboard');
+    return { success: true, message: `${newTasks.length}件の新しいタスクを追加しました` };
+  }
 
   const tasks = localTemplates.map((t) => {
     let due_date: string | null = null;

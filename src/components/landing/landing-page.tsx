@@ -74,8 +74,8 @@ export function LandingPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
-        <div className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14">
-          <span className="text-lg font-bold tracking-tight">🌱 Sprout</span>
+        <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label="メインナビゲーション">
+          <span className="text-lg font-bold tracking-tight" aria-label="Sprout">🌱 Sprout</span>
           <div className="flex gap-2">
             <Link href="/login">
               <Button variant="ghost" size="sm">ログイン</Button>
@@ -87,11 +87,13 @@ export function LandingPage() {
               </Button>
             </Link>
           </div>
-        </div>
+        </nav>
       </header>
 
       {/* ── Hero ── */}
+      <main>
       <section
+        aria-labelledby="hero-heading"
         className="relative overflow-hidden"
         style={{
           background: 'linear-gradient(to bottom, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))',
@@ -102,7 +104,7 @@ export function LandingPage() {
             <Sparkles className="size-3" />
             妊活〜育児まで、夫婦の準備をひとつに
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+          <h1 id="hero-heading" className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
             ふたりで育てる、
             <br />
             <span className="text-primary">新しい命の準備</span>
@@ -190,14 +192,11 @@ export function LandingPage() {
             かんたん3ステップ
           </h2>
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8">
-            {STEPS.map((s, i) => (
+            {STEPS.map((s) => (
               <div key={s.num} className="flex-1 text-center">
                 <div className="mx-auto size-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold">
                   {s.num}
                 </div>
-                {i < STEPS.length - 1 && (
-                  <div className="hidden sm:block absolute top-6 left-full w-8 border-t-2 border-dashed border-border" />
-                )}
                 <h3 className="mt-3 font-bold">{s.title}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
               </div>
@@ -254,18 +253,25 @@ export function LandingPage() {
             <Link href="/signup">
               <Button size="lg" className="text-base px-8 h-12">
                 無料アカウントを作成
-                <ChevronRight className="size-4" />
+                <ChevronRight className="size-4" aria-hidden="true" />
               </Button>
             </Link>
           </div>
         </div>
       </section>
+      </main>
 
       {/* ── Footer ── */}
       <footer className="border-t border-border py-8 px-4">
         <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <span>© 2026 Sprout. All rights reserved.</span>
           <div className="flex gap-4">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
+              利用規約
+            </Link>
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
+              プライバシーポリシー
+            </Link>
             <Link href="/login" className="hover:text-foreground transition-colors">
               ログイン
             </Link>

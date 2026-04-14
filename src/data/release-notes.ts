@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.3.0';
+export const APP_VERSION = '1.4.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.4.0',
+    date: '2026-04-14',
+    items: [
+      '🏠 ランディングページを追加',
+      '🏃 生活習慣テンプレート11項目追加（体重管理・睡眠・栄養）',
+      '📖 各ステージに期間の詳細説明を追加',
+    ],
+  },
   {
     version: '1.3.0',
     date: '2026-04-13',
