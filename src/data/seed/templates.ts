@@ -36,14 +36,14 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     stage_id: 'prenatal_care', category_id: 'health', target_gender: 'both',
     title: 'ブライダルチェック（婚前健診）を受ける', days_offset: null,
     description: '男女ともに妊活前の総合検査。産婦人科・泌尿器科で受診',
-    tips: '【女性】産婦人科で子宮・卵巣の状態、ホルモン値、性感染症など総合検査（自費1〜3万円）\n・AMH検査（卵巣予備能）も合わせて受けると良い\n【男性】泌尿器科で精液検査、性感染症、ホルモン検査など（自費5,000〜1.5万円）\n・不妊の原因の約半数は男性側にある\n・結果に問題があっても早期発見・早期治療で妊娠の可能性を高められる',
+    tips: '【女性】産婦人科で子宮・卵巣の状態、ホルモン値、性感染症など総合検査（自費1〜3万円）\n・AMH検査（卵巣予備能）も合わせて受けると良い\n【男性】泌尿器科で精液検査、性感染症、ホルモン検査など（自費5,000〜1.5万円）\n・不妊の原因の約半数は男性側にある\n・結果に問題があっても早期発見・早期治療で妊娠の可能性を高められる\n\n🔍 近くの産婦人科を探す → https://www.google.com/maps/search/産婦人科',
     sort_order: 3,
   },
   {
     stage_id: 'prenatal_care', category_id: 'health', target_gender: 'male',
     title: '精液検査を受ける', days_offset: null,
     description: '泌尿器科または不妊クリニックで精子の状態を確認',
-    tips: '・不妊の原因の約半数は男性側にある\n・精子の数、運動率、形態を調べる\n・2〜7日の禁欲期間後に採取\n・結果が悪くても生活習慣改善やサプリで改善する場合がある\n・費用は3,000〜5,000円程度',
+    tips: '・不妊の原因の約半数は男性側にある\n・精子の数、運動率、形態を調べる\n・2〜7日の禁欲期間後に採取\n・結果が悪くても生活習慣改善やサプリで改善する場合がある\n・費用は3,000〜5,000円程度\n\n🔍 近くの泌尿器科を探す → https://www.google.com/maps/search/泌尿器科',
     sort_order: 4,
   },
   {
@@ -57,7 +57,7 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     stage_id: 'prenatal_care', category_id: 'health', target_gender: 'female',
     title: '歯科検診を受ける', days_offset: null,
     description: '妊娠中は歯科治療が制限されるため事前にケアを済ませる',
-    tips: '・妊娠中はホルモンの影響で歯周病が悪化しやすい\n・歯周病は早産・低体重児出産のリスクを高める\n・虫歯治療、歯石除去、親知らずの対処を妊娠前に\n・妊娠中はX線撮影を避けたいため事前に完了させる',
+    tips: '・妊娠中はホルモンの影響で歯周病が悪化しやすい\n・歯周病は早産・低体重児出産のリスクを高める\n・虫歯治療、歯石除去、親知らずの対処を妊娠前に\n・妊娠中はX線撮影を避けたいため事前に完了させる\n\n🔍 近くの歯科を探す → https://www.google.com/maps/search/歯科',
     sort_order: 6,
   },
   {
@@ -158,7 +158,7 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     stage_id: 'pregnancy', category_id: 'procedure', target_gender: 'both',
     title: '出産する病院を決める', days_offset: -196,
     description: '分娩予約は早めに。人気の病院は妊娠初期に埋まる',
-    tips: '・総合病院：ハイリスク対応可、NICUあり\n・個人クリニック：アットホーム、待ち時間短め\n・助産院：自然分娩希望の方、医療介入が少ない\n・無痛分娩希望の場合は対応病院を選ぶ（施設が限られる）\n・自宅からの距離、費用、出産スタイルを考慮して選ぶ',
+    tips: '・総合病院：ハイリスク対応可、NICUあり\n・個人クリニック：アットホーム、待ち時間短め\n・助産院：自然分娩希望の方、医療介入が少ない\n・無痛分娩希望の場合は対応病院を選ぶ（施設が限られる）\n・自宅からの距離、費用、出産スタイルを考慮して選ぶ\n\n🔍 近くの産婦人科を探す → https://www.google.com/maps/search/産婦人科\n🔍 近くの助産院を探す → https://www.google.com/maps/search/助産院',
     sort_order: 2,
   },
   {
@@ -230,7 +230,7 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     stage_id: 'pregnancy', category_id: 'health', target_gender: 'female',
     title: 'マタニティ歯科健診を受ける', days_offset: -140,
     description: '妊娠中の歯周病は早産リスクに。自治体の無料健診を活用',
-    tips: '・妊娠中はホルモン変化で歯肉炎になりやすい\n・多くの自治体で妊婦歯科健診が無料\n・妊娠中期（5〜7ヶ月）が治療に最適な時期\n・つわりで歯磨きがつらい時は小さめの歯ブラシやうがいで対応',
+    tips: '・妊娠中はホルモン変化で歯肉炎になりやすい\n・多くの自治体で妊婦歯科健診が無料\n・妊娠中期（5〜7ヶ月）が治療に最適な時期\n・つわりで歯磨きがつらい時は小さめの歯ブラシやうがいで対応\n\n🔍 近くの歯科を探す → https://www.google.com/maps/search/歯科',
     sort_order: 12,
   },
   {
@@ -428,7 +428,7 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     stage_id: 'postpartum', category_id: 'health', target_gender: 'female',
     title: '産後ケア施設の利用を検討する', days_offset: 7,
     description: '自治体の産後ケア事業で宿泊型・通所型・訪問型がある',
-    tips: '・助産師による母乳指導、授乳サポートが受けられる\n・宿泊型は赤ちゃんを預けて休める施設も\n・自治体の助成で自己負担が軽減される場合が多い\n・初産で周囲にサポートが少ない場合は特におすすめ\n・産前から情報収集・予約しておくと安心',
+    tips: '・助産師による母乳指導、授乳サポートが受けられる\n・宿泊型は赤ちゃんを預けて休める施設も\n・自治体の助成で自己負担が軽減される場合が多い\n・初産で周囲にサポートが少ない場合は特におすすめ\n・産前から情報収集・予約しておくと安心\n\n🔍 近くの産後ケア施設を探す → https://www.google.com/maps/search/産後ケア',
     sort_order: 14,
   },
   {
@@ -513,7 +513,7 @@ export const CHECKLIST_TEMPLATES: TemplateItem[] = [
     stage_id: 'childcare', category_id: 'health', target_gender: 'both',
     title: 'かかりつけ小児科を決める', days_offset: 30,
     description: '自宅から近く、信頼できる小児科を見つける',
-    tips: '・徒歩圏内または車で15分以内が理想\n・夜間・休日対応の二次救急病院も確認しておく\n・♯8000（小児救急電話相談）を登録しておく\n・予防接種に力を入れているクリニックがおすすめ\n・Webで予約できると便利',
+    tips: '・徒歩圏内または車で15分以内が理想\n・夜間・休日対応の二次救急病院も確認しておく\n・♯8000（小児救急電話相談）を登録しておく\n・予防接種に力を入れているクリニックがおすすめ\n・Webで予約できると便利\n\n🔍 近くの小児科を探す → https://www.google.com/maps/search/小児科',
     sort_order: 7,
   },
   {
