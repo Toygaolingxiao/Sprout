@@ -15,7 +15,8 @@ export function CategoryFilter({ value, onChange }: CategoryFilterProps) {
   const { t } = useTranslation();
 
   return (
-    <div role="group" aria-label={t('common.categoryFilter')} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+    <div className="scroll-fade-right">
+    <div role="group" aria-label={t('common.categoryFilter')} className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-hide">
       <Badge
         variant={value === 'all' ? 'default' : 'outline'}
         className="cursor-pointer"
@@ -46,6 +47,7 @@ export function CategoryFilter({ value, onChange }: CategoryFilterProps) {
           {t(`category.${cat.id}` as any)}
         </Badge>
       ))}
+    </div>
     </div>
   );
 }

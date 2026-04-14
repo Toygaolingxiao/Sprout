@@ -35,7 +35,7 @@ export function ProgressOverview({ tasks }: ProgressOverviewProps) {
           const catPct = Math.round((catCompleted / catTasks.length) * 100);
           return (
             <div key={cat.id} className="flex items-center gap-2 text-xs">
-              <span style={{ color: cat.color }} className="w-12 text-right font-medium">
+              <span style={{ color: cat.color }} className="w-16 text-right font-medium truncate">
                 {t(`category.${cat.id}` as any)}
               </span>
               <Progress value={catPct} className="h-1.5 flex-1" />

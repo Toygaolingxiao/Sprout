@@ -63,7 +63,8 @@ export default async function StageChecklistPage({ params }: Props) {
   return (
     <div className="space-y-5">
       {/* Back + Stage tabs */}
-      <div className="flex items-center gap-2 -mx-1 px-1 overflow-x-auto pb-1">
+      <div className="scroll-fade-right">
+      <div className="flex items-center gap-2 -mx-4 px-4 overflow-x-auto pb-1 scrollbar-hide">
         {STAGES.map((s) => {
           const isActive = s.id === stageId;
           return (
@@ -82,15 +83,16 @@ export default async function StageChecklistPage({ params }: Props) {
           );
         })}
       </div>
+      </div>
 
       {/* Stage header + progress */}
       <div>
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            <span>{stage.emoji}</span>
-            <span>{t(`stage.${stageId}` as any)}</span>
+        <div className="flex items-center justify-between min-w-0">
+          <h1 className="text-xl font-bold flex items-center gap-2 min-w-0">
+            <span className="flex-shrink-0">{stage.emoji}</span>
+            <span className="truncate">{t(`stage.${stageId}` as any)}</span>
           </h1>
-          <Badge variant="secondary">{completed}/{total} ({pct}%)</Badge>
+          <Badge variant="secondary" className="flex-shrink-0 ml-2">{completed}/{total} ({pct}%)</Badge>
         </div>
         <p className="text-sm text-muted-foreground mt-0.5">{t(`stage.${stageId}.desc` as any)}</p>
         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{stage.period}</p>

@@ -108,7 +108,7 @@ export function TaskItem({ task }: TaskItemProps) {
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
               aria-expanded={isExpanded}
-              className="mt-1.5 text-xs text-primary/80 hover:text-primary flex items-center gap-1 transition-colors"
+              className="mt-1.5 py-2 -my-1 text-xs text-primary/80 hover:text-primary flex items-center gap-1 transition-colors"
             >
               <span>{isExpanded ? '▼' : '▶'}</span>
               <span>{isExpanded ? t('checklist.hideTip') : t('checklist.showTip')}</span>
@@ -119,7 +119,7 @@ export function TaskItem({ task }: TaskItemProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="text-destructive hover:text-destructive h-8 w-8 p-0"
+            className="text-destructive hover:text-destructive h-10 w-10 p-0"
             onClick={handleDelete}
             disabled={isPending}
             aria-label={`${task.title}を削除`}
@@ -129,7 +129,7 @@ export function TaskItem({ task }: TaskItemProps) {
         )}
       </div>
       {isExpanded && task.tips && (
-        <div className="mx-3 mb-3 ml-10 rounded-lg p-3" style={{ background: 'var(--theme-tip-bg)', borderColor: 'var(--theme-tip-border)', borderWidth: '1px', borderStyle: 'solid' }}>
+        <div className="mx-3 mb-3 ml-8 sm:ml-10 rounded-lg p-3" style={{ background: 'var(--theme-tip-bg)', borderColor: 'var(--theme-tip-border)', borderWidth: '1px', borderStyle: 'solid' }}>
           <p className="text-xs font-medium mb-1.5" style={{ color: 'var(--theme-tip-title)' }}>{t('checklist.tipTitle')}</p>
           <div className="text-xs space-y-0.5 whitespace-pre-line leading-relaxed" style={{ color: 'var(--theme-tip-text)' }}>
             <Linkify text={task.tips} />

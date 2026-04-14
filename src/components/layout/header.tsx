@@ -19,7 +19,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/10" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>
-      <div className="container flex h-14 items-center gap-4 px-4 max-w-2xl mx-auto">
+      <div className="w-full flex h-14 items-center gap-4 px-4 max-w-2xl mx-auto">
         <Link href="/dashboard" className="flex items-center gap-1.5 font-bold text-lg text-primary flex-shrink-0">
           <span className="text-2xl">🌱</span>
           <span>Sprout</span>

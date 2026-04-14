@@ -33,7 +33,7 @@ export default async function ChecklistsIndexPage() {
           return (
             <Link key={stage.id} href={`/checklists/${stage.id}`}>
               <Card className={`transition-all hover:shadow-md ${isCurrent ? 'ring-2 ring-primary/30' : ''}`}>
-                <CardContent className="py-4 flex items-center gap-4">
+                <CardContent className="py-4 flex items-center gap-3">
                   <span className="text-3xl">{stage.emoji}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">

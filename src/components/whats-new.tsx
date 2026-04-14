@@ -29,7 +29,7 @@ export function WhatsNew() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4">
-      <Card className="w-full max-w-sm animate-in fade-in zoom-in-95 shadow-xl">
+      <Card className="w-full max-w-sm max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in-95 shadow-xl">
         <CardHeader className="pb-3 text-center">
           <span className="text-3xl mb-1">🌱</span>
           <CardTitle className="text-lg">{t('whatsNew.title')}</CardTitle>
