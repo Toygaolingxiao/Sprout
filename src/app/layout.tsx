@@ -27,25 +27,26 @@ const siteUrl = 'https://sprout-rose.vercel.app';
 
 export const metadata: Metadata = {
   title: "Sprout 🌱 - 夫婦で育てる、新しい命の準備",
-  description: "妊活・出産準備・産後ケア・育児を夫婦で管理するチェックリストアプリ",
+  description: "妊活から育児まで、80以上のエビデンス付きチェックリストを夫婦で共有・管理できる無料アプリ。出産予定日からの自動スケジュール機能付き。",
   metadataBase: new URL(siteUrl),
   manifest: '/manifest.json',
+  keywords: ['妊活', '出産準備', '産後', '育児', 'チェックリスト', '夫婦', 'マタニティ', 'ベビー準備'],
   icons: {
     icon: '/favicon.svg',
     apple: '/icons/icon-192.png',
   },
   openGraph: {
     title: 'Sprout 🌱 - 夫婦で育てる、新しい命の準備',
-    description: '妊活・出産準備・産後ケア・育児を夫婦で管理するチェックリストアプリ',
+    description: '妊活から育児まで、80以上のエビデンス付きチェックリストを夫婦で共有・管理。登録無料。',
     url: siteUrl,
     siteName: 'Sprout',
     locale: 'ja_JP',
     type: 'website',
   },
   twitter: {
-    card: 'summary',
-    title: 'Sprout 🌱',
-    description: '夫婦で育てる、新しい命の準備',
+    card: 'summary_large_image',
+    title: 'Sprout 🌱 - 夫婦で育てる、新しい命の準備',
+    description: '妊活から育児まで、80以上のチェックリストを夫婦で共有・管理。',
   },
   appleWebApp: {
     capable: true,
