@@ -9,7 +9,7 @@ export function LanguageSwitcher() {
   const { locale, setLocale } = useTranslation();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-wrap">
       {LOCALES.map(([key, label]) => (
         <button
           key={key}

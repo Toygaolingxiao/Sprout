@@ -72,7 +72,7 @@ export function LandingPage() {
           background: 'linear-gradient(to bottom, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))',
         }}
       >
-        <div className="mx-auto max-w-3xl px-4 py-20 sm:py-28 text-center">
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:py-28 text-center">
           <div className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <Sparkles className="size-3" />
             {t('lp.badge')}
@@ -113,14 +113,14 @@ export function LandingPage() {
           <p className="text-center text-muted-foreground mb-10 max-w-md mx-auto">
             {t('lp.stagesDesc')}
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {STAGES.map((s) => (
               <div
                 key={s.label}
-                className="rounded-xl border border-border bg-card p-5 text-center hover:shadow-md transition-shadow"
+                className="rounded-xl border border-border bg-card p-3 sm:p-5 text-center hover:shadow-md transition-shadow"
               >
                 <span className="text-3xl">{s.emoji}</span>
-                <h3 className="mt-2 font-bold text-lg">{s.label}</h3>
+                <h3 className="mt-2 font-bold text-base sm:text-lg">{s.label}</h3>
                 <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
               </div>
             ))}
@@ -186,7 +186,7 @@ export function LandingPage() {
             {TESTIMONIALS.map((t) => (
               <div
                 key={t.author}
-                className="rounded-xl border border-border bg-card p-5"
+                className="rounded-xl border border-border bg-card p-3 sm:p-5"
               >
                 <p className="text-sm text-foreground leading-relaxed">
                   「{t.text}」
@@ -236,17 +236,17 @@ export function LandingPage() {
       <footer className="border-t border-border py-8 px-4">
         <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <span>© 2026 Sprout. All rights reserved.</span>
-          <div className="flex gap-4">
-            <Link href="/terms" className="hover:text-foreground transition-colors">
+          <div className="flex gap-4 flex-wrap justify-center">
+            <Link href="/terms" className="hover:text-foreground transition-colors py-2">
               {t('lp.terms')}
             </Link>
-            <Link href="/privacy" className="hover:text-foreground transition-colors">
+            <Link href="/privacy" className="hover:text-foreground transition-colors py-2">
               {t('lp.privacy')}
             </Link>
-            <Link href="/login" className="hover:text-foreground transition-colors">
+            <Link href="/login" className="hover:text-foreground transition-colors py-2">
               {t('lp.login')}
             </Link>
-            <Link href="/signup" className="hover:text-foreground transition-colors">
+            <Link href="/signup" className="hover:text-foreground transition-colors py-2">
               {t('lp.signup')}
             </Link>
           </div>

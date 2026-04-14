@@ -36,10 +36,10 @@ export default async function FamilyPage() {
                     {member.nickname?.[0] ?? '?'}
                   </div>
                   <div className="flex-1">
-                    <div className="font-medium text-sm">
+                    <div className="font-medium text-sm truncate">
                       {member.nickname || t('family.notSet')}
                       {member.id === profile?.id && (
-                        <Badge variant="secondary" className="ml-2 text-xs">
+                        <Badge variant="secondary" className="ml-2 text-xs flex-shrink-0">
                           {t('family.you')}
                         </Badge>
                       )}

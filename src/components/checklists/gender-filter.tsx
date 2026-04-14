@@ -25,7 +25,7 @@ export function GenderFilter({ value, onChange }: GenderFilterProps) {
           key={opt.value}
           variant={value === opt.value ? 'default' : 'outline'}
           size="sm"
-          className="text-xs h-7 px-2.5"
+          className="text-xs h-9 px-3.5"
           onClick={() => onChange(opt.value)}
         >
           {opt.emoji} {opt.label}

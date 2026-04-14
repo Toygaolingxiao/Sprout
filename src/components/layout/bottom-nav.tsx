@@ -16,8 +16,8 @@ export function BottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-primary/10 sm:hidden" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>
-      <div className="flex items-center justify-around h-16 pb-[env(safe-area-inset-bottom)] max-w-lg mx-auto">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/40 shadow-[0_-1px_3px_rgba(0,0,0,0.06)] sm:hidden" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>
+      <div className="flex items-center justify-around pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] max-w-lg mx-auto">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname.startsWith(item.href);
           return (

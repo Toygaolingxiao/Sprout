@@ -65,7 +65,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
   return (
     <div className="space-y-6">
       {/* Greeting */}
-      <div className="rounded-2xl p-5 border border-primary/10" style={{ background: `linear-gradient(to bottom right, var(--theme-gradient-from), var(--theme-gradient-to))` }}>
+      <div className="rounded-2xl p-4 sm:p-5 border border-primary/10" style={{ background: `linear-gradient(to bottom right, var(--theme-gradient-from), var(--theme-gradient-to))` }}>
         <h1 className="text-xl font-bold text-foreground">
           {t('dashboard.welcome')}{profile?.nickname ? `${t('dashboard.honorific') ? '、' + profile.nickname + t('dashboard.honorific') : '、' + profile.nickname}` : ''} 👋
         </h1>
@@ -98,7 +98,8 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       )}
 
       {/* Stage selector pills */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+      <div className="scroll-fade-right">
+      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-hide">
         {STAGES.map((s) => {
           const st = stats?.stages.find((x) => x.stage_id === s.id);
           const isActive = s.id === currentStage;
@@ -122,6 +123,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
             </Link>
           );
         })}
+      </div>
       </div>
 
       {/* Current stage progress */}
@@ -167,7 +169,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                     <span className={`text-[10px] font-medium rounded-full px-2 py-0.5 whitespace-nowrap ${urgencyClass}`}>
                       {relLabel}
                     </span>
-                    <span className="text-[10px] text-muted-foreground whitespace-nowrap">{item.due_date}</span>
+                    <span className="text-[10px] text-muted-foreground whitespace-nowrap hidden sm:inline">{item.due_date}</span>
                   </div>
                 );
               })}
@@ -217,7 +219,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                 return (
                   <Link key={s.stage_id} href={`/checklists/${s.stage_id}`}>
                     <Card className="hover:shadow-md transition-all border-primary/5 hover:border-primary/15">
-                      <CardContent className="py-3.5 px-3.5">
+                      <CardContent className="py-3 px-2.5 sm:px-3.5">
                         <div className="flex items-center gap-1.5 mb-1.5">
                           <span className="text-base">{info.emoji}</span>
                           <span className="text-xs font-semibold">{t(`stage.${s.stage_id}` as any)}</span>
