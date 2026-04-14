@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, getAuthUser } from '@/lib/supabase/server';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, Profile } from '@/types';
 
@@ -11,9 +11,10 @@ import type { LifeStage, Profile } from '@/types';
  * Falls back to direct query if the RPC function is not yet deployed.
  */
 export async function ensureProfile(): Promise<Profile | null> {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return null;
+
+  const supabase = await createClient();
 
   // Check if profile exists
   const { data: existing, error: selectError } = await supabase
@@ -41,9 +42,10 @@ export async function ensureProfile(): Promise<Profile | null> {
 }
 
 export async function updateProfile(formData: FormData) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
+
+  const supabase = await createClient();
 
   const nickname = formData.get('nickname') as string;
   const currentStage = formData.get('current_stage') as LifeStage;
@@ -98,40 +100,49 @@ async function recalculateTaskDueDates(
     .eq('family_id', profile.family_id)
     .eq('is_custom', false) as { data: { id: string; title: string; stage_id: string; is_custom: boolean }[] | null };
 
-  if (!tasks) return;
+  if (!tasks || tasks.length === 0) return;
 
   const dueDateObj = dueDate ? new Date(dueDate + 'T00:00:00') : null;
   const pregnancyDateObj = pregnancyDate ? new Date(pregnancyDate + 'T00:00:00') : null;
 
-  for (const task of tasks) {
-    const template = CHECKLIST_TEMPLATES.find(
-      (t) => t.title === task.title && t.stage_id === task.stage_id
-    );
+  // Build template lookup Map: "title|stage_id" → template (O(1) instead of O(M) per task)
+  const templateMap = new Map(
+    CHECKLIST_TEMPLATES.map((t) => [`${t.title}|${t.stage_id}`, t])
+  );
 
+  // Pre-compute all updates, then batch by due_date value
+  const updatesByDate = new Map<string, string[]>();
+
+  for (const task of tasks) {
+    const template = templateMap.get(`${task.title}|${task.stage_id}`);
     if (!template) continue;
 
     let taskDateStr: string | null = null;
 
     if (task.stage_id === 'prenatal_care' && pregnancyDateObj) {
-      // 妊活タスク: 妊娠予定時期を基準に逆算（days_offsetがnullの場合は予定時期の30日前）
       const base = new Date(pregnancyDateObj);
       const offset = template.days_offset ?? -30;
       base.setDate(base.getDate() + offset);
       taskDateStr = base.toISOString().split('T')[0];
     } else if (task.stage_id !== 'prenatal_care' && dueDateObj && (template.days_offset || template.days_offset === 0)) {
-      // 妊娠・産後・育児: 出産予定日を基準
       const taskDate = new Date(dueDateObj);
       taskDate.setDate(taskDate.getDate() + template.days_offset);
       taskDateStr = taskDate.toISOString().split('T')[0];
     }
 
     if (taskDateStr) {
-      await supabase
-        .from('tasks')
-        .update({ due_date: taskDateStr })
-        .eq('id', task.id);
+      const ids = updatesByDate.get(taskDateStr) ?? [];
+      ids.push(task.id);
+      updatesByDate.set(taskDateStr, ids);
     }
   }
+
+  // Batch update: one query per unique due_date (typically ~10-15 dates vs ~50 individual updates)
+  await Promise.all(
+    Array.from(updatesByDate.entries()).map(([dateStr, ids]) =>
+      supabase.from('tasks').update({ due_date: dateStr }).in('id', ids)
+    )
+  );
 }
 
 export async function getProfile(): Promise<Profile | null> {

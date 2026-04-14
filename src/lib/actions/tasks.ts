@@ -1,15 +1,15 @@
 "use server";
 
 import { revalidatePath } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, CategoryId, Task } from '@/types';
 
 export async function getTasks(stageId?: LifeStage): Promise<Task[]> {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return [];
 
+  const supabase = await createClient();
   let query = supabase
     .from('tasks')
     .select('*')
@@ -30,30 +30,26 @@ export async function createTask(input: {
   description?: string;
   due_date?: string;
 }) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('family_id')
-    .eq('id', user.id)
-    .single() as { data: { family_id: string | null } | null };
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return { error: '家族グループが見つかりません' };
 
-  if (!profile?.family_id) return { error: '家族グループが見つかりません' };
+  const supabase = await createClient();
 
   // Get max sort_order for this stage
   const { data: maxTask } = await supabase
     .from('tasks')
     .select('sort_order')
-    .eq('family_id', profile.family_id)
+    .eq('family_id', familyId)
     .eq('stage_id', input.stage_id)
     .order('sort_order', { ascending: false })
     .limit(1)
     .single() as { data: { sort_order: number } | null };
 
   const { error } = await supabase.from('tasks').insert({
-    family_id: profile.family_id,
+    family_id: familyId,
     stage_id: input.stage_id,
     category_id: input.category_id,
     title: input.title,
@@ -72,10 +68,10 @@ export async function createTask(input: {
 }
 
 export async function toggleTask(taskId: string, isCompleted: boolean) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
 
+  const supabase = await createClient();
   const { error } = await supabase
     .from('tasks')
     .update({
@@ -98,6 +94,9 @@ export async function updateTask(taskId: string, input: {
   category_id?: CategoryId;
   due_date?: string | null;
 }) {
+  const user = await getAuthUser();
+  if (!user) return { error: '認証されていません' };
+
   const supabase = await createClient();
 
   const { error } = await supabase
@@ -113,6 +112,9 @@ export async function updateTask(taskId: string, input: {
 }
 
 export async function deleteTask(taskId: string) {
+  const user = await getAuthUser();
+  if (!user) return { error: '認証されていません' };
+
   const supabase = await createClient();
 
   const { error } = await supabase
@@ -128,13 +130,13 @@ export async function deleteTask(taskId: string) {
 }
 
 export async function initializeTasksFromTemplates(stageId: LifeStage) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) {
     console.error('[initializeTasksFromTemplates] Not authenticated');
     return { error: '認証されていません' };
   }
 
+  const supabase = await createClient();
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('family_id, expected_due_date, expected_pregnancy_date')
@@ -259,22 +261,17 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
 }
 
 export async function getTaskStats() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return null;
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('family_id')
-    .eq('id', user.id)
-    .single() as { data: { family_id: string | null } | null };
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return null;
 
-  if (!profile?.family_id) return null;
-
+  const supabase = await createClient();
   const { data: tasks } = await supabase
     .from('tasks')
     .select('stage_id, is_completed, due_date, title')
-    .eq('family_id', profile.family_id);
+    .eq('family_id', familyId);
 
   if (!tasks) return null;
 
