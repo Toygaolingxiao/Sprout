@@ -132,7 +132,7 @@ export function TaskItem({ task }: TaskItemProps) {
         <div className="mx-3 mb-3 ml-10 rounded-lg p-3" style={{ background: 'var(--theme-tip-bg)', borderColor: 'var(--theme-tip-border)', borderWidth: '1px', borderStyle: 'solid' }}>
           <p className="text-xs font-medium mb-1.5" style={{ color: 'var(--theme-tip-title)' }}>💡 要点・注意事項</p>
           <div className="text-xs space-y-0.5 whitespace-pre-line leading-relaxed" style={{ color: 'var(--theme-tip-text)' }}>
-            {task.tips}
+            <Linkify text={task.tips} />
           </div>
         </div>
       )}
@@ -174,5 +174,30 @@ function DueDateBadge({ dueDate }: { dueDate: string }) {
         {label}
       </span>
     </p>
+  );
+}
+
+const URL_REGEX = /(https?:\/\/[^\s]+)/g;
+
+function Linkify({ text }: { text: string }) {
+  const parts = text.split(URL_REGEX);
+  return (
+    <>
+      {parts.map((part, i) =>
+        URL_REGEX.test(part) ? (
+          <a
+            key={i}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline underline-offset-2 hover:text-primary/80"
+          >
+            {decodeURIComponent(new URL(part).pathname.replace(/^\/search\//, '') || part)}
+          </a>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
   );
 }
