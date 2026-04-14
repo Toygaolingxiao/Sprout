@@ -1,26 +1,22 @@
 "use server";
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import type { Profile, FamilyInvitation } from '@/types';
 
 export async function createInvitation() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('family_id')
-    .eq('id', user.id)
-    .single() as { data: { family_id: string | null } | null };
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return { error: '家族グループが見つかりません' };
 
-  if (!profile?.family_id) return { error: '家族グループが見つかりません' };
+  const supabase = await createClient();
 
   // Verify user is family owner
   const { data: family } = await supabase
     .from('families')
     .select('owner_id')
-    .eq('id', profile.family_id)
+    .eq('id', familyId)
     .single() as { data: { owner_id: string } | null };
 
   if (family?.owner_id !== user.id) return { error: '家族のオーナーのみ招待できます' };
@@ -29,7 +25,7 @@ export async function createInvitation() {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days
 
   const { error } = await supabase.from('family_invitations').insert({
-    family_id: profile.family_id,
+    family_id: familyId,
     token,
     expires_at: expiresAt,
   });
@@ -41,9 +37,10 @@ export async function createInvitation() {
 }
 
 export async function acceptInvitation(token: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
+
+  const supabase = await createClient();
 
   const { data: invitation } = await supabase
     .from('family_invitations')
@@ -76,22 +73,17 @@ export async function acceptInvitation(token: string) {
 }
 
 export async function getFamilyMembers(): Promise<Profile[]> {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return [];
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('family_id')
-    .eq('id', user.id)
-    .single() as { data: { family_id: string | null } | null };
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return [];
 
-  if (!profile?.family_id) return [];
-
+  const supabase = await createClient();
   const { data } = await supabase
     .from('profiles')
     .select('*')
-    .eq('family_id', profile.family_id);
+    .eq('family_id', familyId);
 
   return (data ?? []) as Profile[];
 }

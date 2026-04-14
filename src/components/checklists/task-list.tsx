@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from 'react';
 import { TaskItem } from './task-item';
 import type { Task } from '@/types';
 
@@ -8,6 +9,11 @@ interface TaskListProps {
 }
 
 export function TaskList({ tasks }: TaskListProps) {
+  const { incomplete, completed } = useMemo(() => ({
+    incomplete: tasks.filter((t) => !t.is_completed),
+    completed: tasks.filter((t) => t.is_completed),
+  }), [tasks]);
+
   if (tasks.length === 0) {
     return (
       <div className="py-8 text-center text-muted-foreground">
@@ -15,9 +21,6 @@ export function TaskList({ tasks }: TaskListProps) {
       </div>
     );
   }
-
-  const incomplete = tasks.filter((t) => !t.is_completed);
-  const completed = tasks.filter((t) => t.is_completed);
 
   return (
     <div className="space-y-2">

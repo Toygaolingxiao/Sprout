@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { STAGES, STAGE_MAP } from '@/data/seed/stages';
 import { TaskList } from '@/components/checklists/task-list';
@@ -52,15 +52,16 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
   const total = tasks.length;
   const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-  const filteredTasks = tasks.filter((t) => {
+  const filteredTasks = useMemo(() => tasks.filter((t) => {
     if (categoryFilter !== 'all' && t.category_id !== categoryFilter) return false;
     if (genderFilter !== 'all' && t.target_gender !== genderFilter && t.target_gender !== 'both') return false;
     return true;
-  });
+  }), [tasks, categoryFilter, genderFilter]);
 
   // Top priority: incomplete tasks first 5
-  const priorityTasks = filteredTasks.filter((t) => !t.is_completed).slice(0, 5);
-  const remainingIncomplete = filteredTasks.filter((t) => !t.is_completed).length - priorityTasks.length;
+  const incompleteTasks = useMemo(() => filteredTasks.filter((t) => !t.is_completed), [filteredTasks]);
+  const priorityTasks = incompleteTasks.slice(0, 5);
+  const remainingIncomplete = incompleteTasks.length - priorityTasks.length;
 
   return (
     <div className="space-y-6">
