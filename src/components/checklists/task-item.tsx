@@ -7,13 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { CATEGORY_MAP } from '@/data/seed/categories';
+import { useTranslation } from '@/lib/i18n/context';
 import type { Task } from '@/types';
-
-const GENDER_CONFIG = {
-  female: { label: '女性', emoji: '♀', className: 'border-pink-400 text-pink-500 bg-pink-50' },
-  male: { label: '男性', emoji: '♂', className: 'border-blue-400 text-blue-500 bg-blue-50' },
-  both: { label: '共通', emoji: '👫', className: 'border-gray-300 text-gray-500 bg-gray-50' },
-} as const;
 
 interface TaskItemProps {
   task: Task;
@@ -23,6 +18,7 @@ export function TaskItem({ task }: TaskItemProps) {
   const [isPending, startTransition] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
   const isLocal = task.id.startsWith('local-');
+  const { t } = useTranslation();
 
   function handleToggle() {
     if (isLocal) return;
@@ -31,7 +27,7 @@ export function TaskItem({ task }: TaskItemProps) {
       if (result?.error) {
         toast.error(result.error);
       } else {
-        toast.success(!task.is_completed ? '✅ 完了しました！' : '↩️ 復活しました');
+        toast.success(!task.is_completed ? t('checklist.taskCompleted') : t('checklist.taskRestored'));
       }
     });
   }
@@ -43,13 +39,17 @@ export function TaskItem({ task }: TaskItemProps) {
       if (result?.error) {
         toast.error(result.error);
       } else {
-        toast.success('🗑️ 削除しました');
+        toast.success(t('checklist.taskDeleted'));
       }
     });
   }
 
   const category = CATEGORY_MAP[task.category_id];
-  const gender = GENDER_CONFIG[task.target_gender] ?? GENDER_CONFIG.both;
+  const gender = {
+    female: { label: t('gender.femaleLabel'), emoji: '♀', className: 'border-pink-400 text-pink-500 bg-pink-50' },
+    male: { label: t('gender.maleLabel'), emoji: '♂', className: 'border-blue-400 text-blue-500 bg-blue-50' },
+    both: { label: t('gender.bothLabel'), emoji: '👫', className: 'border-gray-300 text-gray-500 bg-gray-50' },
+  }[task.target_gender] ?? { label: t('gender.bothLabel'), emoji: '👫', className: 'border-gray-300 text-gray-500 bg-gray-50' };
 
   return (
     <div
@@ -79,7 +79,7 @@ export function TaskItem({ task }: TaskItemProps) {
               className="text-[10px] px-1.5 py-0"
               style={{ borderColor: category?.color, color: category?.color }}
             >
-              {category?.label}
+              {category ? t(`category.${category.id}` as any) : ''}
             </Badge>
             {task.target_gender !== 'both' && (
               <Badge
@@ -111,7 +111,7 @@ export function TaskItem({ task }: TaskItemProps) {
               className="mt-1.5 text-xs text-primary/80 hover:text-primary flex items-center gap-1 transition-colors"
             >
               <span>{isExpanded ? '▼' : '▶'}</span>
-              <span>{isExpanded ? '要点を閉じる' : '要点・注意事項を見る'}</span>
+              <span>{isExpanded ? t('checklist.hideTip') : t('checklist.showTip')}</span>
             </button>
           )}
         </div>
@@ -130,7 +130,7 @@ export function TaskItem({ task }: TaskItemProps) {
       </div>
       {isExpanded && task.tips && (
         <div className="mx-3 mb-3 ml-10 rounded-lg p-3" style={{ background: 'var(--theme-tip-bg)', borderColor: 'var(--theme-tip-border)', borderWidth: '1px', borderStyle: 'solid' }}>
-          <p className="text-xs font-medium mb-1.5" style={{ color: 'var(--theme-tip-title)' }}>💡 要点・注意事項</p>
+          <p className="text-xs font-medium mb-1.5" style={{ color: 'var(--theme-tip-title)' }}>{t('checklist.tipTitle')}</p>
           <div className="text-xs space-y-0.5 whitespace-pre-line leading-relaxed" style={{ color: 'var(--theme-tip-text)' }}>
             <Linkify text={task.tips} />
           </div>
@@ -141,6 +141,7 @@ export function TaskItem({ task }: TaskItemProps) {
 }
 
 function DueDateBadge({ dueDate }: { dueDate: string }) {
+  const { t } = useTranslation();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const due = new Date(dueDate + 'T00:00:00');
@@ -150,20 +151,20 @@ function DueDateBadge({ dueDate }: { dueDate: string }) {
   let className: string;
 
   if (diffDays < 0) {
-    label = `${Math.abs(diffDays)}日超過`;
+    label = t('date.overdue', { n: Math.abs(diffDays) });
     className = 'text-red-600 bg-red-50';
   } else if (diffDays === 0) {
-    label = '今日';
+    label = t('date.today');
     className = 'text-orange-600 bg-orange-50';
   } else if (diffDays <= 7) {
-    label = `あと${diffDays}日`;
+    label = t('date.daysLeft', { n: diffDays });
     className = 'text-orange-600 bg-orange-50';
   } else if (diffDays <= 30) {
-    label = `あと${diffDays}日`;
+    label = t('date.daysLeft', { n: diffDays });
     className = 'text-amber-600 bg-amber-50';
   } else {
     const weeks = Math.floor(diffDays / 7);
-    label = `あと${weeks}週`;
+    label = t('date.weeksLeft', { n: weeks });
     className = 'text-muted-foreground bg-muted/50';
   }
 

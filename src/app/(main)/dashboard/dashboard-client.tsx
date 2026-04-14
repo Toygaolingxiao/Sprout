@@ -10,6 +10,7 @@ import { TaskForm } from '@/components/checklists/task-form';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from '@/lib/i18n/context';
 import type { Task, LifeStage, CategoryId, TargetGender, Profile } from '@/types';
 
 interface StageStats {
@@ -28,21 +29,22 @@ interface DashboardClientProps {
   dbError?: string;
 }
 
-function daysUntilDue(dateStr: string): string {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dateStr + 'T00:00:00');
-  const diff = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-  if (diff < 0) return `${Math.abs(diff)}日前`;
-  if (diff === 0) return '今日';
-  if (diff <= 30) return `あと${diff}日`;
-  const weeks = Math.floor(diff / 7);
-  return `あと${weeks}週`;
-}
-
 export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError }: DashboardClientProps) {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | 'all'>('all');
   const [genderFilter, setGenderFilter] = useState<TargetGender | 'all'>('all');
+  const { t } = useTranslation();
+
+  function daysUntilDue(dateStr: string): string {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(dateStr + 'T00:00:00');
+    const diff = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    if (diff < 0) return t('date.daysAgo', { n: Math.abs(diff) });
+    if (diff === 0) return t('date.today');
+    if (diff <= 30) return t('date.daysLeft', { n: diff });
+    const weeks = Math.floor(diff / 7);
+    return t('date.weeksLeft', { n: weeks });
+  }
 
   const stage = STAGE_MAP[currentStage];
   const currentStats = stats?.stages.find((s) => s.stage_id === currentStage);
@@ -65,19 +67,19 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       {/* Greeting */}
       <div className="rounded-2xl p-5 border border-primary/10" style={{ background: `linear-gradient(to bottom right, var(--theme-gradient-from), var(--theme-gradient-to))` }}>
         <h1 className="text-xl font-bold text-foreground">
-          おかえりなさい{profile?.nickname ? `、${profile.nickname}さん` : ''} 👋
+          {t('dashboard.welcome')}{profile?.nickname ? `${t('dashboard.honorific') ? '、' + profile.nickname + t('dashboard.honorific') : '、' + profile.nickname}` : ''} 👋
         </h1>
-        <p className="text-sm text-muted-foreground mt-1">今日も一歩ずつ、ふたりで進みましょう</p>
+        <p className="text-sm text-muted-foreground mt-1">{t('dashboard.message')}</p>
         {(profile?.expected_due_date || profile?.expected_pregnancy_date) && (
           <div className="mt-3 flex flex-wrap gap-3 text-xs">
             {profile?.expected_pregnancy_date && (
               <span className="inline-flex items-center gap-1 rounded-full bg-white/60 px-2.5 py-1 font-medium text-foreground/80">
-                🌱 妊娠予定 <span className="font-semibold">{profile.expected_pregnancy_date}</span>
+                {t('dashboard.pregnancyDate')} <span className="font-semibold">{profile.expected_pregnancy_date}</span>
               </span>
             )}
             {profile?.expected_due_date && (
               <span className="inline-flex items-center gap-1 rounded-full bg-white/60 px-2.5 py-1 font-medium text-foreground/80">
-                🍼 出産予定 <span className="font-semibold">{profile.expected_due_date}</span>
+                {t('dashboard.dueDate')} <span className="font-semibold">{profile.expected_due_date}</span>
                 <span className="text-muted-foreground">({daysUntilDue(profile.expected_due_date)})</span>
               </span>
             )}
@@ -89,8 +91,8 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       {dbOffline && (
         <Card className="border-amber-400 bg-amber-50">
           <CardContent className="py-3">
-            <p className="text-sm text-amber-800">⚠️ DB接続待機中 — プレビュー表示です</p>
-            {dbError && <p className="text-xs text-amber-600 mt-1">原因: {dbError}</p>}
+            <p className="text-sm text-amber-800">{t('dashboard.dbWarning')}</p>
+            {dbError && <p className="text-xs text-amber-600 mt-1">{t('dashboard.cause')} {dbError}</p>}
           </CardContent>
         </Card>
       )}
@@ -111,7 +113,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
               }`}
             >
               <span>{s.emoji}</span>
-              <span>{s.label}</span>
+              <span>{t(`stage.${s.id}` as any)}</span>
               {st && st.total > 0 && (
                 <Badge variant={isActive ? 'secondary' : 'outline'} className="ml-0.5 text-[10px] h-4 px-1">
                   {st.completed}/{st.total}
@@ -128,9 +130,9 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <span className="text-xl">{stage.emoji}</span>
-              <span className="font-semibold">{stage.label}</span>
+              <span className="font-semibold">{t(`stage.${currentStage}` as any)}</span>
             </div>
-            <span className="text-sm text-muted-foreground">{completed}/{total}完了</span>
+            <span className="text-sm text-muted-foreground">{completed}/{total}{t('dashboard.completed')}</span>
           </div>
           <Progress value={pct} className="h-2.5" />
           <p className="text-xs text-muted-foreground mt-1.5 text-right">{pct}%</p>
@@ -146,7 +148,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       {/* Upcoming schedule */}
       {stats?.upcoming && stats.upcoming.length > 0 && (
         <div>
-          <h2 className="text-sm font-semibold text-muted-foreground mb-2">📅 直近のスケジュール</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground mb-2">{t('dashboard.upcoming')}</h2>
           <Card>
             <CardContent className="py-3 px-4 space-y-2">
               {stats.upcoming.map((item, i) => {
@@ -155,7 +157,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 const diffDays = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-                const relLabel = diffDays === 0 ? '今日' : diffDays <= 7 ? `あと${diffDays}日` : diffDays <= 30 ? `あと${diffDays}日` : `あと${Math.floor(diffDays / 7)}週`;
+                const relLabel = diffDays === 0 ? t('date.today') : diffDays <= 30 ? t('date.daysLeft', { n: diffDays }) : t('date.weeksLeft', { n: Math.floor(diffDays / 7) });
                 const urgencyClass = diffDays <= 7 ? 'text-orange-600 bg-orange-50' : diffDays <= 30 ? 'text-amber-600 bg-amber-50' : 'text-muted-foreground bg-muted/50';
 
                 return (
@@ -177,14 +179,14 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       {/* Priority tasks — next 5 to do */}
       {priorityTasks.length > 0 && (
         <div>
-          <h2 className="text-sm font-semibold text-muted-foreground mb-2">📋 次にやること</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground mb-2">{t('dashboard.nextTodo')}</h2>
           <TaskList tasks={priorityTasks} />
           {remainingIncomplete > 0 && (
             <Link
               href={`/checklists/${currentStage}`}
               className="mt-3 block text-center text-sm text-primary hover:underline"
             >
-              残り {remainingIncomplete} 件を見る →
+              {t('dashboard.remaining', { n: remainingIncomplete })}
             </Link>
           )}
         </div>
@@ -196,7 +198,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
           href={`/checklists/${currentStage}`}
           className="block text-center text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
-          ✅ 完了済み {completed}件 — すべて見る
+          {t('dashboard.completedSummary', { n: completed })}
         </Link>
       )}
 
@@ -206,7 +208,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
       {/* Other stages quick nav */}
       {stats && (
         <div>
-          <h2 className="text-sm font-semibold text-muted-foreground mb-3">📊 他のステージ</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground mb-3">{t('dashboard.otherStages')}</h2>
           <div className="grid gap-3 grid-cols-2">
             {stats.stages
               .filter((s) => s.stage_id !== currentStage)
@@ -218,7 +220,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                       <CardContent className="py-3.5 px-3.5">
                         <div className="flex items-center gap-1.5 mb-1.5">
                           <span className="text-base">{info.emoji}</span>
-                          <span className="text-xs font-semibold">{info.label}</span>
+                          <span className="text-xs font-semibold">{t(`stage.${s.stage_id}` as any)}</span>
                           {s.total > 0 && (
                             <span className="text-[10px] text-muted-foreground ml-auto">
                               {s.completed}/{s.total}

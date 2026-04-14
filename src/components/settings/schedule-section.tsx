@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
+import { useTranslation } from '@/lib/i18n/context';
 import type { Profile } from '@/types';
 
 interface ScheduleSectionProps {
@@ -15,6 +16,7 @@ interface ScheduleSectionProps {
 
 export function ScheduleSection({ profile }: ScheduleSectionProps) {
   const [isPending, startTransition] = useTransition();
+  const { t } = useTranslation();
 
   function handleSubmit(formData: FormData) {
     // 既存のプロフィール値を維持
@@ -26,7 +28,7 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
       if (result?.error) {
         toast.error(result.error);
       } else {
-        toast.success('スケジュールを保存しました');
+        toast.success(t('settings.scheduleSaved'));
       }
     });
   }
@@ -34,15 +36,15 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="text-base">📅 スケジュール設定</CardTitle>
+        <CardTitle className="text-base">{t('settings.schedule')}</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-xs text-muted-foreground mb-4">
-          設定した日付をもとに、各タスクの推奨時期が自動計算されます
+          {t('settings.scheduleDesc')}
         </p>
         <form action={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="expected_pregnancy_date">妊娠予定時期</Label>
+            <Label htmlFor="expected_pregnancy_date">{t('settings.pregnancyDate')}</Label>
             <Input
               id="expected_pregnancy_date"
               name="expected_pregnancy_date"
@@ -50,11 +52,11 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
               defaultValue={profile.expected_pregnancy_date ?? ''}
             />
             <p className="text-xs text-muted-foreground">
-              妊活中の方：妊娠を目指す時期の目安
+              {t('settings.pregnancyHint')}
             </p>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="expected_due_date">出産予定日</Label>
+            <Label htmlFor="expected_due_date">{t('settings.dueDate')}</Label>
             <Input
               id="expected_due_date"
               name="expected_due_date"
@@ -62,11 +64,11 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
               defaultValue={profile.expected_due_date ?? ''}
             />
             <p className="text-xs text-muted-foreground">
-              妊娠がわかったら：医師から告げられた予定日
+              {t('settings.dueDateHint')}
             </p>
           </div>
           <Button type="submit" size="sm" disabled={isPending} className="w-full">
-            {isPending ? '保存中...' : '保存'}
+            {isPending ? t('settings.saving') : t('settings.save')}
           </Button>
         </form>
       </CardContent>

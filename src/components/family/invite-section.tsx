@@ -5,12 +5,14 @@ import { createInvitation } from '@/lib/actions/family';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from '@/lib/i18n/context';
 
 export function InviteSection() {
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   function handleCreate() {
     startTransition(async () => {
@@ -35,11 +37,11 @@ export function InviteSection() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">パートナーを招待</CardTitle>
+        <CardTitle className="text-base">{t('family.invite')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground">
-          招待リンクを生成して、パートナーに共有しましょう。リンクは7日間有効です。
+          {t('family.inviteDesc')}
         </p>
 
         {error && (
@@ -53,13 +55,13 @@ export function InviteSection() {
             <div className="flex gap-2">
               <Input value={inviteUrl} readOnly className="text-xs" />
               <Button variant="outline" size="sm" onClick={handleCopy}>
-                {copied ? '✓ コピー済' : 'コピー'}
+                {copied ? t('family.copied') : t('family.copy')}
               </Button>
             </div>
           </div>
         ) : (
           <Button onClick={handleCreate} disabled={isPending}>
-            {isPending ? '生成中...' : '招待リンクを生成'}
+            {isPending ? t('family.generating') : t('family.generateLink')}
           </Button>
         )}
       </CardContent>
