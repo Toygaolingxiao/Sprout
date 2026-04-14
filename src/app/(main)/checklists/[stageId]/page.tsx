@@ -7,6 +7,7 @@ import { ProgressOverview } from '@/components/checklists/progress-overview';
 import { ChecklistClient } from './checklist-client';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { getLocale, serverT } from '@/lib/i18n/server';
 import type { LifeStage, Task } from '@/types';
 
 interface Props {
@@ -56,6 +57,8 @@ export default async function StageChecklistPage({ params }: Props) {
   const completed = tasks.filter((t) => t.is_completed).length;
   const total = tasks.length;
   const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const locale = await getLocale();
+  const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
 
   return (
     <div className="space-y-5">
@@ -74,7 +77,7 @@ export default async function StageChecklistPage({ params }: Props) {
               }`}
             >
               <span>{s.emoji}</span>
-              <span>{s.label}</span>
+              <span>{t(`stage.${s.id}` as any)}</span>
             </Link>
           );
         })}
@@ -85,19 +88,19 @@ export default async function StageChecklistPage({ params }: Props) {
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold flex items-center gap-2">
             <span>{stage.emoji}</span>
-            <span>{stage.label}</span>
+            <span>{t(`stage.${stageId}` as any)}</span>
           </h1>
           <Badge variant="secondary">{completed}/{total} ({pct}%)</Badge>
         </div>
-        <p className="text-sm text-muted-foreground mt-0.5">{stage.description}</p>
+        <p className="text-sm text-muted-foreground mt-0.5">{t(`stage.${stageId}.desc` as any)}</p>
         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{stage.period}</p>
       </div>
 
       {dbOffline && (
         <Card className="border-amber-400 bg-amber-50">
           <CardContent className="py-3">
-            <p className="text-sm text-amber-800">⚠️ DB接続待機中 — プレビュー表示です</p>
-            {dbError && <p className="text-xs text-amber-600 mt-1">原因: {dbError}</p>}
+            <p className="text-sm text-amber-800">{t('dashboard.dbWarning')}</p>
+            {dbError && <p className="text-xs text-amber-600 mt-1">{t('dashboard.cause')} {dbError}</p>}
           </CardContent>
         </Card>
       )}

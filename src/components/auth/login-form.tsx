@@ -8,10 +8,12 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { useTranslation } from '@/lib/i18n/context'
 
 export function LoginForm() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)
@@ -33,7 +35,7 @@ export function LoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-center">ログイン</CardTitle>
+        <CardTitle className="text-center">{t('auth.login')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {error && (
@@ -44,39 +46,39 @@ export function LoginForm() {
 
         <form action={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">メールアドレス</Label>
+            <Label htmlFor="email">{t('auth.email')}</Label>
             <Input id="email" name="email" type="email" required placeholder="email@example.com" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">パスワード</Label>
+            <Label htmlFor="password">{t('auth.password')}</Label>
             <Input id="password" name="password" type="password" required placeholder="••••••••" />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'ログイン中...' : 'ログイン'}
+            {loading ? t('auth.loggingIn') : t('auth.login')}
           </Button>
         </form>
 
         <div className="relative">
           <Separator />
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-            または
+            {t('auth.or')}
           </span>
         </div>
 
         <form action={handleGoogleSignIn}>
           <Button variant="outline" className="w-full" type="submit">
-            Googleでログイン
+            {t('auth.googleLogin')}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-2 text-sm text-muted-foreground">
         <Link href="/reset-password" className="hover:text-foreground transition-colors">
-          パスワードをお忘れですか？
+          {t('auth.forgotPassword')}
         </Link>
         <div>
-          アカウントをお持ちでない方は{' '}
+          {t('auth.noAccount')}{' '}
           <Link href="/signup" className="text-primary hover:underline">
-            新規登録
+            {t('auth.signup')}
           </Link>
         </div>
       </CardFooter>

@@ -3,6 +3,7 @@ import { getProfile } from '@/lib/actions/profile';
 import { STAGE_MAP } from '@/data/seed/stages';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { getLocale, serverT } from '@/lib/i18n/server';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,18 +14,20 @@ import { InviteSection } from '@/components/family/invite-section';
 
 export default async function FamilyPage() {
   const [profile, members] = await Promise.all([getProfile(), getFamilyMembers()]);
+  const locale = await getLocale();
+  const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">👨‍👩‍👧 家族</h1>
+      <h1 className="text-2xl font-bold">{t('family.title')}</h1>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">メンバー</CardTitle>
+          <CardTitle className="text-base">{t('family.members')}</CardTitle>
         </CardHeader>
         <CardContent>
           {members.length === 0 ? (
-            <p className="text-sm text-muted-foreground">メンバーがいません</p>
+            <p className="text-sm text-muted-foreground">{t('family.noMembers')}</p>
           ) : (
             <ul className="space-y-3">
               {members.map((member) => (
@@ -34,16 +37,16 @@ export default async function FamilyPage() {
                   </div>
                   <div className="flex-1">
                     <div className="font-medium text-sm">
-                      {member.nickname || '未設定'}
+                      {member.nickname || t('family.notSet')}
                       {member.id === profile?.id && (
                         <Badge variant="secondary" className="ml-2 text-xs">
-                          あなた
+                          {t('family.you')}
                         </Badge>
                       )}
                     </div>
                     <div className="text-xs text-muted-foreground">
                       {STAGE_MAP[member.current_stage]?.emoji}{' '}
-                      {STAGE_MAP[member.current_stage]?.label}
+                      {t(`stage.${member.current_stage}` as any)}
                     </div>
                   </div>
                 </li>

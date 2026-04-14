@@ -1,5 +1,8 @@
+'use client';
+
 import { Progress } from '@/components/ui/progress';
 import { CATEGORIES, CATEGORY_MAP } from '@/data/seed/categories';
+import { useTranslation } from '@/lib/i18n/context';
 import type { Task } from '@/types';
 
 interface ProgressOverviewProps {
@@ -10,13 +13,14 @@ export function ProgressOverview({ tasks }: ProgressOverviewProps) {
   const total = tasks.length;
   const completed = tasks.filter((t) => t.is_completed).length;
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-4">
       {/* Overall */}
       <div className="space-y-1">
         <div className="flex justify-between text-sm">
-          <span className="font-medium">全体の進捗</span>
+          <span className="font-medium">{t('checklist.title')}</span>
           <span className="text-muted-foreground">{completed}/{total} ({percentage}%)</span>
         </div>
         <Progress value={percentage} className="h-3" />
@@ -32,7 +36,7 @@ export function ProgressOverview({ tasks }: ProgressOverviewProps) {
           return (
             <div key={cat.id} className="flex items-center gap-2 text-xs">
               <span style={{ color: cat.color }} className="w-12 text-right font-medium">
-                {cat.label}
+                {t(`category.${cat.id}` as any)}
               </span>
               <Progress value={catPct} className="h-1.5 flex-1" />
               <span className="w-8 text-muted-foreground">{catPct}%</span>

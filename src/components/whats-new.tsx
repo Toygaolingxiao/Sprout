@@ -5,9 +5,11 @@ import { APP_VERSION, RELEASE_NOTES } from '@/data/release-notes';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from '@/lib/i18n/context';
 
 export function WhatsNew() {
   const [show, setShow] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const seen = localStorage.getItem('sprout-seen-version');
@@ -30,7 +32,7 @@ export function WhatsNew() {
       <Card className="w-full max-w-sm animate-in fade-in zoom-in-95 shadow-xl">
         <CardHeader className="pb-3 text-center">
           <span className="text-3xl mb-1">🌱</span>
-          <CardTitle className="text-lg">アップデート情報</CardTitle>
+          <CardTitle className="text-lg">{t('whatsNew.title')}</CardTitle>
           <Badge variant="secondary" className="mx-auto mt-1">
             v{latest.version}（{latest.date}）
           </Badge>
@@ -42,7 +44,7 @@ export function WhatsNew() {
             ))}
           </ul>
           <Button onClick={dismiss} className="w-full mt-3">
-            はじめる
+            {t('whatsNew.start')}
           </Button>
         </CardContent>
       </Card>

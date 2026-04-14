@@ -4,16 +4,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut } from '@/lib/actions/auth';
 import { Button } from '@/components/ui/button';
-
-const DESKTOP_NAV = [
-  { href: '/dashboard', label: 'ホーム' },
-  { href: '/checklists', label: 'チェックリスト' },
-  { href: '/family', label: '家族' },
-  { href: '/settings', label: '設定' },
-];
+import { useTranslation } from '@/lib/i18n/context';
 
 export function Header() {
   const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const DESKTOP_NAV = [
+    { href: '/dashboard', label: t('nav.home') },
+    { href: '/checklists', label: t('nav.checklist') },
+    { href: '/family', label: t('nav.family') },
+    { href: '/settings', label: t('nav.settings') },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/10" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>
@@ -43,7 +45,7 @@ export function Header() {
         <div className="ml-auto flex-shrink-0">
           <form action={signOut}>
             <Button variant="ghost" size="sm" type="submit">
-              ログアウト
+              {t('nav.logout')}
             </Button>
           </form>
         </div>

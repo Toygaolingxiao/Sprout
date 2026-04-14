@@ -2,16 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-const NAV_ITEMS = [
-  { href: '/dashboard', label: 'ホーム', icon: '🏠' },
-  { href: '/checklists', label: 'リスト', icon: '✅' },
-  { href: '/family', label: '家族', icon: '👨‍👩‍👧' },
-  { href: '/settings', label: '設定', icon: '⚙️' },
-];
+import { useTranslation } from '@/lib/i18n/context';
 
 export function BottomNav() {
   const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const NAV_ITEMS = [
+    { href: '/dashboard', label: t('nav.home'), icon: '🏠' },
+    { href: '/checklists', label: t('nav.list'), icon: '✅' },
+    { href: '/family', label: t('nav.family'), icon: '👨‍👩‍👧' },
+    { href: '/settings', label: t('nav.settings'), icon: '⚙️' },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-primary/10 sm:hidden" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>

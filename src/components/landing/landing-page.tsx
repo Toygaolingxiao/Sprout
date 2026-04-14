@@ -10,80 +10,53 @@ import {
   ChevronRight,
   Sparkles,
 } from 'lucide-react';
-
-/* ─────────────────────────── data ─────────────────────────── */
-
-const STAGES = [
-  { emoji: '🌱', label: '妊活', desc: '基礎体温・葉酸サプリ・検査スケジュールなど' },
-  { emoji: '🤰', label: '妊娠', desc: '母子手帳・出産準備品・両親学級・届出関連' },
-  { emoji: '👶', label: '産後', desc: '出生届・児童手当・産後ケア・予防接種' },
-  { emoji: '🍼', label: '育児', desc: '離乳食・保育園・健診・成長の記録' },
-];
-
-const FEATURES = [
-  {
-    icon: CheckCircle2,
-    title: '80+のエビデンス付きチェックリスト',
-    desc: '厚労省の情報をベースに、各タスクに具体的なtipsと根拠を収録。やるべきことを網羅。',
-  },
-  {
-    icon: Users,
-    title: '夫婦でリアルタイム共有',
-    desc: '招待リンクひとつでパートナーと連携。誰が何を完了したかひと目でわかる。',
-  },
-  {
-    icon: CalendarDays,
-    title: '出産予定日から自動スケジュール',
-    desc: '予定日を設定するだけで、各タスクの推奨時期を自動計算。期限が近いものから表示。',
-  },
-  {
-    icon: Shield,
-    title: 'プライベート＆安全',
-    desc: '家族だけのプライベート空間。データは暗号化され、第三者には一切共有されません。',
-  },
-];
-
-const STEPS = [
-  { num: '1', title: 'アカウント作成', desc: 'メールまたはGoogleで30秒で登録' },
-  { num: '2', title: 'ステージ選択', desc: '今の状況に合ったチェックリストが自動生成' },
-  { num: '3', title: 'パートナー招待', desc: '招待リンクを送るだけで夫婦の共有スタート' },
-];
-
-const TESTIMONIALS = [
-  {
-    text: '出産準備で何をすればいいか分からなかったけど、リストがあるだけで安心感が全然違う。夫も自分のスマホで確認してくれるようになった。',
-    author: 'A.K.さん',
-    detail: '妊娠8ヶ月',
-  },
-  {
-    text: '妊活中から使い始めて、今は産後ステージ。アプリを乗り換えなくていいのが本当にラク。',
-    author: 'M.T.さん',
-    detail: '産後3ヶ月',
-  },
-  {
-    text: '児童手当の申請期限をうっかり忘れそうだったけど、スケジュール機能で助かった。',
-    author: 'R.S.さん',
-    detail: '育児中（第一子）',
-  },
-];
+import { useTranslation } from '@/lib/i18n/context';
 
 /* ─────────────────────────── component ────────────────────── */
 
 export function LandingPage() {
+  const { t } = useTranslation();
+
+  const STAGES = [
+    { emoji: '🌱', label: t('stage.prenatal_care'), desc: t('lp.stage1Desc') },
+    { emoji: '🤰', label: t('stage.pregnancy'), desc: t('lp.stage2Desc') },
+    { emoji: '👶', label: t('stage.postpartum'), desc: t('lp.stage3Desc') },
+    { emoji: '🍼', label: t('stage.childcare'), desc: t('lp.stage4Desc') },
+  ];
+
+  const FEATURES = [
+    { icon: CheckCircle2, title: t('lp.feature1Title'), desc: t('lp.feature1Desc') },
+    { icon: Users, title: t('lp.feature2Title'), desc: t('lp.feature2Desc') },
+    { icon: CalendarDays, title: t('lp.feature3Title'), desc: t('lp.feature3Desc') },
+    { icon: Shield, title: t('lp.feature4Title'), desc: t('lp.feature4Desc') },
+  ];
+
+  const STEPS = [
+    { num: '1', title: t('lp.step1Title'), desc: t('lp.step1Desc') },
+    { num: '2', title: t('lp.step2Title'), desc: t('lp.step2Desc') },
+    { num: '3', title: t('lp.step3Title'), desc: t('lp.step3Desc') },
+  ];
+
+  const TESTIMONIALS = [
+    { text: t('lp.testimonial1'), author: t('lp.testimonial1Author'), detail: t('lp.testimonial1Detail') },
+    { text: t('lp.testimonial2'), author: t('lp.testimonial2Author'), detail: t('lp.testimonial2Detail') },
+    { text: t('lp.testimonial3'), author: t('lp.testimonial3Author'), detail: t('lp.testimonial3Detail') },
+  ];
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
-        <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label="メインナビゲーション">
+        <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label={t('lp.mainNav')}>
           <span className="text-lg font-bold tracking-tight" aria-label="Sprout">🌱 Sprout</span>
           <div className="flex gap-2">
             <Link href="/login">
-              <Button variant="ghost" size="sm">ログイン</Button>
+              <Button variant="ghost" size="sm">{t('lp.login')}</Button>
             </Link>
             <Link href="/signup">
               <Button size="sm">
                 <Sparkles className="size-3.5" />
-                無料で始める
+                {t('lp.startFree')}
               </Button>
             </Link>
           </div>
@@ -102,33 +75,31 @@ export function LandingPage() {
         <div className="mx-auto max-w-3xl px-4 py-20 sm:py-28 text-center">
           <div className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <Sparkles className="size-3" />
-            妊活〜育児まで、夫婦の準備をひとつに
+            {t('lp.badge')}
           </div>
           <h1 id="hero-heading" className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
-            ふたりで育てる、
+            {t('lp.heroTitle1')}
             <br />
-            <span className="text-primary">新しい命の準備</span>
+            <span className="text-primary">{t('lp.heroTitle2')}</span>
           </h1>
           <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            出産準備で「何をすればいいか分からない」をゼロに。
-            <br className="hidden sm:block" />
-            80以上のチェックリストを夫婦で共有・管理できる無料アプリ。
+            {t('lp.heroDesc')}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href="/signup">
               <Button size="lg" className="text-base px-6 h-11">
-                無料で始める
+                {t('lp.startFree')}
                 <ChevronRight className="size-4" />
               </Button>
             </Link>
             <a href="#features">
               <Button variant="outline" size="lg" className="text-base px-6 h-11">
-                機能を見る
+                {t('lp.viewFeatures')}
               </Button>
             </a>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            登録無料 ・ クレジットカード不要 ・ PWA対応
+            {t('lp.freeNote')}
           </p>
         </div>
       </section>
@@ -137,10 +108,10 @@ export function LandingPage() {
       <section className="py-16 sm:py-20 px-4">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-center text-2xl sm:text-3xl font-bold mb-3">
-            ライフステージに寄り添う4つのフェーズ
+            {t('lp.stagesTitle')}
           </h2>
           <p className="text-center text-muted-foreground mb-10 max-w-md mx-auto">
-            妊活から育児まで、ステージが変わってもアプリはそのまま。
+            {t('lp.stagesDesc')}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {STAGES.map((s) => (
@@ -161,10 +132,10 @@ export function LandingPage() {
       <section id="features" className="py-16 sm:py-20 px-4 bg-muted/30">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-center text-2xl sm:text-3xl font-bold mb-3">
-            Sproutの主な機能
+            {t('lp.featuresTitle')}
           </h2>
           <p className="text-center text-muted-foreground mb-10 max-w-md mx-auto">
-            必要な情報を、必要なタイミングで、ふたりに届ける。
+            {t('lp.featuresDesc')}
           </p>
           <div className="grid sm:grid-cols-2 gap-6">
             {FEATURES.map((f) => (
@@ -189,7 +160,7 @@ export function LandingPage() {
       <section className="py-16 sm:py-20 px-4">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10">
-            かんたん3ステップ
+            {t('lp.stepsTitle')}
           </h2>
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8">
             {STEPS.map((s) => (
@@ -209,7 +180,7 @@ export function LandingPage() {
       <section className="py-16 sm:py-20 px-4 bg-muted/30">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10">
-            ユーザーの声
+            {t('lp.testimonialsTitle')}
           </h2>
           <div className="grid sm:grid-cols-3 gap-5">
             {TESTIMONIALS.map((t) => (
@@ -244,15 +215,15 @@ export function LandingPage() {
       >
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl sm:text-3xl font-bold">
-            今日から、ふたりの準備を始めよう
+            {t('lp.ctaTitle')}
           </h2>
           <p className="mt-3 text-muted-foreground">
-            登録は30秒。すぐにチェックリストが使えます。
+            {t('lp.ctaDesc')}
           </p>
           <div className="mt-8">
             <Link href="/signup">
               <Button size="lg" className="text-base px-8 h-12">
-                無料アカウントを作成
+                {t('lp.ctaButton')}
                 <ChevronRight className="size-4" aria-hidden="true" />
               </Button>
             </Link>
@@ -267,16 +238,16 @@ export function LandingPage() {
           <span>© 2026 Sprout. All rights reserved.</span>
           <div className="flex gap-4">
             <Link href="/terms" className="hover:text-foreground transition-colors">
-              利用規約
+              {t('lp.terms')}
             </Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors">
-              プライバシーポリシー
+              {t('lp.privacy')}
             </Link>
             <Link href="/login" className="hover:text-foreground transition-colors">
-              ログイン
+              {t('lp.login')}
             </Link>
             <Link href="/signup" className="hover:text-foreground transition-colors">
-              新規登録
+              {t('lp.signup')}
             </Link>
           </div>
         </div>

@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { WhatsNew } from "@/components/whats-new";
 import { Analytics } from "@vercel/analytics/react";
+import { LanguageProvider } from "@/lib/i18n/context";
+import { getLocale } from "@/lib/i18n/server";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -56,20 +58,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
     <html
-      lang="ja"
+      lang={locale === 'zh' ? 'zh-CN' : 'ja'}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          {children}
-          <WhatsNew />
+          <LanguageProvider initialLocale={locale}>
+            {children}
+            <WhatsNew />
+          </LanguageProvider>
           <Toaster />
           <Analytics />
         </ThemeProvider>

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { CATEGORIES } from '@/data/seed/categories';
+import { useTranslation } from '@/lib/i18n/context';
 import type { LifeStage, CategoryId } from '@/types';
 
 interface TaskFormProps {
@@ -16,6 +17,7 @@ interface TaskFormProps {
 export function TaskForm({ stageId }: TaskFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const { t } = useTranslation();
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
@@ -29,7 +31,7 @@ export function TaskForm({ stageId }: TaskFormProps) {
       if (result?.error) {
         toast.error(result.error);
       } else {
-        toast.success('➕ タスクを追加しました');
+        toast.success(t('checklist.taskAdded'));
         setIsOpen(false);
       }
     });
@@ -42,7 +44,7 @@ export function TaskForm({ stageId }: TaskFormProps) {
         className="w-full border-dashed"
         onClick={() => setIsOpen(true)}
       >
-        ＋ タスクを追加
+        {t('checklist.addTask')}
       </Button>
     );
   }
@@ -50,39 +52,39 @@ export function TaskForm({ stageId }: TaskFormProps) {
   return (
     <form action={handleSubmit} className="space-y-3 rounded-lg border p-4 bg-card">
       <div className="space-y-2">
-        <Label htmlFor="title">タスク名</Label>
-        <Input id="title" name="title" required placeholder="例: 母子手帳を受け取る" />
+        <Label htmlFor="title">{t('checklist.taskName')}</Label>
+        <Input id="title" name="title" required placeholder={t('checklist.taskPlaceholder')} />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="category_id">カテゴリ</Label>
+        <Label htmlFor="category_id">{t('checklist.category')}</Label>
         <select
           id="category_id"
           name="category_id"
-          aria-label="カテゴリを選択"
+          aria-label={t('checklist.categorySelect')}
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           defaultValue="other"
         >
           {CATEGORIES.map((c) => (
             <option key={c.id} value={c.id}>
-              {c.label}
+              {t(`category.${c.id}` as any)}
             </option>
           ))}
         </select>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="description">説明（任意）</Label>
-        <Input id="description" name="description" placeholder="メモや補足情報" />
+        <Label htmlFor="description">{t('checklist.description')}</Label>
+        <Input id="description" name="description" placeholder={t('checklist.descPlaceholder')} />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="due_date">期限（任意）</Label>
+        <Label htmlFor="due_date">{t('checklist.dueDateLabel')}</Label>
         <Input id="due_date" name="due_date" type="date" />
       </div>
       <div className="flex gap-2">
         <Button type="submit" disabled={isPending} className="flex-1">
-          {isPending ? '追加中...' : '追加'}
+          {isPending ? t('checklist.adding') : t('checklist.add')}
         </Button>
         <Button type="button" variant="ghost" onClick={() => setIsOpen(false)}>
-          キャンセル
+          {t('checklist.cancel')}
         </Button>
       </div>
     </form>
