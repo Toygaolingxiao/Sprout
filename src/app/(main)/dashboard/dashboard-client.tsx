@@ -11,6 +11,7 @@ import { Progress } from '@/components/ui/progress';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useTranslation } from '@/lib/i18n/context';
+import { translateTaskField } from '@/lib/i18n/task-translations';
 import type { Task, LifeStage, CategoryId, TargetGender, Profile } from '@/types';
 
 interface StageStats {
@@ -32,7 +33,7 @@ interface DashboardClientProps {
 export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError }: DashboardClientProps) {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | 'all'>('all');
   const [genderFilter, setGenderFilter] = useState<TargetGender | 'all'>('all');
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   function daysUntilDue(dateStr: string): string {
     const today = new Date();
@@ -166,7 +167,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                 return (
                   <div key={i} className="flex items-center gap-2 text-sm">
                     <span className="text-xs">{stageInfo?.emoji}</span>
-                    <span className="flex-1 truncate">{item.title}</span>
+                    <span className="flex-1 truncate">{translateTaskField(locale, item.stage_id as LifeStage, item.title, 'title')}</span>
                     <span className={`text-[10px] font-medium rounded-full px-2 py-0.5 whitespace-nowrap ${urgencyClass}`}>
                       {relLabel}
                     </span>

@@ -97,6 +97,10 @@ export const ja = {
   'stage.pregnancy.desc': '妊娠中のチェックリスト',
   'stage.postpartum.desc': '産後のチェックリスト',
   'stage.childcare.desc': '育児中のチェックリスト',
+  'stage.prenatal_care.period': '妊娠を意識し始めてから妊娠確認まで。体づくり・検査・お金の準備を夫婦で進める時期です。',
+  'stage.pregnancy.period': '妊娠確認〜出産まで（約40週）。初期は届出・つわり対策、中期は買い物・名付け、後期は入院準備が中心です。',
+  'stage.postpartum.period': '出産直後〜産後半年頃。届出・手当の申請ラッシュと、母体の回復・授乳リズム確立の時期です。',
+  'stage.childcare.period': '生後数ヶ月〜3歳以降。予防接種・健診・離乳食・保活など、子どもの成長に合わせたタスクが続きます。',
 
   // Categories
   'category.procedure': '手続き',
@@ -116,6 +120,13 @@ export const ja = {
   // Settings
   'settings.title': '設定',
   'settings.profile': '👤 プロフィール',
+
+  // Theme
+  'theme.color': 'テーマカラー',
+  'theme.green': 'グリーン',
+  'theme.pink': 'ピンク',
+  'theme.changeTo.green': 'テーマをグリーンに変更',
+  'theme.changeTo.pink': 'テーマをピンクに変更',
   'settings.nickname': 'ニックネーム',
   'settings.lifeStage': 'ライフステージ',
   'settings.lifeStageSelect': 'ライフステージを選択',
