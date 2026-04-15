@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { CATEGORY_MAP } from '@/data/seed/categories';
 import { useTranslation } from '@/lib/i18n/context';
+import { translateTaskField } from '@/lib/i18n/task-translations';
 import type { Task } from '@/types';
 
 interface TaskItemProps {
@@ -18,7 +19,15 @@ export function TaskItem({ task }: TaskItemProps) {
   const [isPending, startTransition] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
   const isLocal = task.id.startsWith('local-');
-  const { t } = useTranslation();
+  const { locale, t } = useTranslation();
+
+  const translatedTitle = translateTaskField(locale, task.stage_id, task.title, 'title');
+  const translatedDescription = task.description
+    ? translateTaskField(locale, task.stage_id, task.description, 'description')
+    : null;
+  const translatedTips = task.tips
+    ? translateTaskField(locale, task.stage_id, task.tips, 'tips')
+    : null;
 
   function handleToggle() {
     if (isLocal) return;
@@ -72,7 +81,7 @@ export function TaskItem({ task }: TaskItemProps) {
                 task.is_completed ? 'line-through text-muted-foreground' : ''
               }`}
             >
-              {task.title}
+              {translatedTitle}
             </span>
             <Badge
               variant="outline"
@@ -90,9 +99,9 @@ export function TaskItem({ task }: TaskItemProps) {
               </Badge>
             )}
           </div>
-          {task.description && (
+          {translatedDescription && (
             <p className="mt-1 text-xs text-muted-foreground">
-              {task.description}
+              {translatedDescription}
             </p>
           )}
           {task.due_date && !task.is_completed && (
@@ -103,7 +112,7 @@ export function TaskItem({ task }: TaskItemProps) {
               📅 {task.due_date}
             </p>
           )}
-          {task.tips && (
+          {translatedTips && (
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
@@ -122,17 +131,17 @@ export function TaskItem({ task }: TaskItemProps) {
             className="text-destructive hover:text-destructive h-10 w-10 p-0"
             onClick={handleDelete}
             disabled={isPending}
-            aria-label={`${task.title}を削除`}
+            aria-label={`${translatedTitle}を削除`}
           >
             ✕
           </Button>
         )}
       </div>
-      {isExpanded && task.tips && (
+      {isExpanded && translatedTips && (
         <div className="mx-3 mb-3 ml-8 sm:ml-10 rounded-lg p-3" style={{ background: 'var(--theme-tip-bg)', borderColor: 'var(--theme-tip-border)', borderWidth: '1px', borderStyle: 'solid' }}>
           <p className="text-xs font-medium mb-1.5" style={{ color: 'var(--theme-tip-title)' }}>{t('checklist.tipTitle')}</p>
           <div className="text-xs space-y-0.5 whitespace-pre-line leading-relaxed" style={{ color: 'var(--theme-tip-text)' }}>
-            <Linkify text={task.tips} />
+            <Linkify text={translatedTips} />
           </div>
         </div>
       )}
