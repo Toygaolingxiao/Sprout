@@ -81,10 +81,6 @@ export const TASK_TRANSLATIONS: Partial<Record<Locale, TaskTranslations>> = {
         title: '开始服用叶酸',
         description: '建议从怀孕前1个月开始每日摄取400μg（厚生劳动省推荐）',
       },
-      '歯科検診を受ける': {
-        title: '接受牙科检查',
-        description: '妊娠期间牙科治疗受到限制，建议事先完成护理',
-      },
       '生活習慣を見直す（禁煙・節酒）': {
         title: '调整生活习惯（戒烟·控酒）',
         description: '吸烟和过度饮酒会降低男女双方的受孕能力',
