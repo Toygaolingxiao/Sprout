@@ -82,6 +82,11 @@ export const ja = {
   'checklist.tipTitle': '💡 要点・注意事項',
   'checklist.showTip': '要点・注意事項を見る',
   'checklist.hideTip': '要点を閉じる',
+  'checklist.noTasks': 'タスクがありません',
+  'checklist.completedCount': '完了済みタスク {n}件',
+  'checklist.completedToggle': '✅ 完了済み ({n})',
+  'checklist.tapToRestore': 'タップで復活',
+  'checklist.deleteTask': '{title}を削除',
 
   // Stages
   'stage.prenatal_care': '妊活',
@@ -132,6 +137,9 @@ export const ja = {
   'settings.save': '保存',
   'settings.profileSaved': 'プロフィールを保存しました',
   'settings.scheduleSaved': 'スケジュールを保存しました',
+  'settings.profileEdit': 'プロフィール編集',
+  'settings.profileSettings': 'プロフィール設定',
+  'settings.dueDateAutoCalc': '設定するとタスクの推奨時期が自動計算されます',
 
   // Family
   'family.title': '👨‍👩‍👧 家族',
@@ -209,6 +217,19 @@ export const ja = {
   'manual.section.family': '家族共有',
   'manual.section.checklist': 'チェックリスト運用',
   'manual.section.troubleshoot': 'トラブル対応',
+  'manual.start.step1': '新規登録（メールまたはGoogle）を行い、ログインします。',
+  'manual.start.step2': '設定画面でライフステージと日程を入力して保存します。',
+  'manual.start.step3': 'ホーム画面で現在ステージのタスク一覧を確認します。',
+  'manual.family.step1': '家族画面で招待リンクを生成します。',
+  'manual.family.step2': 'パートナーが別アカウントでログインし、招待リンクを開きます。',
+  'manual.family.step3': '「家族グループに参加」を押すとタスクを共有できます。',
+  'manual.family.note': '招待リンクは7日間有効です。',
+  'manual.checklist.item1': 'ステージごとのタスクを確認し、左側のチェックで完了できます。',
+  'manual.checklist.item2': 'カテゴリ・性別フィルターで必要なタスクだけに絞り込めます。',
+  'manual.checklist.item3': '「要点・注意事項を見る」からタスク詳細を展開できます。',
+  'manual.troubleshoot.item1': '招待リンクが無効な場合は、家族画面で再発行してください。',
+  'manual.troubleshoot.item2': '画面が更新されない場合は再読み込みを行ってください。',
+  'manual.troubleshoot.item3': '言語は設定画面の「言語」から切り替えできます。',
 } as const;
 
 export type TranslationKey = keyof typeof ja;

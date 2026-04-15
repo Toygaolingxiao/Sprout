@@ -84,6 +84,11 @@ export const zh: Record<TranslationKey, string> = {
   'checklist.tipTitle': '💡 要点・注意事项',
   'checklist.showTip': '查看要点・注意事项',
   'checklist.hideTip': '收起要点',
+  'checklist.noTasks': '暂无任务',
+  'checklist.completedCount': '已完成任务 {n}项',
+  'checklist.completedToggle': '✅ 已完成 ({n})',
+  'checklist.tapToRestore': '点击恢复',
+  'checklist.deleteTask': '删除{title}',
 
   // Stages
   'stage.prenatal_care': '备孕',
@@ -134,6 +139,9 @@ export const zh: Record<TranslationKey, string> = {
   'settings.save': '保存',
   'settings.profileSaved': '已保存个人资料',
   'settings.scheduleSaved': '已保存日程设置',
+  'settings.profileEdit': '编辑个人资料',
+  'settings.profileSettings': '个人资料设置',
+  'settings.dueDateAutoCalc': '设置后将自动计算各任务的建议时间',
 
   // Family
   'family.title': '👨‍👩‍👧 家庭',
@@ -211,4 +219,17 @@ export const zh: Record<TranslationKey, string> = {
   'manual.section.family': '家庭共享',
   'manual.section.checklist': '清单使用',
   'manual.section.troubleshoot': '故障排查',
+  'manual.start.step1': '注册（邮箱或Google）并登录。',
+  'manual.start.step2': '在设置页面输入人生阶段和日程并保存。',
+  'manual.start.step3': '在首页查看当前阶段的任务清单。',
+  'manual.family.step1': '在家庭页面生成邀请链接。',
+  'manual.family.step2': '伴侣用另一个账号登录后打开邀请链接。',
+  'manual.family.step3': '点击“加入家庭组”即可共享任务。',
+  'manual.family.note': '邀请链接有效期为7天。',
+  'manual.checklist.item1': '查看各阶段任务，点击左侧复选框即可完成。',
+  'manual.checklist.item2': '可通过分类和性别筛选器筛选所需任务。',
+  'manual.checklist.item3': '点击“查看要点・注意事项”展开任务详情。',
+  'manual.troubleshoot.item1': '如邀请链接失效，请在家庭页面重新生成。',
+  'manual.troubleshoot.item2': '如页面未更新，请刷新页面。',
+  'manual.troubleshoot.item3': '可在设置页面的“语言”中切换语言。',
 };
