@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.4.0';
+export const APP_VERSION = '1.4.1';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.4.1',
+    date: '2026-04-16',
+    items: [
+      '📘 Web画面で閲覧できる利用マニュアルページを追加',
+      '⚙️ 設定画面からマニュアルへの導線を追加',
+      '🌐 マニュアル関連文言の日中翻訳を追加',
+    ],
+  },
   {
     version: '1.4.0',
     date: '2026-04-14',

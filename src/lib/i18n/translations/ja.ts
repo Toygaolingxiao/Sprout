@@ -123,6 +123,8 @@ export const ja = {
   'settings.appearance': '🎨 外観',
   'settings.appInfo': 'ℹ️ アプリ情報',
   'settings.version': 'バージョン',
+  'settings.manual': '利用マニュアル',
+  'settings.openManual': 'マニュアルを見る',
   'settings.tagline': '🌱 Sprout — 夫婦で育てる、新しい命の準備',
   'settings.account': '🔐 アカウント',
   'settings.language': '🌐 言語',
@@ -201,6 +203,12 @@ export const ja = {
   // Common
   'common.all': 'すべて',
   'common.categoryFilter': 'カテゴリフィルター',
+  'manual.title': '利用マニュアル',
+  'manual.subtitle': '登録から家族共有まで、使い方を画面上で確認できます。',
+  'manual.section.start': 'はじめる',
+  'manual.section.family': '家族共有',
+  'manual.section.checklist': 'チェックリスト運用',
+  'manual.section.troubleshoot': 'トラブル対応',
 } as const;
 
 export type TranslationKey = keyof typeof ja;
