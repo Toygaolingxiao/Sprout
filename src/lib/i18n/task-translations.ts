@@ -11,7 +11,7 @@ export interface TaskTranslationValue {
 
 export type TaskTranslations = Record<LifeStage, Record<string, TaskTranslationValue>>;
 
-export const TASK_TRANSLATIONS: Record<Locale, TaskTranslations> = {
+export const TASK_TRANSLATIONS: Partial<Record<Locale, TaskTranslations>> = {
   zh: {
     prenatal_care: {
       '基礎体温の記録を開始する': {
