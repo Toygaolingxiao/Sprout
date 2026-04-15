@@ -63,15 +63,67 @@ export const TASK_TRANSLATIONS: Partial<Record<Locale, TaskTranslations>> = {
       },
       '男性向け妊活サプリを検討する': {
         title: '考虑男性专用备孕补充剂',
+        description: '锌、辅酶Q10、维生素E等可改善精子质量',
       },
       '睡眠リズムを整える（早寝早起き）': {
         title: '调整睡眠节奏（早睡早起）',
+        description: '备孕的基础是优质睡眠，目标在23点前入睡',
       },
       'バランスの良い食事を意識する': {
         title: '注意均衡饮食',
+        description: '备孕体质的基础来自每日饮食',
       },
       '冷え対策を始める': {
         title: '开始预防寒冷',
+        description: '寒冷导致血液循环不良，影响子宫和卵巢功能',
+      },
+      '葉酸サプリを飲み始める': {
+        title: '开始服用叶酸',
+        description: '建议从怀孕前1个月开始每日摄取400μg（厚生劳动省推荐）',
+      },
+      '歯科検診を受ける': {
+        title: '接受牙科检查',
+        description: '妊娠期间牙科治疗受到限制，建议事先完成护理',
+      },
+      '生活習慣を見直す（禁煙・節酒）': {
+        title: '调整生活习惯（戒烟·控酒）',
+        description: '吸烟和过度饮酒会降低男女双方的受孕能力',
+      },
+      '精子の質を高める生活習慣を実践する': {
+        title: '实践提高精子质量的生活习惯',
+        description: '通过饮食、运动和睡眠改善精子质量',
+      },
+      '適正体重を目指す': {
+        title: '达到适宜体重',
+        description: 'BMI 18.5～25为理想范围，过瘦过胖均有风险',
+      },
+      '性感染症（STI）検査を受ける': {
+        title: '接受性传播感染（STI）检查',
+        description: '衣原体、淋菌等可导致不孕和流产',
+      },
+      '不妊治療の費用と助成金を調べる': {
+        title: '了解不孕治疗费用和补助金',
+        description: '2022年4月起不孕治疗纳入医保（有条件）',
+      },
+      '医療保険の確認・加入検討': {
+        title: '确认和考虑加入医疗保险',
+        description: '怀孕后许多保险会限制投保',
+      },
+      '出産〜育児にかかる費用の概算を立てる': {
+        title: '估算分娩到育儿的费用',
+        description: '分娩费用、育儿用品、教育费等未来规划',
+      },
+      '妊活についてパートナーと話し合う': {
+        title: '与伴侣讨论备孕事宜',
+        description: '分享备孕方针、时间计划和担忧',
+      },
+      '仕事との両立プランを考える': {
+        title: '考虑工作与备孕的平衡计划',
+        description: '提前规划怀孕期间和产后的工作方式',
+      },
+      '育休取得について調べる': {
+        title: '了解育儿假制度',
+        description: '确认男性育儿假制度（含产后爸爸育儿假）',
       },
     },
     pregnancy: {},
@@ -83,8 +135,9 @@ export const TASK_TRANSLATIONS: Partial<Record<Locale, TaskTranslations>> = {
 export function translateTaskField(
   locale: Locale,
   stageId: LifeStage,
-  original: string,
+  taskTitle: string,
   field: TaskTranslationField,
+  fallback?: string,
 ): string {
-  return TASK_TRANSLATIONS[locale]?.[stageId]?.[original]?.[field] ?? original;
+  return TASK_TRANSLATIONS[locale]?.[stageId]?.[taskTitle]?.[field] ?? fallback ?? taskTitle;
 }

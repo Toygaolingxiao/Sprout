@@ -95,7 +95,7 @@ export default async function StageChecklistPage({ params }: Props) {
           <Badge variant="secondary" className="flex-shrink-0 ml-2">{completed}/{total} ({pct}%)</Badge>
         </div>
         <p className="text-sm text-muted-foreground mt-0.5">{t(`stage.${stageId}.desc` as any)}</p>
-        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{stage.period}</p>
+        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{t(`stage.${stageId}.period` as any)}</p>
       </div>
 
       {dbOffline && (

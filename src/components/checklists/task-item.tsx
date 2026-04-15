@@ -23,10 +23,10 @@ export function TaskItem({ task }: TaskItemProps) {
 
   const translatedTitle = translateTaskField(locale, task.stage_id, task.title, 'title');
   const translatedDescription = task.description
-    ? translateTaskField(locale, task.stage_id, task.description, 'description')
+    ? translateTaskField(locale, task.stage_id, task.title, 'description', task.description)
     : null;
   const translatedTips = task.tips
-    ? translateTaskField(locale, task.stage_id, task.tips, 'tips')
+    ? translateTaskField(locale, task.stage_id, task.title, 'tips', task.tips)
     : null;
 
   function handleToggle() {

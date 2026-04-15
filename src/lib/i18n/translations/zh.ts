@@ -99,6 +99,10 @@ export const zh: Record<TranslationKey, string> = {
   'stage.pregnancy.desc': '怀孕清单',
   'stage.postpartum.desc': '产后清单',
   'stage.childcare.desc': '育儿清单',
+  'stage.prenatal_care.period': '从开始意识到怀孕到确认怀孕。夫妻共同进行身体准备、检查和财务规划的时期。',
+  'stage.pregnancy.period': '从确认怀孕到分娩（约40周）。初期办理各类手续、中期购物和起名、后期准备入院。',
+  'stage.postpartum.period': '分娩后到产后半年左右。各类登记和津贴申请高峰期，以及母体恢复和哺乳节律建立的时期。',
+  'stage.childcare.period': '出生数月到三岁以后。持续进行预防接种、体检、辅食、入园等与孩子成长相关的任务。',
 
   // Categories
   'category.procedure': '手续',
@@ -118,6 +122,13 @@ export const zh: Record<TranslationKey, string> = {
   // Settings
   'settings.title': '设置',
   'settings.profile': '👤 个人资料',
+
+  // Theme
+  'theme.color': '主题颜色',
+  'theme.green': '绿色',
+  'theme.pink': '粉色',
+  'theme.changeTo.green': '切换主题为绿色',
+  'theme.changeTo.pink': '切换主题为粉色',
   'settings.nickname': '昵称',
   'settings.lifeStage': '人生阶段',
   'settings.lifeStageSelect': '选择人生阶段',

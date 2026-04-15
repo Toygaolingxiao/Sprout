@@ -1,34 +1,36 @@
 "use client";
 
 import { useTheme } from './theme-provider';
+import { useTranslation } from '@/lib/i18n/context';
 
 const THEMES = [
-  { id: 'green' as const, label: 'グリーン', emoji: '🌿', colors: 'from-green-400 to-emerald-500' },
-  { id: 'pink' as const, label: 'ピンク', emoji: '🌸', colors: 'from-pink-400 to-rose-500' },
+  { id: 'green' as const, emoji: '🌿', colors: 'from-green-400 to-emerald-500' },
+  { id: 'pink' as const, emoji: '🌸', colors: 'from-pink-400 to-rose-500' },
 ];
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-2">
-      <p className="text-sm font-medium">テーマカラー</p>
+      <p className="text-sm font-medium">{t('theme.color')}</p>
       <div className="flex gap-3">
-        {THEMES.map((t) => (
+        {THEMES.map((th) => (
           <button
-            key={t.id}
-            onClick={() => setTheme(t.id)}
-            aria-label={`テーマを${t.label}に変更`}
+            key={th.id}
+            onClick={() => setTheme(th.id)}
+            aria-label={t(`theme.changeTo.${th.id}` as any)}
             className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
-              theme === t.id
+              theme === th.id
                 ? 'border-primary bg-primary/5 shadow-sm'
                 : 'border-transparent bg-muted/50 hover:bg-muted'
             }`}
           >
-            <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.colors} flex items-center justify-center text-lg`}>
-              {t.emoji}
+            <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${th.colors} flex items-center justify-center text-lg`}>
+              {th.emoji}
             </div>
-            <span className="text-xs font-medium">{t.label}</span>
+            <span className="text-xs font-medium">{t(`theme.${th.id}` as any)}</span>
           </button>
         ))}
       </div>
