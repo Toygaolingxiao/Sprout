@@ -125,6 +125,8 @@ export const zh: Record<TranslationKey, string> = {
   'settings.appearance': '🎨 外观',
   'settings.appInfo': 'ℹ️ 应用信息',
   'settings.version': '版本',
+  'settings.manual': '使用手册',
+  'settings.openManual': '查看手册',
   'settings.tagline': '🌱 Sprout — 夫妻共同迎接新生命',
   'settings.account': '🔐 账号',
   'settings.language': '🌐 语言',
@@ -203,4 +205,10 @@ export const zh: Record<TranslationKey, string> = {
   // Common
   'common.all': '全部',
   'common.categoryFilter': '分类筛选',
+  'manual.title': '使用手册',
+  'manual.subtitle': '可在页面中确认从注册到家庭共享的使用步骤。',
+  'manual.section.start': '开始使用',
+  'manual.section.family': '家庭共享',
+  'manual.section.checklist': '清单使用',
+  'manual.section.troubleshoot': '故障排查',
 };

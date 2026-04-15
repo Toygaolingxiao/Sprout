@@ -1,4 +1,5 @@
 import { getProfile } from '@/lib/actions/profile';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
@@ -62,6 +63,12 @@ export default async function SettingsPage() {
             <span className="font-mono text-xs">{APP_VERSION}</span>
           </div>
           <Separator className="my-2" />
+          <div className="flex items-center justify-between rounded-lg border px-3 py-2">
+            <span className="text-muted-foreground">{t('settings.manual')}</span>
+            <Link href="/manual" className="text-primary text-xs font-medium hover:underline">
+              {t('settings.openManual')}
+            </Link>
+          </div>
           <p className="text-xs text-muted-foreground">
             {t('settings.tagline')}
           </p>
