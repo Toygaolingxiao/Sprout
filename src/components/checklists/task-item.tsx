@@ -131,7 +131,7 @@ export function TaskItem({ task }: TaskItemProps) {
             className="text-destructive hover:text-destructive h-10 w-10 p-0"
             onClick={handleDelete}
             disabled={isPending}
-            aria-label={`${translatedTitle}を削除`}
+            aria-label={t('checklist.deleteTask', { title: translatedTitle })}
           >
             ✕
           </Button>

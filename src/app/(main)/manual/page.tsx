@@ -24,9 +24,9 @@ export default async function ManualPage() {
         </CardHeader>
         <CardContent className="text-sm space-y-2 leading-relaxed">
           <ol className="list-decimal pl-5 space-y-1">
-            <li>新規登録（メールまたはGoogle）を行い、ログインします。</li>
-            <li>設定画面でライフステージと日程を入力して保存します。</li>
-            <li>ホーム画面で現在ステージのタスク一覧を確認します。</li>
+            <li>{t('manual.start.step1')}</li>
+            <li>{t('manual.start.step2')}</li>
+            <li>{t('manual.start.step3')}</li>
           </ol>
         </CardContent>
       </Card>
@@ -37,11 +37,11 @@ export default async function ManualPage() {
         </CardHeader>
         <CardContent className="text-sm space-y-2 leading-relaxed">
           <ol className="list-decimal pl-5 space-y-1">
-            <li>家族画面で招待リンクを生成します。</li>
-            <li>パートナーが別アカウントでログインし、招待リンクを開きます。</li>
-            <li>「家族グループに参加」を押すとタスクを共有できます。</li>
+            <li>{t('manual.family.step1')}</li>
+            <li>{t('manual.family.step2')}</li>
+            <li>{t('manual.family.step3')}</li>
           </ol>
-          <p className="text-xs text-muted-foreground">招待リンクは7日間有効です。</p>
+          <p className="text-xs text-muted-foreground">{t('manual.family.note')}</p>
         </CardContent>
       </Card>
 
@@ -51,9 +51,9 @@ export default async function ManualPage() {
         </CardHeader>
         <CardContent className="text-sm space-y-2 leading-relaxed">
           <ul className="list-disc pl-5 space-y-1">
-            <li>ステージごとのタスクを確認し、左側のチェックで完了できます。</li>
-            <li>カテゴリ・性別フィルターで必要なタスクだけに絞り込めます。</li>
-            <li>「要点・注意事項を見る」からタスク詳細を展開できます。</li>
+            <li>{t('manual.checklist.item1')}</li>
+            <li>{t('manual.checklist.item2')}</li>
+            <li>{t('manual.checklist.item3')}</li>
           </ul>
         </CardContent>
       </Card>
@@ -64,9 +64,9 @@ export default async function ManualPage() {
         </CardHeader>
         <CardContent className="text-sm space-y-2 leading-relaxed">
           <ul className="list-disc pl-5 space-y-1">
-            <li>招待リンクが無効な場合は、家族画面で再発行してください。</li>
-            <li>画面が更新されない場合は再読み込みを行ってください。</li>
-            <li>言語は設定画面の「言語」から切り替えできます。</li>
+            <li>{t('manual.troubleshoot.item1')}</li>
+            <li>{t('manual.troubleshoot.item2')}</li>
+            <li>{t('manual.troubleshoot.item3')}</li>
           </ul>
         </CardContent>
       </Card>

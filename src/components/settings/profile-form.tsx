@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from '@/lib/i18n/context';
 import type { Profile } from '@/types';
 
 interface ProfileFormProps {
@@ -16,6 +17,7 @@ interface ProfileFormProps {
 export function ProfileForm({ profile }: ProfileFormProps) {
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const { t } = useTranslation();
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
@@ -31,7 +33,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">プロフィール編集</CardTitle>
+        <CardTitle className="text-base">{t('settings.profileEdit')}</CardTitle>
       </CardHeader>
       <CardContent>
         {message && (
@@ -48,7 +50,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
 
         <form action={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="nickname">ニックネーム</Label>
+            <Label htmlFor="nickname">{t('settings.nickname')}</Label>
             <Input
               id="nickname"
               name="nickname"
@@ -57,23 +59,23 @@ export function ProfileForm({ profile }: ProfileFormProps) {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="current_stage">ライフステージ</Label>
+            <Label htmlFor="current_stage">{t('settings.lifeStage')}</Label>
             <select
               id="current_stage"
               name="current_stage"
-              aria-label="ライフステージを選択"
+              aria-label={t('settings.lifeStageSelect')}
               defaultValue={profile.current_stage}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             >
               {STAGES.map((s) => (
                 <option key={s.id} value={s.id}>
-                  {s.emoji} {s.label}
+                  {s.emoji} {t(`stage.${s.id}` as any)}
                 </option>
               ))}
             </select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="expected_due_date">出産予定日</Label>
+            <Label htmlFor="expected_due_date">{t('settings.dueDate')}</Label>
             <Input
               id="expected_due_date"
               name="expected_due_date"
@@ -81,11 +83,11 @@ export function ProfileForm({ profile }: ProfileFormProps) {
               defaultValue={profile.expected_due_date ?? ''}
             />
             <p className="text-xs text-muted-foreground">
-              設定するとタスクの推奨時期が自動計算されます
+              {t('settings.dueDateAutoCalc')}
             </p>
           </div>
           <Button type="submit" disabled={isPending}>
-            {isPending ? '保存中...' : '保存'}
+            {isPending ? t('settings.saving') : t('settings.save')}
           </Button>
         </form>
       </CardContent>
