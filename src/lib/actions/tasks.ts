@@ -5,6 +5,33 @@ import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, CategoryId, Task, TaskPriority } from '@/types';
 
+function resolveTemplatePriority(input: { priority?: TaskPriority; category_id: CategoryId }): TaskPriority {
+  if (input.priority) return input.priority;
+  if (input.category_id === 'procedure' || input.category_id === 'health') return 'high';
+  if (input.category_id === 'money' || input.category_id === 'shopping') return 'medium';
+  return 'low';
+}
+
+function calculateTemplateDueDate(
+  template: { stage_id: LifeStage; days_offset?: number | null },
+  dueDateBase: Date | null,
+  pregnancyDateBase: Date | null,
+) {
+  if (template.stage_id === 'prenatal_care' && pregnancyDateBase) {
+    const d = new Date(pregnancyDateBase);
+    d.setDate(d.getDate() + (template.days_offset ?? -30));
+    return d.toISOString().split('T')[0];
+  }
+
+  if (template.stage_id !== 'prenatal_care' && dueDateBase && (template.days_offset || template.days_offset === 0)) {
+    const d = new Date(dueDateBase);
+    d.setDate(d.getDate() + template.days_offset);
+    return d.toISOString().split('T')[0];
+  }
+
+  return null;
+}
+
 export async function getTasks(stageId?: LifeStage): Promise<Task[]> {
   const user = await getAuthUser();
   if (!user) return [];
@@ -180,67 +207,14 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
   const dueDateBase = profile.expected_due_date ? new Date(profile.expected_due_date + 'T00:00:00') : null;
   const pregnancyDateBase = profile.expected_pregnancy_date ? new Date(profile.expected_pregnancy_date + 'T00:00:00') : null;
 
+  // Do not auto-sync missing defaults on every page view.
+  // Defaults can now be intentionally removed and restored via explicit template reset.
   if (count && count > 0) {
-    // Sync new templates: find templates not yet in user's tasks for this stage
-    const { data: existingTasks } = await supabase
-      .from('tasks')
-      .select('title')
-      .eq('family_id', profile.family_id)
-      .eq('stage_id', stageId)
-      .eq('is_custom', false);
-
-    const existingTitles = new Set((existingTasks ?? []).map((t: { title: string }) => t.title));
-    const newTemplates = localTemplates.filter((t) => !existingTitles.has(t.title));
-
-    if (newTemplates.length === 0) return { success: true, message: '既にタスクが存在します' };
-
-    const newTasks = newTemplates.map((t) => {
-      let due_date: string | null = null;
-      if (t.stage_id === 'prenatal_care' && pregnancyDateBase) {
-        const d = new Date(pregnancyDateBase);
-        d.setDate(d.getDate() + (t.days_offset ?? -30));
-        due_date = d.toISOString().split('T')[0];
-      } else if (t.stage_id !== 'prenatal_care' && dueDateBase && (t.days_offset || t.days_offset === 0)) {
-        const d = new Date(dueDateBase);
-        d.setDate(d.getDate() + t.days_offset);
-        due_date = d.toISOString().split('T')[0];
-      }
-      return {
-        family_id: profile.family_id!,
-        stage_id: t.stage_id,
-        category_id: t.category_id,
-        title: t.title,
-        description: t.description ?? null,
-        sort_order: t.sort_order,
-        target_gender: t.target_gender,
-        tips: t.tips ?? null,
-        is_custom: false,
-        created_by: user.id,
-        due_date,
-        priority: 'medium',
-      };
-    });
-
-    await supabase.from('tasks').insert(newTasks as Record<string, unknown>[]);
-    revalidatePath('/checklists');
-    revalidatePath('/dashboard');
-    return { success: true, message: `${newTasks.length}件の新しいタスクを追加しました` };
+    return { success: true, message: '既にタスクが存在します' };
   }
 
   const tasks = localTemplates.map((t) => {
-    let due_date: string | null = null;
-
-    if (t.stage_id === 'prenatal_care' && pregnancyDateBase) {
-      // 妊活: 妊娠予定時期を基準に
-      const d = new Date(pregnancyDateBase);
-      d.setDate(d.getDate() + (t.days_offset ?? -30));
-      due_date = d.toISOString().split('T')[0];
-    } else if (t.stage_id !== 'prenatal_care' && dueDateBase && (t.days_offset || t.days_offset === 0)) {
-      // 妊娠・産後・育児: 出産予定日を基準
-      const d = new Date(dueDateBase);
-      d.setDate(d.getDate() + t.days_offset);
-      due_date = d.toISOString().split('T')[0];
-    }
+    const due_date = calculateTemplateDueDate(t, dueDateBase, pregnancyDateBase);
     return {
       family_id: profile.family_id!,
       stage_id: t.stage_id,
@@ -253,7 +227,7 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
       is_custom: false,
       created_by: user.id,
       due_date,
-      priority: 'medium',
+      priority: resolveTemplatePriority(t),
     };
   });
 
@@ -305,4 +279,127 @@ export async function getTaskStats() {
     .slice(0, 5);
 
   return { stages: stats, upcoming };
+}
+
+export async function resetStageTemplates(input: {
+  stageId: LifeStage;
+  priorities: TaskPriority[];
+}) {
+  const user = await getAuthUser();
+  if (!user) return { error: '認証されていません' };
+
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return { error: '家族グループが見つかりません' };
+
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('expected_due_date, expected_pregnancy_date')
+    .eq('id', user.id)
+    .single() as { data: { expected_due_date: string | null; expected_pregnancy_date: string | null } | null };
+
+  const priorities = input.priorities.length > 0 ? input.priorities : ['high', 'medium', 'low'];
+  const dueDateBase = profile?.expected_due_date ? new Date(profile.expected_due_date + 'T00:00:00') : null;
+  const pregnancyDateBase = profile?.expected_pregnancy_date ? new Date(profile.expected_pregnancy_date + 'T00:00:00') : null;
+
+  const templates = CHECKLIST_TEMPLATES
+    .filter((t) => t.stage_id === input.stageId)
+    .filter((t) => priorities.includes(resolveTemplatePriority(t)));
+
+  const { error: deleteError } = await supabase
+    .from('tasks')
+    .delete()
+    .eq('family_id', familyId)
+    .eq('stage_id', input.stageId)
+    .eq('is_custom', false);
+
+  if (deleteError) return { error: deleteError.message };
+
+  if (templates.length === 0) {
+    revalidatePath('/checklists');
+    revalidatePath('/dashboard');
+    return { success: true, insertedCount: 0 };
+  }
+
+  const payload = templates.map((t) => ({
+    family_id: familyId,
+    stage_id: t.stage_id,
+    category_id: t.category_id,
+    title: t.title,
+    description: t.description ?? null,
+    sort_order: t.sort_order,
+    target_gender: t.target_gender,
+    tips: t.tips ?? null,
+    is_custom: false,
+    created_by: user.id,
+    due_date: calculateTemplateDueDate(t, dueDateBase, pregnancyDateBase),
+    priority: resolveTemplatePriority(t),
+  }));
+
+  const { error: insertError } = await supabase.from('tasks').insert(payload as Record<string, unknown>[]);
+  if (insertError) return { error: insertError.message };
+
+  revalidatePath('/checklists');
+  revalidatePath('/dashboard');
+  return { success: true, insertedCount: payload.length };
+}
+
+export async function deleteCustomTasksByStage(stageId: LifeStage) {
+  const user = await getAuthUser();
+  if (!user) return { error: '認証されていません' };
+
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return { error: '家族グループが見つかりません' };
+
+  const supabase = await createClient();
+  const { count, error: countError } = await supabase
+    .from('tasks')
+    .select('*', { count: 'exact', head: true })
+    .eq('family_id', familyId)
+    .eq('stage_id', stageId)
+    .eq('is_custom', true);
+
+  if (countError) return { error: countError.message };
+
+  const { error } = await supabase
+    .from('tasks')
+    .delete()
+    .eq('family_id', familyId)
+    .eq('stage_id', stageId)
+    .eq('is_custom', true);
+
+  if (error) return { error: error.message };
+
+  revalidatePath('/checklists');
+  revalidatePath('/dashboard');
+  return { success: true, deletedCount: count ?? 0 };
+}
+
+export async function deleteAllCustomTasks() {
+  const user = await getAuthUser();
+  if (!user) return { error: '認証されていません' };
+
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return { error: '家族グループが見つかりません' };
+
+  const supabase = await createClient();
+  const { count, error: countError } = await supabase
+    .from('tasks')
+    .select('*', { count: 'exact', head: true })
+    .eq('family_id', familyId)
+    .eq('is_custom', true);
+
+  if (countError) return { error: countError.message };
+
+  const { error } = await supabase
+    .from('tasks')
+    .delete()
+    .eq('family_id', familyId)
+    .eq('is_custom', true);
+
+  if (error) return { error: error.message };
+
+  revalidatePath('/checklists');
+  revalidatePath('/dashboard');
+  return { success: true, deletedCount: count ?? 0 };
 }

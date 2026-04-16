@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.8.0';
+export const APP_VERSION = '1.9.1';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.0',
+    date: '2026-04-16',
+    items: [
+      '♻️ デフォルト項目の自動再生成を停止し、テンプレート再適用（優先度フィルタ付き）を追加',
+      '🧹 手動追加タスクの一括削除を追加（ステージ単位 / 全ステージ）',
+      '🌐 中国語画面で未翻訳詳細文の日本語混在を抑制し、中国語補完メッセージを表示',
+    ],
+  },
   {
     version: '1.8.0',
     date: '2026-04-16',

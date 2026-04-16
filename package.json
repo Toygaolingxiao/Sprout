@@ -9,6 +9,7 @@
     "lint": "eslint",
     "deploy": "git push && node scripts/deploy.mjs",
     "deploy:trigger": "node scripts/deploy.mjs",
+    "release:auto": "node scripts/release-auto.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },

@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.8.0
+> for commit 1.9.1
 
 ---
 
@@ -14,6 +14,8 @@
 - 👫 **夫婦共有** — 家族グループで進捗をリアルタイム共有
 - 🎯 **タスク優先度** — 高/中/低で優先順に整理
 - ♀️♂️ **性別フィルター** — 女性向け/男性向けタスクをワンタップ切替
+- ♻️ **テンプレート再適用** — 優先度（高/中/低）でデフォルト項目を復元
+- 🧹 **一括整理** — 手動追加タスクをステージ単位/全ステージで削除
 - 🏷️ **カテゴリ分類** — 手続き・買い物・健康・お金・その他
 - 📱 **モバイルファースト** — ボトムナビ + レスポンシブ対応
 - 🔒 **セキュア** — Supabase Auth + Row Level Security
@@ -76,12 +78,14 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 Supabase SQL Editor で以下を順番に実行:
 
 1. `supabase/migrations/001_initial_schema.sql` — テーブル + RLS + トリガー
-2. `supabase/migrations/006_all_in_one_fix.sql` — GRANT権限 + プロフィール自動作成
-3. `supabase/migrations/009_fix_signup_trigger.sql` — signupトリガー修正（本番必須）
-4. `supabase/migrations/010_add_baby_gender.sql` — 赤ちゃんの性別設定カラム
-5. `supabase/migrations/011_add_task_priority.sql` — タスク優先度カラム
-6. `supabase/migrations/012_add_user_gender.sql` — アカウント性別設定カラム
-7. `supabase/migrations/013_task_query_performance_indexes.sql` — タスク表示高速化インデックス
+2. `supabase/migrations/002_add_gender_tips.sql` — 性別に応じたタスク補足情報
+3. `supabase/migrations/002_grants.sql` — 権限設定
+4. `supabase/migrations/003_fix_postgrest.sql` — PostgREST関連修正
+5. `supabase/migrations/004_fix_test_user.sql` — テストユーザー関連修正
+6. `supabase/migrations/005_ensure_profile_fn.sql` — プロフィール作成関数の整備
+7. `supabase/migrations/006_all_in_one_fix.sql` — 主要修正の統合
+8. `supabase/migrations/007_add_expected_due_date.sql` — 出産予定日カラム追加
+9. `supabase/migrations/008_add_expected_pregnancy_date.sql` — 妊娠予定時期カラム追加
 
 ### 4. 開発サーバー
 
@@ -109,6 +113,20 @@ Vercel にGitHub連携でデプロイ。環境変数3つを設定:
 Supabase Dashboard → Authentication → URL Configuration:
 - Site URL: 本番URL
 - Redirect URLs: `https://your-app.vercel.app/**`
+
+### 5.1 自動リリース（VerUp + commit + push + deploy）
+
+機能更新後は次のコマンドで一括実行できます。
+
+```bash
+npm run release:auto -- --type patch --notes "項目1|項目2|項目3"
+```
+
+主なオプション:
+- `--type minor` / `--type major`
+- `--skip-build`（ビルド省略）
+- `--skip-deploy`（deployトリガー省略）
+- `--dry-run`（処理確認）
 
 ## プロジェクト構成
 
