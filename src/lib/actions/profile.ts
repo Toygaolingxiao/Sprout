@@ -71,6 +71,7 @@ export async function updateProfile(formData: FormData) {
 
   revalidatePath('/dashboard');
   revalidatePath('/checklists');
+  revalidatePath('/family');
   revalidatePath('/settings');
   return { success: 'プロフィールを更新しました' };
 }
@@ -81,8 +82,6 @@ async function recalculateTaskDueDates(
   dueDate: string | null,
   pregnancyDate: string | null,
 ) {
-  if (!dueDate && !pregnancyDate) return;
-
   const supabase = await createClient();
 
   const { data: profile } = await supabase
@@ -118,29 +117,37 @@ async function recalculateTaskDueDates(
     if (!template) continue;
 
     let taskDateStr: string | null = null;
+    let shouldUpdate = false;
 
     if (task.stage_id === 'prenatal_care' && pregnancyDateObj) {
       const base = new Date(pregnancyDateObj);
       const offset = template.days_offset ?? -30;
       base.setDate(base.getDate() + offset);
       taskDateStr = base.toISOString().split('T')[0];
+      shouldUpdate = true;
+    } else if (task.stage_id === 'prenatal_care') {
+      shouldUpdate = true;
     } else if (task.stage_id !== 'prenatal_care' && dueDateObj && (template.days_offset || template.days_offset === 0)) {
       const taskDate = new Date(dueDateObj);
       taskDate.setDate(taskDate.getDate() + template.days_offset);
       taskDateStr = taskDate.toISOString().split('T')[0];
+      shouldUpdate = true;
+    } else if (task.stage_id !== 'prenatal_care' && (template.days_offset || template.days_offset === 0)) {
+      shouldUpdate = true;
     }
 
-    if (taskDateStr) {
-      const ids = updatesByDate.get(taskDateStr) ?? [];
+    if (shouldUpdate) {
+      const updateKey = taskDateStr ?? '__NULL__';
+      const ids = updatesByDate.get(updateKey) ?? [];
       ids.push(task.id);
-      updatesByDate.set(taskDateStr, ids);
+      updatesByDate.set(updateKey, ids);
     }
   }
 
   // Batch update: one query per unique due_date (typically ~10-15 dates vs ~50 individual updates)
   await Promise.all(
     Array.from(updatesByDate.entries()).map(([dateStr, ids]) =>
-      supabase.from('tasks').update({ due_date: dateStr }).in('id', ids)
+      supabase.from('tasks').update({ due_date: dateStr === '__NULL__' ? null : dateStr }).in('id', ids)
     )
   );
 }
