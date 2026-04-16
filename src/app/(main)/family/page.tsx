@@ -20,6 +20,10 @@ export default async function FamilyPage() {
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
 
+  const nearbyPediatricsUrl = 'https://www.google.com/maps/search/?api=1&query=%E4%BB%98%E8%BF%91%E3%81%AE%E5%B0%8F%E5%85%90%E7%A7%91';
+  const pediatricsUrl = 'https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E5%85%90%E7%A7%91';
+  const obgynUrl = 'https://www.google.com/maps/search/?api=1&query=%E7%94%A3%E5%A9%A6%E4%BA%BA%E7%A7%91';
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">{t('family.title')}</h1>
@@ -29,6 +33,42 @@ export default async function FamilyPage() {
 
       {/* スケジュール設定（妊娠予定時期・出産予定日） */}
       {profile && <ScheduleSection profile={profile} />}
+
+      {/* 近くの病院検索 */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t('family.nearbyHospitalTitle')}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">{t('family.nearbyHospitalDesc')}</p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <a
+              href={nearbyPediatricsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+            >
+              {t('family.searchNearbyPediatrics')}
+            </a>
+            <a
+              href={pediatricsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+            >
+              {t('family.searchPediatrics')}
+            </a>
+            <a
+              href={obgynUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+            >
+              {t('family.searchObgyn')}
+            </a>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* メンバー一覧 */}
       <Card>
