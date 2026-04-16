@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.7.0';
+export const APP_VERSION = '1.8.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.8.0',
+    date: '2026-04-16',
+    items: [
+      '🛠️ タスク削除後にまれに発生するエラーを修正（リンク表示処理の安全化）',
+      '👤 各アカウント向けの性別設定を追加（あなたの性別）',
+      '⚡ タスク取得クエリ最適化とDBインデックス追加で表示速度を改善',
+    ],
+  },
   {
     version: '1.7.0',
     date: '2026-04-16',

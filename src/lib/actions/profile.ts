@@ -53,17 +53,27 @@ export async function updateProfile(formData: FormData) {
   const expectedDueDate = expectedDueDateRaw || null;
   const expectedPregnancyDateRaw = formData.get('expected_pregnancy_date') as string;
   const expectedPregnancyDate = expectedPregnancyDateRaw || null;
-  const babyGender = (formData.get('baby_gender') as string) || 'unknown';
+  const babyGenderRaw = formData.get('baby_gender') as string | null;
+  const userGenderRaw = formData.get('user_gender') as string | null;
+
+  const updateData: Record<string, unknown> = {
+    nickname,
+    current_stage: currentStage,
+    expected_due_date: expectedDueDate,
+    expected_pregnancy_date: expectedPregnancyDate,
+  };
+
+  if (babyGenderRaw) {
+    updateData.baby_gender = babyGenderRaw;
+  }
+
+  if (userGenderRaw) {
+    updateData.user_gender = userGenderRaw;
+  }
 
   const { error } = await supabase
     .from('profiles')
-    .update({
-      nickname,
-      current_stage: currentStage,
-      expected_due_date: expectedDueDate,
-      expected_pregnancy_date: expectedPregnancyDate,
-      baby_gender: babyGender,
-    } as Record<string, unknown>)
+    .update(updateData)
     .eq('id', user.id);
 
   if (error) return { error: error.message };

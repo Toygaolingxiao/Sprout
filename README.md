@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.7.0
+> for commit 1.8.0
 
 ---
 
@@ -80,6 +80,8 @@ Supabase SQL Editor で以下を順番に実行:
 3. `supabase/migrations/009_fix_signup_trigger.sql` — signupトリガー修正（本番必須）
 4. `supabase/migrations/010_add_baby_gender.sql` — 赤ちゃんの性別設定カラム
 5. `supabase/migrations/011_add_task_priority.sql` — タスク優先度カラム
+6. `supabase/migrations/012_add_user_gender.sql` — アカウント性別設定カラム
+7. `supabase/migrations/013_task_query_performance_indexes.sql` — タスク表示高速化インデックス
 
 ### 4. 開発サーバー
 

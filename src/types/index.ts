@@ -6,6 +6,7 @@ export type ActivityAction = 'complete' | 'uncomplete' | 'create' | 'update' | '
 export type CategoryId = 'procedure' | 'shopping' | 'health' | 'money' | 'other';
 export type TargetGender = 'both' | 'female' | 'male';
 export type BabyGender = 'female' | 'male' | 'unknown';
+export type UserGender = 'female' | 'male' | 'other' | 'unknown';
 export type TaskPriority = 'high' | 'medium' | 'low';
 
 export interface Profile {
@@ -17,6 +18,7 @@ export interface Profile {
   expected_due_date: string | null;
   expected_pregnancy_date: string | null;
   baby_gender: BabyGender;
+  user_gender: UserGender;
   created_at: string;
   updated_at: string;
 }
