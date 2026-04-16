@@ -1,0 +1,18 @@
+-- Add per-task priority for family-level DIY management
+ALTER TABLE public.tasks
+  ADD COLUMN IF NOT EXISTS priority TEXT NOT NULL DEFAULT 'medium';
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_constraint
+    WHERE conname = 'tasks_priority_check'
+  ) THEN
+    ALTER TABLE public.tasks
+      ADD CONSTRAINT tasks_priority_check
+      CHECK (priority IN ('high', 'medium', 'low'));
+  END IF;
+END $$;
+
+NOTIFY pgrst, 'reload schema';

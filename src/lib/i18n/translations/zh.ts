@@ -89,6 +89,11 @@ export const zh: Record<TranslationKey, string> = {
   'checklist.completedToggle': '✅ 已完成 ({n})',
   'checklist.tapToRestore': '点击恢复',
   'checklist.deleteTask': '删除{title}',
+  'checklist.priority': '优先级',
+  'checklist.priorityHigh': '高',
+  'checklist.priorityMedium': '中',
+  'checklist.priorityLow': '低',
+  'checklist.priorityUpdated': '已更新优先级',
 
   // Stages
   'stage.prenatal_care': '备孕',
@@ -190,6 +195,15 @@ export const zh: Record<TranslationKey, string> = {
   'family.searchNearbyPediatrics': '附近小儿科',
   'family.searchPediatrics': '小儿科',
   'family.searchObgyn': '妇产科',
+
+  // Invite
+  'invite.title': '家庭组邀请',
+  'invite.description': '你的伴侣邀请你加入 Sprout 家庭组。加入后可共享检查清单。',
+  'invite.joining': '加入中...',
+  'invite.join': '加入家庭组',
+  'invite.loginRequired': '加入前需要先登录或注册账号。',
+  'invite.signupAndJoin': '注册并加入',
+  'invite.loginAndJoin': '登录并加入',
 
   // Landing page
   'lp.login': '登录',

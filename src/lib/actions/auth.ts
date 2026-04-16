@@ -12,12 +12,20 @@ async function getSiteUrl() {
   return `${proto}://${host}`;
 }
 
+function getSafeNextPath(rawNext: string | null | undefined, fallback = '/dashboard') {
+  if (!rawNext || rawNext.length === 0) return fallback;
+  if (!rawNext.startsWith('/')) return fallback;
+  if (rawNext.startsWith('//')) return fallback;
+  return rawNext;
+}
+
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
 
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
   const nickname = formData.get('nickname') as string;
+  const nextPath = getSafeNextPath(formData.get('next') as string | null);
 
   const { error } = await supabase.auth.signUp({
     email,
@@ -31,7 +39,7 @@ export async function signUp(formData: FormData) {
     return { error: error.message };
   }
 
-  redirect('/dashboard');
+  redirect(nextPath);
 }
 
 export async function signIn(formData: FormData) {
@@ -39,6 +47,7 @@ export async function signIn(formData: FormData) {
 
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+  const nextPath = getSafeNextPath(formData.get('next') as string | null);
 
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -46,17 +55,18 @@ export async function signIn(formData: FormData) {
     return { error: error.message };
   }
 
-  redirect('/dashboard');
+  redirect(nextPath);
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(formData?: FormData) {
   const supabase = await createClient();
   const siteUrl = await getSiteUrl();
+  const nextPath = getSafeNextPath((formData?.get('next') as string | null) ?? null);
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${siteUrl}/auth/callback`,
+      redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(nextPath)}`,
     },
   });
 

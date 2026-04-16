@@ -8,6 +8,7 @@ import { ChecklistClient } from './checklist-client';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getLocale, serverT } from '@/lib/i18n/server';
+import type { TranslationKey } from '@/lib/i18n';
 import type { LifeStage, Task } from '@/types';
 
 interface Props {
@@ -44,6 +45,7 @@ export default async function StageChecklistPage({ params }: Props) {
         completed_at: null,
         assigned_to: null,
         due_date: null,
+        priority: 'medium',
         sort_order: t.sort_order,
         is_custom: false,
         target_gender: t.target_gender,
@@ -78,7 +80,7 @@ export default async function StageChecklistPage({ params }: Props) {
               }`}
             >
               <span>{s.emoji}</span>
-              <span>{t(`stage.${s.id}` as any)}</span>
+              <span>{t(`stage.${s.id}` as TranslationKey)}</span>
             </Link>
           );
         })}
@@ -90,12 +92,12 @@ export default async function StageChecklistPage({ params }: Props) {
         <div className="flex items-center justify-between min-w-0">
           <h1 className="text-xl font-bold flex items-center gap-2 min-w-0">
             <span className="flex-shrink-0">{stage.emoji}</span>
-            <span className="truncate">{t(`stage.${stageId}` as any)}</span>
+            <span className="truncate">{t(`stage.${stageId}` as TranslationKey)}</span>
           </h1>
           <Badge variant="secondary" className="flex-shrink-0 ml-2">{completed}/{total} ({pct}%)</Badge>
         </div>
-        <p className="text-sm text-muted-foreground mt-0.5">{t(`stage.${stageId}.desc` as any)}</p>
-        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{t(`stage.${stageId}.period` as any)}</p>
+        <p className="text-sm text-muted-foreground mt-0.5">{t(`stage.${stageId}.desc` as TranslationKey)}</p>
+        <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{t(`stage.${stageId}.period` as TranslationKey)}</p>
       </div>
 
       {dbOffline && (

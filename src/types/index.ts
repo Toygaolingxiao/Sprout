@@ -6,6 +6,7 @@ export type ActivityAction = 'complete' | 'uncomplete' | 'create' | 'update' | '
 export type CategoryId = 'procedure' | 'shopping' | 'health' | 'money' | 'other';
 export type TargetGender = 'both' | 'female' | 'male';
 export type BabyGender = 'female' | 'male' | 'unknown';
+export type TaskPriority = 'high' | 'medium' | 'low';
 
 export interface Profile {
   id: string;
@@ -74,6 +75,7 @@ export interface Task {
   completed_at: string | null;
   assigned_to: string | null;
   due_date: string | null;
+  priority: TaskPriority;
   sort_order: number;
   is_custom: boolean;
   target_gender: TargetGender;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from 'react';
-import { toggleTask, deleteTask } from '@/lib/actions/tasks';
+import { toggleTask, deleteTask, updateTask } from '@/lib/actions/tasks';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { CATEGORY_MAP } from '@/data/seed/categories';
 import { useTranslation } from '@/lib/i18n/context';
 import { translateTaskField } from '@/lib/i18n/task-translations';
+import type { TranslationKey } from '@/lib/i18n';
 import type { Task } from '@/types';
 
 interface TaskItemProps {
@@ -53,12 +54,30 @@ export function TaskItem({ task }: TaskItemProps) {
     });
   }
 
+  function handlePriorityChange(priority: Task['priority']) {
+    if (isLocal) return;
+    startTransition(async () => {
+      const result = await updateTask(task.id, { priority });
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(t('checklist.priorityUpdated'));
+      }
+    });
+  }
+
   const category = CATEGORY_MAP[task.category_id];
   const gender = {
     female: { label: t('gender.femaleLabel'), emoji: '♀', className: 'border-pink-400 text-pink-500 bg-pink-50' },
     male: { label: t('gender.maleLabel'), emoji: '♂', className: 'border-blue-400 text-blue-500 bg-blue-50' },
     both: { label: t('gender.bothLabel'), emoji: '👫', className: 'border-gray-300 text-gray-500 bg-gray-50' },
   }[task.target_gender] ?? { label: t('gender.bothLabel'), emoji: '👫', className: 'border-gray-300 text-gray-500 bg-gray-50' };
+
+  const priorityMeta = {
+    high: { label: t('checklist.priorityHigh'), className: 'border-red-300 text-red-600 bg-red-50' },
+    medium: { label: t('checklist.priorityMedium'), className: 'border-amber-300 text-amber-700 bg-amber-50' },
+    low: { label: t('checklist.priorityLow'), className: 'border-slate-300 text-slate-600 bg-slate-50' },
+  }[task.priority ?? 'medium'];
 
   return (
     <div
@@ -88,7 +107,7 @@ export function TaskItem({ task }: TaskItemProps) {
               className="text-[10px] px-1.5 py-0"
               style={{ borderColor: category?.color, color: category?.color }}
             >
-              {category ? t(`category.${category.id}` as any) : ''}
+              {category ? t(`category.${category.id}` as TranslationKey) : ''}
             </Badge>
             {task.target_gender !== 'both' && (
               <Badge
@@ -98,6 +117,12 @@ export function TaskItem({ task }: TaskItemProps) {
                 {gender.emoji} {gender.label}
               </Badge>
             )}
+            <Badge
+              variant="outline"
+              className={`text-[10px] px-1.5 py-0 ${priorityMeta.className}`}
+            >
+              {priorityMeta.label}
+            </Badge>
           </div>
           {translatedDescription && (
             <p className="mt-1 text-xs text-muted-foreground">
@@ -112,6 +137,24 @@ export function TaskItem({ task }: TaskItemProps) {
               📅 {task.due_date}
             </p>
           )}
+          {!isLocal && (
+            <div className="mt-2 flex items-center gap-2">
+              <label htmlFor={`priority-${task.id}`} className="text-[11px] text-muted-foreground">
+                {t('checklist.priority')}
+              </label>
+              <select
+                id={`priority-${task.id}`}
+                className="h-7 rounded-md border border-input bg-background px-2 text-xs"
+                value={task.priority ?? 'medium'}
+                onChange={(event: { target: { value: string } }) => handlePriorityChange(event.target.value as Task['priority'])}
+                disabled={isPending}
+              >
+                <option value="high">{t('checklist.priorityHigh')}</option>
+                <option value="medium">{t('checklist.priorityMedium')}</option>
+                <option value="low">{t('checklist.priorityLow')}</option>
+              </select>
+            </div>
+          )}
           {translatedTips && (
             <button
               type="button"
@@ -124,7 +167,7 @@ export function TaskItem({ task }: TaskItemProps) {
             </button>
           )}
         </div>
-        {task.is_custom && (
+        {!isLocal && (
           <Button
             variant="ghost"
             size="sm"

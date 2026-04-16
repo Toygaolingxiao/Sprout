@@ -8,7 +8,8 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { CATEGORIES } from '@/data/seed/categories';
 import { useTranslation } from '@/lib/i18n/context';
-import type { LifeStage, CategoryId } from '@/types';
+import type { TranslationKey } from '@/lib/i18n';
+import type { LifeStage, CategoryId, TaskPriority } from '@/types';
 
 interface TaskFormProps {
   stageId: LifeStage;
@@ -27,6 +28,7 @@ export function TaskForm({ stageId }: TaskFormProps) {
         category_id: formData.get('category_id') as CategoryId,
         description: (formData.get('description') as string) || undefined,
         due_date: (formData.get('due_date') as string) || undefined,
+        priority: (formData.get('priority') as TaskPriority) || 'medium',
       });
       if (result?.error) {
         toast.error(result.error);
@@ -66,7 +68,7 @@ export function TaskForm({ stageId }: TaskFormProps) {
         >
           {CATEGORIES.map((c) => (
             <option key={c.id} value={c.id}>
-              {t(`category.${c.id}` as any)}
+              {t(`category.${c.id}` as TranslationKey)}
             </option>
           ))}
         </select>
@@ -78,6 +80,20 @@ export function TaskForm({ stageId }: TaskFormProps) {
       <div className="space-y-2">
         <Label htmlFor="due_date">{t('checklist.dueDateLabel')}</Label>
         <Input id="due_date" name="due_date" type="date" />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="priority">{t('checklist.priority')}</Label>
+        <select
+          id="priority"
+          name="priority"
+          aria-label={t('checklist.priority')}
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          defaultValue="medium"
+        >
+          <option value="high">{t('checklist.priorityHigh')}</option>
+          <option value="medium">{t('checklist.priorityMedium')}</option>
+          <option value="low">{t('checklist.priorityLow')}</option>
+        </select>
       </div>
       <div className="flex gap-2">
         <Button type="submit" disabled={isPending} className="flex-1">

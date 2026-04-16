@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
-import type { LifeStage, CategoryId, Task } from '@/types';
+import type { LifeStage, CategoryId, Task, TaskPriority } from '@/types';
 
 export async function getTasks(stageId?: LifeStage): Promise<Task[]> {
   const user = await getAuthUser();
@@ -29,6 +29,7 @@ export async function createTask(input: {
   category_id: CategoryId;
   description?: string;
   due_date?: string;
+  priority?: TaskPriority;
 }) {
   const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
@@ -55,6 +56,7 @@ export async function createTask(input: {
     title: input.title,
     description: input.description ?? null,
     due_date: input.due_date ?? null,
+    priority: input.priority ?? 'medium',
     sort_order: (maxTask?.sort_order ?? 0) + 1,
     is_custom: true,
     created_by: user.id,
@@ -93,6 +95,7 @@ export async function updateTask(taskId: string, input: {
   description?: string;
   category_id?: CategoryId;
   due_date?: string | null;
+  priority?: TaskPriority;
 }) {
   const user = await getAuthUser();
   if (!user) return { error: '認証されていません' };
@@ -210,6 +213,7 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
         is_custom: false,
         created_by: user.id,
         due_date,
+        priority: 'medium',
       };
     });
 
@@ -245,6 +249,7 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
       is_custom: false,
       created_by: user.id,
       due_date,
+      priority: 'medium',
     };
   });
 
@@ -270,12 +275,12 @@ export async function getTaskStats() {
   const supabase = await createClient();
   const { data: tasks } = await supabase
     .from('tasks')
-    .select('stage_id, is_completed, due_date, title')
+    .select('stage_id, is_completed, due_date, title, priority')
     .eq('family_id', familyId);
 
   if (!tasks) return null;
 
-  const typedTasks = tasks as { stage_id: string; is_completed: boolean; due_date: string | null; title: string }[];
+  const typedTasks = tasks as { stage_id: string; is_completed: boolean; due_date: string | null; title: string; priority: TaskPriority }[];
 
   const stages = ['prenatal_care', 'pregnancy', 'postpartum', 'childcare'] as const;
   const stats = stages.map((stageId) => {
