@@ -76,6 +76,7 @@ Supabase SQL Editor で以下を順番に実行:
 
 1. `supabase/migrations/001_initial_schema.sql` — テーブル + RLS + トリガー
 2. `supabase/migrations/006_all_in_one_fix.sql` — GRANT権限 + プロフィール自動作成
+3. `supabase/migrations/009_fix_signup_trigger.sql` — signupトリガー修正（本番必須）
 
 ### 4. 開発サーバー
 
