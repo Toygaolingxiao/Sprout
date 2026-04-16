@@ -457,6 +457,9 @@ export function translateTaskField(
   const translated = TASK_TRANSLATIONS[locale]?.[stageId]?.[taskTitle]?.[field];
   if (translated) return translated;
 
+  // Prefer existing task content from DB/template before showing synthetic text.
+  if (fallback) return fallback;
+
   if (locale === 'zh') {
     if (field === 'tips') {
       return '该条目要点正在完善中。请先参考标题与说明，或使用页面内医院搜索/官方信息链接。';

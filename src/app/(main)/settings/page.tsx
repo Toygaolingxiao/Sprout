@@ -4,8 +4,10 @@ import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
 import { APP_VERSION } from '@/data/release-notes';
 import { signOut } from '@/lib/actions/auth';
+import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
 import { ChangePasswordSection } from '@/components/settings/change-password-section';
+import { TemplateManagementSection } from '@/components/settings/template-management-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
 import { getLocale } from '@/lib/i18n/server';
 import { serverT } from '@/lib/i18n/server';
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingsPage() {
+  const profile = await getProfile();
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
 
@@ -42,6 +45,9 @@ export default async function SettingsPage() {
           <ThemeSwitcher />
         </CardContent>
       </Card>
+
+      {/* Template tools */}
+      {profile && <TemplateManagementSection defaultStage={profile.current_stage} />}
 
       {/* App info */}
       <Card>
