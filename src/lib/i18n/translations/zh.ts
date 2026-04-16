@@ -94,6 +94,17 @@ export const zh: Record<TranslationKey, string> = {
   'checklist.priorityMedium': '中',
   'checklist.priorityLow': '低',
   'checklist.priorityUpdated': '已更新优先级',
+  'checklist.templateTools': '模板管理',
+  'checklist.templateToolsDesc': '可重新应用默认项目，并批量删除手动添加项目。',
+  'checklist.templatePriorityFilter': '重新应用的优先级',
+  'checklist.resetTemplates': '重新应用模板',
+  'checklist.templatesResetting': '应用中...',
+  'checklist.templatesResetSuccess': '已恢复 {n} 条模板项目',
+  'checklist.deleteCustomTasks': '批量删除手动添加项目',
+  'checklist.deleteAllCustomTasks': '删除全部阶段手动添加项目',
+  'checklist.customTasksDeleting': '删除中...',
+  'checklist.customTasksDeleted': '已删除 {n} 条手动添加项目',
+  'checklist.allCustomTasksDeleted': '已删除全部阶段共 {n} 条手动添加项目',
 
   // Stages
   'stage.prenatal_care': '备孕',

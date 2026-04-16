@@ -92,6 +92,17 @@ export const ja = {
   'checklist.priorityMedium': '中',
   'checklist.priorityLow': '低',
   'checklist.priorityUpdated': '優先度を更新しました',
+  'checklist.templateTools': 'テンプレート管理',
+  'checklist.templateToolsDesc': 'デフォルト項目の再適用と手動追加項目の一括削除ができます。',
+  'checklist.templatePriorityFilter': '再適用する優先度',
+  'checklist.resetTemplates': 'テンプレートを再適用',
+  'checklist.templatesResetting': '再適用中...',
+  'checklist.templatesResetSuccess': 'テンプレート項目を {n} 件反映しました',
+  'checklist.deleteCustomTasks': '手動追加項目を一括削除',
+  'checklist.deleteAllCustomTasks': '全ステージの手動追加を削除',
+  'checklist.customTasksDeleting': '削除中...',
+  'checklist.customTasksDeleted': '手動追加項目を {n} 件削除しました',
+  'checklist.allCustomTasksDeleted': '全ステージの手動追加項目を {n} 件削除しました',
 
   // Stages
   'stage.prenatal_care': '妊活',

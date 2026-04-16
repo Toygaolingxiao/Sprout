@@ -454,5 +454,17 @@ export function translateTaskField(
   field: TaskTranslationField,
   fallback?: string,
 ): string {
-  return TASK_TRANSLATIONS[locale]?.[stageId]?.[taskTitle]?.[field] ?? fallback ?? taskTitle;
+  const translated = TASK_TRANSLATIONS[locale]?.[stageId]?.[taskTitle]?.[field];
+  if (translated) return translated;
+
+  if (locale === 'zh') {
+    if (field === 'tips') {
+      return '该条目要点正在完善中。请先参考标题与说明，或使用页面内医院搜索/官方信息链接。';
+    }
+    if (field === 'description') {
+      return '该条目说明正在完善中。';
+    }
+  }
+
+  return fallback ?? taskTitle;
 }

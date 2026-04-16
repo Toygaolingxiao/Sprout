@@ -1,4 +1,4 @@
-import type { LifeStage, CategoryId, TargetGender } from '@/types';
+import type { LifeStage, CategoryId, TargetGender, TaskPriority } from '@/types';
 
 export interface TemplateItem {
   stage_id: LifeStage;
@@ -7,6 +7,7 @@ export interface TemplateItem {
   description?: string;
   tips?: string;
   target_gender: TargetGender;
+  priority?: TaskPriority;
   sort_order: number;
   /** 出産予定日からの相対日数。負=出産前、0=出産日、正=出産後。null=時期指定なし */
   days_offset?: number | null;

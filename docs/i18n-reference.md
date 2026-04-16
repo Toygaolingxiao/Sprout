@@ -80,6 +80,17 @@
 | checklist.daysLeft | あと{n}日 | 还有{n}天 |
 | checklist.weeksLeft | あと{n}週 | 还有{n}周 |
 | checklist.all | すべて | 全部 |
+| checklist.templateTools | テンプレート管理 | 模板管理 |
+| checklist.templateToolsDesc | デフォルト項目を再適用したり、手動追加項目を一括整理できます。 | 可重新应用默认模板，并批量整理手动添加项目。 |
+| checklist.templatePriorityFilter | 再適用する優先度 | 重新应用的优先级 |
+| checklist.resetTemplates | テンプレートを再適用 | 重新应用模板 |
+| checklist.templatesResetting | 再適用中... | 重新应用中... |
+| checklist.templatesResetSuccess | テンプレートを {n} 件再適用しました | 已重新应用 {n} 条模板 |
+| checklist.deleteCustomTasks | 手動追加項目を一括削除 | 批量删除手动添加项目 |
+| checklist.deleteAllCustomTasks | 全ステージの手動追加を削除 | 删除全部阶段手动添加项目 |
+| checklist.customTasksDeleting | 削除中... | 删除中... |
+| checklist.customTasksDeleted | 手動追加項目を {n} 件削除しました | 已删除 {n} 条手动添加项目 |
+| checklist.allCustomTasksDeleted | 全ステージの手動追加項目を {n} 件削除しました | 已删除全部阶段共 {n} 条手动添加项目 |
 
 ---
 
@@ -197,7 +208,7 @@
 
 ## 注意事項
 
-1. **チェックリストの内容（タスク名・tips）は翻訳対象外** — 日本の制度・手続きに関する情報のため、日本語のまま維持
+1. **チェックリスト本文は段階的翻訳対応** — 未翻訳の詳細文は中国語画面で中国語補完メッセージを表示
 2. **ステージ名・カテゴリ名はUIラベルとして翻訳対象**
 3. 中文は简体中文（中国大陸向け）を採用
 4. 敬語・丁寧語は中文では省略（文化的に自然な表現を優先）
