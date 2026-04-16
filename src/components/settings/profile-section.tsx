@@ -87,6 +87,21 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
               <option value="male">{t('settings.babyGenderMale')}</option>
             </select>
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="user_gender">{t('settings.userGender')}</Label>
+            <select
+              id="user_gender"
+              name="user_gender"
+              aria-label={t('settings.userGenderSelect')}
+              defaultValue={profile.user_gender ?? 'unknown'}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            >
+              <option value="unknown">{t('settings.userGenderUnknown')}</option>
+              <option value="female">{t('settings.userGenderFemale')}</option>
+              <option value="male">{t('settings.userGenderMale')}</option>
+              <option value="other">{t('settings.userGenderOther')}</option>
+            </select>
+          </div>
           <Button type="submit" size="sm" disabled={isPending} className="w-full">
             {isPending ? t('settings.saving') : t('settings.save')}
           </Button>

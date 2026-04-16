@@ -9,10 +9,14 @@ export async function getTasks(stageId?: LifeStage): Promise<Task[]> {
   const user = await getAuthUser();
   if (!user) return [];
 
+  const familyId = await getFamilyId(user.id);
+  if (!familyId) return [];
+
   const supabase = await createClient();
   let query = supabase
     .from('tasks')
     .select('*')
+    .eq('family_id', familyId)
     .order('sort_order', { ascending: true });
 
   if (stageId) {
@@ -275,12 +279,12 @@ export async function getTaskStats() {
   const supabase = await createClient();
   const { data: tasks } = await supabase
     .from('tasks')
-    .select('stage_id, is_completed, due_date, title, priority')
+    .select('stage_id, is_completed, due_date, title')
     .eq('family_id', familyId);
 
   if (!tasks) return null;
 
-  const typedTasks = tasks as { stage_id: string; is_completed: boolean; due_date: string | null; title: string; priority: TaskPriority }[];
+  const typedTasks = tasks as { stage_id: string; is_completed: boolean; due_date: string | null; title: string }[];
 
   const stages = ['prenatal_care', 'pregnancy', 'postpartum', 'childcare'] as const;
   const stats = stages.map((stageId) => {

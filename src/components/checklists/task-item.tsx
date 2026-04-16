@@ -230,14 +230,24 @@ function DueDateBadge({ dueDate }: { dueDate: string }) {
   );
 }
 
-const URL_REGEX = /(https?:\/\/[^\s]+)/g;
+const URL_SPLIT_REGEX = /(https?:\/\/[^\s]+)/g;
+const URL_EXACT_REGEX = /^https?:\/\/[^\s]+$/;
+
+function getLinkLabel(url: string) {
+  try {
+    const parsed = new URL(url);
+    return decodeURIComponent(parsed.pathname.replace(/^\/search\//, '') || url);
+  } catch {
+    return url;
+  }
+}
 
 function Linkify({ text }: { text: string }) {
-  const parts = text.split(URL_REGEX);
+  const parts = text.split(URL_SPLIT_REGEX);
   return (
     <>
       {parts.map((part, i) =>
-        URL_REGEX.test(part) ? (
+        URL_EXACT_REGEX.test(part) ? (
           <a
             key={i}
             href={part}
@@ -245,7 +255,7 @@ function Linkify({ text }: { text: string }) {
             rel="noopener noreferrer"
             className="text-primary underline underline-offset-2 hover:text-primary/80"
           >
-            {decodeURIComponent(new URL(part).pathname.replace(/^\/search\//, '') || part)}
+            {getLinkLabel(part)}
           </a>
         ) : (
           <span key={i}>{part}</span>

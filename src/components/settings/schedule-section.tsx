@@ -40,6 +40,7 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
     formData.set('expected_pregnancy_date', pregnancyDate);
     formData.set('expected_due_date', dueDate);
     formData.set('baby_gender', profile.baby_gender ?? 'unknown');
+    formData.set('user_gender', profile.user_gender ?? 'unknown');
 
     startTransition(async () => {
       const result = await updateProfile(formData);
