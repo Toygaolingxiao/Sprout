@@ -80,6 +80,10 @@ export const TASK_TRANSLATIONS: Partial<Record<Locale, TaskTranslations>> = {
       '葉酸サプリを飲み始める': {
         title: '开始服用叶酸',
         description: '建议从怀孕前1个月开始每日摄取400μg（厚生劳动省推荐）',
+        tips: `・可降低神经管缺陷（如脊柱裂）风险
+・仅靠日常饮食往往不足，建议配合补充剂
+・建议持续到孕早期（约怀孕3个月）
+・优先选择含铁、维生素B12等复合营养的产品`,
       },
       '生活習慣を見直す（禁煙・節酒）': {
         title: '调整生活习惯（戒烟·控酒）',
@@ -457,10 +461,13 @@ export function translateTaskField(
   const translated = TASK_TRANSLATIONS[locale]?.[stageId]?.[taskTitle]?.[field];
   if (translated) return translated;
 
-  // Prefer existing task content from DB/template before showing synthetic text.
-  if (fallback) return fallback;
-
   if (locale === 'zh') {
+    // Do not leak Japanese body text in zh UI when translation is missing.
+    if (fallback) {
+      const hasJapaneseKana = /[\u3040-\u30ff]/.test(fallback);
+      if (!hasJapaneseKana) return fallback;
+    }
+
     if (field === 'tips') {
       return '该条目要点正在完善中。请先参考标题与说明，或使用页面内医院搜索/官方信息链接。';
     }
@@ -468,6 +475,9 @@ export function translateTaskField(
       return '该条目说明正在完善中。';
     }
   }
+
+  // Non-zh locales keep existing fallback behavior.
+  if (fallback) return fallback;
 
   return fallback ?? taskTitle;
 }
