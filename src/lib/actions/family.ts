@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from 'next/headers';
 import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import type { Profile, FamilyInvitation } from '@/types';
 
@@ -32,7 +33,10 @@ export async function createInvitation() {
 
   if (error) return { error: error.message };
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const headerStore = await headers();
+  const host = headerStore.get('host') ?? '';
+  const proto = headerStore.get('x-forwarded-proto') ?? 'https';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${proto}://${host}`;
   return { success: true, inviteUrl: `${baseUrl}/invite/${token}` };
 }
 

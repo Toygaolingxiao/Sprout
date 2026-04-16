@@ -1,7 +1,16 @@
 "use server";
 
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
+
+async function getSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const headerStore = await headers();
+  const host = headerStore.get('host') ?? 'localhost:3000';
+  const proto = headerStore.get('x-forwarded-proto') ?? 'https';
+  return `${proto}://${host}`;
+}
 
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
@@ -42,11 +51,12 @@ export async function signIn(formData: FormData) {
 
 export async function signInWithGoogle() {
   const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}/auth/callback`,
+      redirectTo: `${siteUrl}/auth/callback`,
     },
   });
 
@@ -67,11 +77,12 @@ export async function signOut() {
 
 export async function resetPassword(formData: FormData) {
   const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
 
   const email = formData.get('email') as string;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}/auth/callback?next=/settings/profile`,
+    redirectTo: `${siteUrl}/auth/callback?next=/settings`,
   });
 
   if (error) {
@@ -79,4 +90,18 @@ export async function resetPassword(formData: FormData) {
   }
 
   return { success: 'パスワードリセットメールを送信しました' };
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+
+  const password = formData.get('new_password') as string;
+
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { success: true };
 }

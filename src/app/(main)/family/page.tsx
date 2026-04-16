@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getLocale, serverT } from '@/lib/i18n/server';
 import type { TranslationKey } from '@/lib/i18n';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,6 +12,8 @@ export const metadata: Metadata = {
   description: '家族メンバーの管理',
 };
 import { InviteSection } from '@/components/family/invite-section';
+import { ProfileSection } from '@/components/settings/profile-section';
+import { ScheduleSection } from '@/components/settings/schedule-section';
 
 export default async function FamilyPage() {
   const [profile, members] = await Promise.all([getProfile(), getFamilyMembers()]);
@@ -23,28 +24,13 @@ export default async function FamilyPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">{t('family.title')}</h1>
 
-      <Card data-testid="family-schedule-card">
-        <CardHeader>
-          <CardTitle className="text-base">{t('family.schedule')}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">{t('family.scheduleDesc')}</p>
-          <dl className="space-y-3 text-sm">
-            <div className="flex items-center justify-between gap-4 rounded-lg border px-3 py-2">
-              <dt className="text-muted-foreground">{t('settings.pregnancyDate')}</dt>
-              <dd className="font-medium">{profile?.expected_pregnancy_date ?? t('family.notSet')}</dd>
-            </div>
-            <div className="flex items-center justify-between gap-4 rounded-lg border px-3 py-2">
-              <dt className="text-muted-foreground">{t('settings.dueDate')}</dt>
-              <dd className="font-medium">{profile?.expected_due_date ?? t('family.notSet')}</dd>
-            </div>
-          </dl>
-          <Link href="/settings" className="inline-flex text-sm font-medium text-primary hover:underline">
-            {t('family.editSchedule')}
-          </Link>
-        </CardContent>
-      </Card>
+      {/* プロフィール編集（ニックネーム・ステージ・赤ちゃんの性別） */}
+      {profile && <ProfileSection profile={profile} />}
 
+      {/* スケジュール設定（妊娠予定時期・出産予定日） */}
+      {profile && <ScheduleSection profile={profile} />}
+
+      {/* メンバー一覧 */}
       <Card>
         <CardHeader>
           <CardTitle className="text-base">{t('family.members')}</CardTitle>

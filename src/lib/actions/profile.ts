@@ -53,6 +53,7 @@ export async function updateProfile(formData: FormData) {
   const expectedDueDate = expectedDueDateRaw || null;
   const expectedPregnancyDateRaw = formData.get('expected_pregnancy_date') as string;
   const expectedPregnancyDate = expectedPregnancyDateRaw || null;
+  const babyGender = (formData.get('baby_gender') as string) || 'unknown';
 
   const { error } = await supabase
     .from('profiles')
@@ -61,6 +62,7 @@ export async function updateProfile(formData: FormData) {
       current_stage: currentStage,
       expected_due_date: expectedDueDate,
       expected_pregnancy_date: expectedPregnancyDate,
+      baby_gender: babyGender,
     } as Record<string, unknown>)
     .eq('id', user.id);
 

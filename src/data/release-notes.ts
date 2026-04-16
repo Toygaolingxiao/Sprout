@@ -1,6 +1,17 @@
-export const APP_VERSION = '1.4.1';
+export const APP_VERSION = '1.5.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.5.0',
+    date: '2026-04-16',
+    items: [
+      '👶 赤ちゃんの性別設定を追加',
+      '🔑 パスワード変更機能を追加',
+      '👨‍👩‍👧 プロフィール・スケジュール設定を「家族」画面に統合',
+      '🔗 招待リンクのURL生成を修正（localhost問題を解消）',
+      '🛡️ ログイン後のエラーハンドリングを強化',
+    ],
+  },
   {
     version: '1.4.1',
     date: '2026-04-16',

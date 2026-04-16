@@ -5,6 +5,7 @@ export type LifeStage = 'prenatal_care' | 'pregnancy' | 'postpartum' | 'childcar
 export type ActivityAction = 'complete' | 'uncomplete' | 'create' | 'update' | 'delete';
 export type CategoryId = 'procedure' | 'shopping' | 'health' | 'money' | 'other';
 export type TargetGender = 'both' | 'female' | 'male';
+export type BabyGender = 'female' | 'male' | 'unknown';
 
 export interface Profile {
   id: string;
@@ -14,6 +15,7 @@ export interface Profile {
   family_id: string | null;
   expected_due_date: string | null;
   expected_pregnancy_date: string | null;
+  baby_gender: BabyGender;
   created_at: string;
   updated_at: string;
 }
