@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.4.1
+> for commit 1.7.0
 
 ---
 
@@ -12,6 +12,7 @@
 
 - 📋 **80+のチェック項目** — 妊活〜育児の4フェーズを網羅、根拠ある要点・注意事項付き
 - 👫 **夫婦共有** — 家族グループで進捗をリアルタイム共有
+- 🎯 **タスク優先度** — 高/中/低で優先順に整理
 - ♀️♂️ **性別フィルター** — 女性向け/男性向けタスクをワンタップ切替
 - 🏷️ **カテゴリ分類** — 手続き・買い物・健康・お金・その他
 - 📱 **モバイルファースト** — ボトムナビ + レスポンシブ対応
@@ -32,8 +33,8 @@
 /dashboard        → ホーム（現在ステージのタスク + 全ステージ概要）
 /checklists       → ステージ一覧
 /checklists/:id   → チェックリスト詳細（カテゴリ/性別フィルター付き）
-/family           → 家族メンバー管理・招待
-/settings         → プロフィール設定
+/family           → 家族メンバー管理・招待・プロフィール/日程設定
+/settings         → 言語・外観・アカウント設定
 ```
 
 ## ドキュメント
@@ -77,6 +78,8 @@ Supabase SQL Editor で以下を順番に実行:
 1. `supabase/migrations/001_initial_schema.sql` — テーブル + RLS + トリガー
 2. `supabase/migrations/006_all_in_one_fix.sql` — GRANT権限 + プロフィール自動作成
 3. `supabase/migrations/009_fix_signup_trigger.sql` — signupトリガー修正（本番必須）
+4. `supabase/migrations/010_add_baby_gender.sql` — 赤ちゃんの性別設定カラム
+5. `supabase/migrations/011_add_task_priority.sql` — タスク優先度カラム
 
 ### 4. 開発サーバー
 

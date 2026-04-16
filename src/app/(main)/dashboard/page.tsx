@@ -50,6 +50,7 @@ export default async function DashboardPage() {
           completed_at: null,
           assigned_to: null,
           due_date: null,
+          priority: 'medium',
           sort_order: t.sort_order,
           is_custom: false,
           target_gender: t.target_gender,

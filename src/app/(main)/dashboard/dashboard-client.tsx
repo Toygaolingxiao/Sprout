@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useTranslation } from '@/lib/i18n/context';
 import { translateTaskField } from '@/lib/i18n/task-translations';
+import type { TranslationKey } from '@/lib/i18n';
 import type { Task, LifeStage, CategoryId, TargetGender, Profile } from '@/types';
 
 interface StageStats {
@@ -28,6 +29,27 @@ interface DashboardClientProps {
   stats: { stages: StageStats[]; upcoming: { stage_id: string; due_date: string | null; title: string }[] } | null;
   dbOffline: boolean;
   dbError?: string;
+}
+
+function priorityRank(priority: Task['priority']) {
+  if (priority === 'high') return 0;
+  if (priority === 'medium') return 1;
+  return 2;
+}
+
+function toDateValue(date: string | null) {
+  if (!date) return Number.MAX_SAFE_INTEGER;
+  return new Date(`${date}T00:00:00`).getTime();
+}
+
+function sortByPriorityAndDueDate(a: Task, b: Task) {
+  const priorityDiff = priorityRank(a.priority) - priorityRank(b.priority);
+  if (priorityDiff !== 0) return priorityDiff;
+
+  const dueDiff = toDateValue(a.due_date) - toDateValue(b.due_date);
+  if (dueDiff !== 0) return dueDiff;
+
+  return a.sort_order - b.sort_order;
 }
 
 export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError }: DashboardClientProps) {
@@ -48,7 +70,6 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
   }
 
   const stage = STAGE_MAP[currentStage];
-  const currentStats = stats?.stages.find((s) => s.stage_id === currentStage);
   const completed = tasks.filter((t) => t.is_completed).length;
   const total = tasks.length;
   const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
@@ -60,7 +81,10 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
   }), [tasks, categoryFilter, genderFilter]);
 
   // Top priority: incomplete tasks first 5
-  const incompleteTasks = useMemo(() => filteredTasks.filter((t) => !t.is_completed), [filteredTasks]);
+  const incompleteTasks = useMemo(
+    () => filteredTasks.filter((t) => !t.is_completed).slice().sort(sortByPriorityAndDueDate),
+    [filteredTasks]
+  );
   const priorityTasks = incompleteTasks.slice(0, 5);
   const remainingIncomplete = incompleteTasks.length - priorityTasks.length;
 
@@ -116,7 +140,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
               }`}
             >
               <span>{s.emoji}</span>
-              <span>{t(`stage.${s.id}` as any)}</span>
+              <span>{t(`stage.${s.id}` as TranslationKey)}</span>
               {st && st.total > 0 && (
                 <Badge variant={isActive ? 'secondary' : 'outline'} className="ml-0.5 text-[10px] h-4 px-1">
                   {st.completed}/{st.total}
@@ -134,7 +158,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <span className="text-xl">{stage.emoji}</span>
-              <span className="font-semibold">{t(`stage.${currentStage}` as any)}</span>
+              <span className="font-semibold">{t(`stage.${currentStage}` as TranslationKey)}</span>
             </div>
             <span className="text-sm text-muted-foreground">{completed}/{total}{t('dashboard.completed')}</span>
           </div>
@@ -224,7 +248,7 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                       <CardContent className="py-3 px-2.5 sm:px-3.5">
                         <div className="flex items-center gap-1.5 mb-1.5">
                           <span className="text-base">{info.emoji}</span>
-                          <span className="text-xs font-semibold">{t(`stage.${s.stage_id}` as any)}</span>
+                          <span className="text-xs font-semibold">{t(`stage.${s.stage_id}` as TranslationKey)}</span>
                           {s.total > 0 && (
                             <span className="text-[10px] text-muted-foreground ml-auto">
                               {s.completed}/{s.total}

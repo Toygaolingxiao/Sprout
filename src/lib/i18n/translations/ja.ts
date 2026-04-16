@@ -87,6 +87,11 @@ export const ja = {
   'checklist.completedToggle': '✅ 完了済み ({n})',
   'checklist.tapToRestore': 'タップで復活',
   'checklist.deleteTask': '{title}を削除',
+  'checklist.priority': '優先度',
+  'checklist.priorityHigh': '高',
+  'checklist.priorityMedium': '中',
+  'checklist.priorityLow': '低',
+  'checklist.priorityUpdated': '優先度を更新しました',
 
   // Stages
   'stage.prenatal_care': '妊活',
@@ -188,6 +193,15 @@ export const ja = {
   'family.searchNearbyPediatrics': '付近の小児科',
   'family.searchPediatrics': '小児科',
   'family.searchObgyn': '産婦人科',
+
+  // Invite
+  'invite.title': '家族グループへの招待',
+  'invite.description': 'パートナーがあなたをSproutの家族グループに招待しました。参加すると、チェックリストを共有できます。',
+  'invite.joining': '参加中...',
+  'invite.join': '家族グループに参加',
+  'invite.loginRequired': '参加するには、先にログインまたは新規登録が必要です。',
+  'invite.signupAndJoin': '新規登録して参加する',
+  'invite.loginAndJoin': 'ログインして参加する',
 
   // Landing page
   'lp.login': 'ログイン',

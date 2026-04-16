@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.6.0';
+export const APP_VERSION = '1.7.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.7.0',
+    date: '2026-04-16',
+    items: [
+      '🔗 招待リンクから未登録ユーザーがそのまま新規登録して参加できる導線を追加',
+      '🎯 タスクに優先度（高・中・低）を追加し、優先順で表示',
+      '🧩 各家庭で不要タスクを削除してDIY運用できるよう改善',
+    ],
+  },
   {
     version: '1.6.0',
     date: '2026-04-16',

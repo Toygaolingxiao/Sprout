@@ -10,7 +10,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
 
-export function SignupForm() {
+interface SignupFormProps {
+  nextPath?: string;
+}
+
+export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
@@ -45,6 +49,7 @@ export function SignupForm() {
         )}
 
         <form action={handleSubmit} className="space-y-4">
+          <input type="hidden" name="next" value={nextPath} />
           <div className="space-y-2">
             <Label htmlFor="nickname">{t('auth.nickname')}</Label>
             <Input id="nickname" name="nickname" required placeholder={t('auth.nicknamePlaceholder')} />
@@ -77,6 +82,7 @@ export function SignupForm() {
         </div>
 
         <form action={handleGoogleSignUp}>
+          <input type="hidden" name="next" value={nextPath} />
           <Button variant="outline" className="w-full" type="submit">
             {t('auth.googleSignup')}
           </Button>
@@ -85,7 +91,7 @@ export function SignupForm() {
       <CardFooter className="text-sm text-muted-foreground">
         <div>
           {t('auth.hasAccount')}{' '}
-          <Link href="/login" className="text-primary hover:underline">
+          <Link href={`/login?next=${encodeURIComponent(nextPath)}`} className="text-primary hover:underline">
             {t('auth.login')}
           </Link>
         </div>

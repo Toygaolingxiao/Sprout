@@ -9,11 +9,32 @@ interface TaskListProps {
   tasks: Task[];
 }
 
+function priorityRank(priority: Task['priority']) {
+  if (priority === 'high') return 0;
+  if (priority === 'medium') return 1;
+  return 2;
+}
+
+function toDateValue(date: string | null) {
+  if (!date) return Number.MAX_SAFE_INTEGER;
+  return new Date(`${date}T00:00:00`).getTime();
+}
+
+function sortByPriorityAndDueDate(a: Task, b: Task) {
+  const priorityDiff = priorityRank(a.priority) - priorityRank(b.priority);
+  if (priorityDiff !== 0) return priorityDiff;
+
+  const dueDiff = toDateValue(a.due_date) - toDateValue(b.due_date);
+  if (dueDiff !== 0) return dueDiff;
+
+  return a.sort_order - b.sort_order;
+}
+
 export function TaskList({ tasks }: TaskListProps) {
   const { t } = useTranslation();
   const { incomplete, completed } = useMemo(() => ({
-    incomplete: tasks.filter((t) => !t.is_completed),
-    completed: tasks.filter((t) => t.is_completed),
+    incomplete: tasks.filter((t) => !t.is_completed).slice().sort(sortByPriorityAndDueDate),
+    completed: tasks.filter((t) => t.is_completed).slice().sort(sortByPriorityAndDueDate),
   }), [tasks]);
 
   if (tasks.length === 0) {

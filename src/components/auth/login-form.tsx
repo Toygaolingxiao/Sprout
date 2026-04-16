@@ -10,7 +10,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
 
-export function LoginForm() {
+interface LoginFormProps {
+  nextPath?: string;
+}
+
+export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
@@ -45,6 +49,7 @@ export function LoginForm() {
         )}
 
         <form action={handleSubmit} className="space-y-4">
+          <input type="hidden" name="next" value={nextPath} />
           <div className="space-y-2">
             <Label htmlFor="email">{t('auth.email')}</Label>
             <Input id="email" name="email" type="email" required placeholder="email@example.com" />
@@ -66,18 +71,19 @@ export function LoginForm() {
         </div>
 
         <form action={handleGoogleSignIn}>
+          <input type="hidden" name="next" value={nextPath} />
           <Button variant="outline" className="w-full" type="submit">
             {t('auth.googleLogin')}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-2 text-sm text-muted-foreground">
-        <Link href="/reset-password" className="hover:text-foreground transition-colors">
+        <Link href={`/reset-password?next=${encodeURIComponent(nextPath)}`} className="hover:text-foreground transition-colors">
           {t('auth.forgotPassword')}
         </Link>
         <div>
           {t('auth.noAccount')}{' '}
-          <Link href="/signup" className="text-primary hover:underline">
+          <Link href={`/signup?next=${encodeURIComponent(nextPath)}`} className="text-primary hover:underline">
             {t('auth.signup')}
           </Link>
         </div>
