@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from 'react';
+import { useTransition } from 'react';
 import { updateProfile } from '@/lib/actions/profile';
 import { STAGES } from '@/data/seed/stages';
 import { Button } from '@/components/ui/button';
@@ -26,6 +26,9 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
     }
     if (!formData.has('expected_pregnancy_date')) {
       formData.set('expected_pregnancy_date', profile.expected_pregnancy_date ?? '');
+    }
+    if (!formData.has('baby_gender')) {
+      formData.set('baby_gender', profile.baby_gender ?? 'unknown');
     }
 
     startTransition(async () => {
@@ -65,9 +68,23 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
             >
               {STAGES.map((s) => (
                 <option key={s.id} value={s.id}>
-                  {s.emoji} {t(`stage.${s.id}` as any)}
+                  {s.emoji} {t(`stage.${s.id}` as Parameters<typeof t>[0])}
                 </option>
               ))}
+            </select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="baby_gender">{t('settings.babyGender')}</Label>
+            <select
+              id="baby_gender"
+              name="baby_gender"
+              aria-label={t('settings.babyGenderSelect')}
+              defaultValue={profile.baby_gender ?? 'unknown'}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            >
+              <option value="unknown">{t('settings.babyGenderUnknown')}</option>
+              <option value="female">{t('settings.babyGenderFemale')}</option>
+              <option value="male">{t('settings.babyGenderMale')}</option>
             </select>
           </div>
           <Button type="submit" size="sm" disabled={isPending} className="w-full">

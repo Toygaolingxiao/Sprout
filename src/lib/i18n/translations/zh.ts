@@ -158,6 +158,17 @@ export const zh: Record<TranslationKey, string> = {
   'settings.profileEdit': '编辑个人资料',
   'settings.profileSettings': '个人资料设置',
   'settings.dueDateAutoCalc': '设置后将自动计算各任务的建议时间',
+  'settings.babyGender': '宝宝性别',
+  'settings.babyGenderSelect': '选择宝宝性别',
+  'settings.babyGenderUnknown': '未定・未知',
+  'settings.babyGenderFemale': '👧 女孩',
+  'settings.babyGenderMale': '👦 男孩',
+  'settings.changePassword': '修改密码',
+  'settings.newPassword': '新密码',
+  'settings.confirmPassword': '确认新密码',
+  'settings.passwordTooShort': '密码至少需要8个字符',
+  'settings.passwordMismatch': '两次输入的密码不一致',
+  'settings.passwordChanged': '密码已修改',
 
   // Family
   'family.title': '👨‍👩‍👧 家庭',

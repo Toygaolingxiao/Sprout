@@ -156,6 +156,17 @@ export const ja = {
   'settings.profileEdit': 'プロフィール編集',
   'settings.profileSettings': 'プロフィール設定',
   'settings.dueDateAutoCalc': '設定するとタスクの推奨時期が自動計算されます',
+  'settings.babyGender': '赤ちゃんの性別',
+  'settings.babyGenderSelect': '赤ちゃんの性別を選択',
+  'settings.babyGenderUnknown': '未定・不明',
+  'settings.babyGenderFemale': '👧 女の子',
+  'settings.babyGenderMale': '👦 男の子',
+  'settings.changePassword': 'パスワードを変更',
+  'settings.newPassword': '新しいパスワード',
+  'settings.confirmPassword': '新しいパスワード（確認）',
+  'settings.passwordTooShort': 'パスワードは8文字以上で入力してください',
+  'settings.passwordMismatch': 'パスワードが一致しません',
+  'settings.passwordChanged': 'パスワードを変更しました',
 
   // Family
   'family.title': '👨‍👩‍👧 家族',
