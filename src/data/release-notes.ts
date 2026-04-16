@@ -1,6 +1,14 @@
-export const APP_VERSION = '1.5.0';
+export const APP_VERSION = '1.6.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.6.0',
+    date: '2026-04-16',
+    items: [
+      '🏥 「近くの病院を探す」ボタンを家族画面に追加',
+      '🗺️ 地図アプリで「付近の小児科 / 小児科 / 産婦人科」をワンタップ検索',
+    ],
+  },
   {
     version: '1.5.0',
     date: '2026-04-16',

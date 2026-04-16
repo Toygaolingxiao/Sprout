@@ -183,6 +183,11 @@ export const ja = {
   'family.generateLink': '招待リンクを生成',
   'family.copied': '✓ コピー済',
   'family.copy': 'コピー',
+  'family.nearbyHospitalTitle': '🏥 近くの病院を探す',
+  'family.nearbyHospitalDesc': '地図アプリで周辺の医療機関をすぐに検索できます。',
+  'family.searchNearbyPediatrics': '付近の小児科',
+  'family.searchPediatrics': '小児科',
+  'family.searchObgyn': '産婦人科',
 
   // Landing page
   'lp.login': 'ログイン',

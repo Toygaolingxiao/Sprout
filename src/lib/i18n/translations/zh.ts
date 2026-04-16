@@ -185,6 +185,11 @@ export const zh: Record<TranslationKey, string> = {
   'family.generateLink': '生成邀请链接',
   'family.copied': '✓ 已复制',
   'family.copy': '复制',
+  'family.nearbyHospitalTitle': '🏥 查找附近医院',
+  'family.nearbyHospitalDesc': '可一键在地图应用中搜索周边医疗机构。',
+  'family.searchNearbyPediatrics': '附近小儿科',
+  'family.searchPediatrics': '小儿科',
+  'family.searchObgyn': '妇产科',
 
   // Landing page
   'lp.login': '登录',
