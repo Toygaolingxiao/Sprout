@@ -174,6 +174,8 @@ export const zh: Record<TranslationKey, string> = {
   'settings.version': '版本',
   'settings.manual': '使用手册',
   'settings.openManual': '查看手册',
+  'settings.releaseNotesBrief': '更新记录（简版）',
+  'settings.releaseNotesBriefHint': '显示最近 {count} 个版本（每版最多2条）',
   'settings.tagline': '🌱 Sprout — 夫妻共同迎接新生命',
   'settings.account': '🔐 账号',
   'settings.providerLinks': '外部账号关联',

@@ -172,6 +172,8 @@ export const ja = {
   'settings.version': 'バージョン',
   'settings.manual': '利用マニュアル',
   'settings.openManual': 'マニュアルを見る',
+  'settings.releaseNotesBrief': '更新履歴（簡略）',
+  'settings.releaseNotesBriefHint': '直近 {count} 件（各バージョン最大2項目）を表示',
   'settings.tagline': '🌱 Sprout — 夫婦で育てる、新しい命の準備',
   'settings.account': '🔐 アカウント',
   'settings.providerLinks': '外部連携',
