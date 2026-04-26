@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.27';
+export const APP_VERSION = '1.9.28';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.28',
+    date: '2026-04-26',
+    items: [
+      '連携失敗時の原因コード返却を追加^',
+      'callback後に連携済み再判定して成功扱い補正^',
+      '設定画面で結果トーストとURLクエリ自動クリア',
+    ],
+  },
   {
     version: '1.9.27',
     date: '2026-04-26',
