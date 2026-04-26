@@ -2,14 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { signIn, signInWithGoogle, signInWithLineIdToken, signInWithLineOAuth } from '@/lib/actions/auth'
+import { signIn, signInWithGoogle } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
-import { getLiffIdToken } from '@/lib/liff/client'
 import { GoogleIcon } from '@/components/auth/google-icon'
 
 interface LoginFormProps {
@@ -59,47 +58,8 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
     setLineLoading(true)
     setError(null)
 
-    async function startLineOAuthFallback() {
-      try {
-        const oauthResult = await signInWithLineOAuth(nextPath)
-        if (oauthResult?.error) {
-          setError(localizeError(oauthResult.error))
-          setLineLoading(false)
-        }
-      } catch {
-        setError(t('auth.networkError'))
-        setLineLoading(false)
-      }
-    }
-
-    try {
-      const idToken = await getLiffIdToken()
-      if (!idToken) {
-        setLineLoading(false)
-        return
-      }
-
-      const result = await signInWithLineIdToken(idToken, nextPath)
-      if (result?.error) {
-        await startLineOAuthFallback()
-      }
-    } catch (error) {
-      if (error instanceof Error && error.message === 'LIFF_ID_TOKEN_NOT_AVAILABLE') {
-        try {
-          const oauthResult = await signInWithLineOAuth(nextPath)
-          if (oauthResult?.error) {
-            setError(t('auth.lineScopeHint'))
-            setLineLoading(false)
-          }
-        } catch {
-          setError(t('auth.networkError'))
-          setLineLoading(false)
-        }
-        return
-      }
-
-      await startLineOAuthFallback()
-    }
+    const target = `/auth/line?next=${encodeURIComponent(nextPath)}`
+    window.location.assign(target)
   }
 
   return (

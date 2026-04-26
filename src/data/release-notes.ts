@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.9.15';
+export const APP_VERSION = '1.9.16';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.16',
+    date: '2026-04-26',
+    items: [
+      'line-login-click-response-improved',
+    ],
+  },
   {
     version: '1.9.15',
     date: '2026-04-26',
