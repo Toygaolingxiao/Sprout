@@ -84,6 +84,9 @@ function mapLinkCallbackError(message: string | undefined, provider: 'google' | 
     return provider === 'google' ? 'settings.providerUnsupportedGoogle' : 'settings.providerUnsupportedLine';
   }
   if (provider === 'line') {
+    if (normalized.includes('provider is not enabled') || normalized.includes('provider not enabled')) {
+      return 'settings.providerUnsupportedLine';
+    }
     if (
       normalized.includes('invalid client') ||
       normalized.includes('client id') ||
@@ -97,8 +100,17 @@ function mapLinkCallbackError(message: string | undefined, provider: 'google' | 
     if (normalized.includes('access denied') || normalized.includes('access_denied')) {
       return 'settings.providerLineAccessDenied';
     }
+    if (
+      normalized.includes('server_error') ||
+      normalized.includes('invalid_request') ||
+      normalized.includes('invalid_grant') ||
+      normalized.includes('oauth')
+    ) {
+      return 'settings.providerLineTroubleshooting';
+    }
   }
   if (normalized.includes('fetch failed') || normalized.includes('network')) return 'auth.networkError';
+  if (provider === 'line') return 'settings.providerLineTroubleshooting';
   return 'settings.providerOperationFailed';
 }
 
@@ -107,7 +119,13 @@ export async function GET(request: Request) {
   const code = searchParams.get('code');
   const nextPath = getSafeNextPath(searchParams.get('next'));
   const linkProvider = getLinkProvider(searchParams.get('link_provider'));
-  const callbackErrorMessage = searchParams.get('error_description') ?? searchParams.get('error') ?? undefined;
+  const callbackErrorMessage = [
+    searchParams.get('error'),
+    searchParams.get('error_code'),
+    searchParams.get('error_description'),
+  ]
+    .filter((value): value is string => Boolean(value && value.length > 0))
+    .join(' | ') || undefined;
 
   if (code) {
     const supabase = await createClient();
