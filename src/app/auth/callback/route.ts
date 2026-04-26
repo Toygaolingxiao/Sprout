@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { provisionCurrentUserFromOAuth } from '@/lib/auth/provision';
 
 function getSafeNextPath(rawNext: string | null | undefined, fallback = '/dashboard') {
   if (!rawNext || rawNext.length === 0) return fallback;
@@ -17,6 +18,7 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      await provisionCurrentUserFromOAuth();
       return NextResponse.redirect(`${origin}${nextPath}`);
     }
   }

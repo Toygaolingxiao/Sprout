@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.17';
+export const APP_VERSION = '1.9.18';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.18',
+    date: '2026-04-26',
+    items: [
+      'LINEログイン後の自動プロフィール整備^',
+      'LINE名のニックネーム同期^',
+      '設定画面でメール後追加対応',
+    ],
+  },
   {
     version: '1.9.17',
     date: '2026-04-26',

@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
+import { provisionCurrentUserFromOAuth } from '@/lib/auth/provision';
 
 function mapAuthError(message: string) {
   const normalized = message.toLowerCase();
@@ -145,7 +146,25 @@ export async function signInWithLineIdToken(idToken: string, rawNextPath?: strin
     return { error: mapAuthError(error.message) };
   }
 
+  await provisionCurrentUserFromOAuth();
+
   redirect(nextPath);
+}
+
+export async function updateEmail(formData: FormData) {
+  const supabase = await createClient();
+
+  const email = (formData.get('email') as string | null)?.trim() ?? '';
+  if (!email) {
+    return { error: 'settings.emailRequired' };
+  }
+
+  const { error } = await supabase.auth.updateUser({ email });
+  if (error) {
+    return { error: mapAuthError(error.message) };
+  }
+
+  return { success: true };
 }
 
 export async function signOut() {

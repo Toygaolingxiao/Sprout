@@ -29,8 +29,11 @@ export default async function Home({ searchParams }: HomePageProps) {
     const safePath = getSafePath(decoded);
 
     if (safePath.startsWith('/login')) {
-      const separator = safePath.includes('?') ? '&' : '?';
-      redirect(`${safePath}${separator}liff=1`);
+      const loginUrl = new URL(safePath, 'https://placeholder.local');
+      if (!loginUrl.searchParams.has('liff')) {
+        loginUrl.searchParams.set('liff', '1');
+      }
+      redirect(`${loginUrl.pathname}${loginUrl.search}`);
     }
 
     redirect(safePath);

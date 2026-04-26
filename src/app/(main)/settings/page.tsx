@@ -7,8 +7,10 @@ import { signOut } from '@/lib/actions/auth';
 import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
 import { ChangePasswordSection } from '@/components/settings/change-password-section';
+import { ChangeEmailSection } from '@/components/settings/change-email-section';
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
+import { createClient } from '@/lib/supabase/server';
 import { getLocale } from '@/lib/i18n/server';
 import { serverT } from '@/lib/i18n/server';
 import type { Metadata } from 'next';
@@ -19,6 +21,9 @@ export const metadata: Metadata = {
 
 export default async function SettingsPage() {
   const profile = await getProfile();
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const currentEmail = user?.email ?? null;
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
 
@@ -78,6 +83,7 @@ export default async function SettingsPage() {
           <CardTitle className="text-base">{t('settings.account')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
+          <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />
           <form action={signOut}>
             <Button variant="outline" size="sm" className="w-full" type="submit">
