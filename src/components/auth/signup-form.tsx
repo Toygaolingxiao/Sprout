@@ -63,8 +63,11 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
       }
     } catch (error) {
       if (error instanceof Error && error.message === 'LIFF_ID_TOKEN_NOT_AVAILABLE') {
-        setError(t('auth.lineScopeHint'))
-        setLineLoading(false)
+        const oauthResult = await signInWithLineOAuth(nextPath)
+        if (oauthResult?.error) {
+          setError(t('auth.lineScopeHint'))
+          setLineLoading(false)
+        }
         return
       }
 

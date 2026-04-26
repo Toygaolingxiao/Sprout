@@ -59,7 +59,7 @@ export function LandingPage() {
         <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label={t('lp.mainNav')}>
           <Link href="/" className="text-lg font-bold tracking-tight" aria-label="Sprout home">🌱 Sprout</Link>
           <div className="flex items-center gap-2">
-            <div className="hidden sm:flex rounded-lg border border-border/60 bg-background/60 p-0.5">
+            <div className="flex rounded-lg border border-border/60 bg-background/60 p-0.5">
               <button
                 type="button"
                 onClick={() => changeLocale('ja')}

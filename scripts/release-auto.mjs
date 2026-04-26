@@ -88,10 +88,17 @@ function updateReleaseNotes(nextVersion, notes) {
     '  },',
   ].join('\n');
 
-  source = source.replace(
-    /(export const RELEASE_NOTES: \{ version: string; date: string; items: string\[\] \}\[] = \[\n)/,
+  const releaseNotesHeader = /(export const RELEASE_NOTES: \{ version: string; date: string; items: string\[\] \}\[] = \[\r?\n)/;
+  const nextSource = source.replace(
+    releaseNotesHeader,
     `$1${entry}\n`,
   );
+
+  if (nextSource === source) {
+    throw new Error('RELEASE_NOTES の挿入位置が見つかりませんでした');
+  }
+
+  source = nextSource;
 
   writeFileSync(filePath, source, 'utf8');
 }

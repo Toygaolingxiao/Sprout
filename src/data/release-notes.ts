@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.9.10';
+export const APP_VERSION = '1.9.11';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.11',
+    date: '2026-04-26',
+    items: [
+      '🔧LINEログインと導線不具合を修正',
+    ],
+  },
   {
     version: '1.9.0',
     date: '2026-04-16',
