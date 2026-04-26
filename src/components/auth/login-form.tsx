@@ -10,7 +10,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
 import { GoogleIcon } from '@/components/auth/google-icon'
-import { getLiffIdToken } from '@/lib/liff/client'
+import { getLiffIdTokenWithOptions } from '@/lib/liff/client'
 
 interface LoginFormProps {
   nextPath?: string;
@@ -18,6 +18,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFormProps) {
+  const lineAutoFallbackKey = 'sprout_line_auto_fallback_done'
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [lineLoading, setLineLoading] = useState(false)
@@ -39,23 +40,50 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFo
       setError(null)
 
       try {
-        const idToken = await getLiffIdToken()
+        const idToken = await getLiffIdTokenWithOptions({ autoLogin: false })
         if (!idToken) {
-          if (!cancelled) setLineLoading(false)
+          const alreadyFallbackTried = sessionStorage.getItem(lineAutoFallbackKey) === '1'
+          if (alreadyFallbackTried) {
+            if (!cancelled) {
+              setLineLoading(false)
+              setError(t('auth.lineUnavailable'))
+            }
+            return
+          }
+
+          sessionStorage.setItem(lineAutoFallbackKey, '1')
+          window.location.assign(`/auth/line?next=${encodeURIComponent(nextPath)}`)
           return
         }
 
         const result = await signInWithLineIdToken(idToken, nextPath)
         if (result?.success && !cancelled) {
+          sessionStorage.removeItem(lineAutoFallbackKey)
           window.location.assign(result.nextPath ?? nextPath)
           return
         }
 
         if (result?.error && !cancelled) {
+          const alreadyFallbackTried = sessionStorage.getItem(lineAutoFallbackKey) === '1'
+          if (alreadyFallbackTried) {
+            setLineLoading(false)
+            setError(localizeError(result.error))
+            return
+          }
+
+          sessionStorage.setItem(lineAutoFallbackKey, '1')
           window.location.assign(`/auth/line?next=${encodeURIComponent(nextPath)}`)
         }
       } catch {
         if (!cancelled) {
+          const alreadyFallbackTried = sessionStorage.getItem(lineAutoFallbackKey) === '1'
+          if (alreadyFallbackTried) {
+            setLineLoading(false)
+            setError(t('auth.lineUnavailable'))
+            return
+          }
+
+          sessionStorage.setItem(lineAutoFallbackKey, '1')
           window.location.assign(`/auth/line?next=${encodeURIComponent(nextPath)}`)
         }
       }
@@ -66,7 +94,7 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFo
     return () => {
       cancelled = true
     }
-  }, [autoLiff, nextPath])
+  }, [autoLiff, nextPath, t])
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)

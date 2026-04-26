@@ -34,13 +34,23 @@ export async function initLiff() {
 }
 
 export async function getLiffIdToken() {
+  return getLiffIdTokenWithOptions();
+}
+
+interface GetLiffIdTokenOptions {
+  autoLogin?: boolean;
+}
+
+export async function getLiffIdTokenWithOptions(options: GetLiffIdTokenOptions = {}) {
   const liff = await initLiff();
   if (!liff) {
     throw new Error('LIFF_ID_NOT_CONFIGURED');
   }
 
   if (!liff.isLoggedIn()) {
-    liff.login({ redirectUri: window.location.href });
+    if (options.autoLogin) {
+      liff.login({ redirectUri: window.location.href });
+    }
     return null;
   }
 
