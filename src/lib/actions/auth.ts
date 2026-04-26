@@ -79,6 +79,27 @@ export async function signInWithGoogle(formData?: FormData) {
   }
 }
 
+export async function signInWithLineIdToken(idToken: string, rawNextPath?: string) {
+  if (!idToken) {
+    return { error: 'LINE IDトークンが取得できませんでした。' };
+  }
+
+  const supabase = await createClient();
+  const provider = process.env.SUPABASE_LINE_PROVIDER || 'line';
+  const nextPath = getSafeNextPath(rawNextPath ?? '/dashboard');
+
+  const { error } = await supabase.auth.signInWithIdToken({
+    provider,
+    token: idToken,
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  redirect(nextPath);
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

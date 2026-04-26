@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { signIn, signInWithGoogle } from '@/lib/actions/auth'
+import { signIn, signInWithGoogle, signInWithLineIdToken } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
+import { getLiffIdToken } from '@/lib/liff/client'
 
 interface LoginFormProps {
   nextPath?: string;
@@ -17,6 +18,7 @@ interface LoginFormProps {
 export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [lineLoading, setLineLoading] = useState(false)
   const { t } = useTranslation()
 
   async function handleSubmit(formData: FormData) {
@@ -29,10 +31,31 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
     }
   }
 
-  async function handleGoogleSignIn() {
-    const result = await signInWithGoogle()
+  async function handleGoogleSignIn(formData: FormData) {
+    const result = await signInWithGoogle(formData)
     if (result?.error) {
       setError(result.error)
+    }
+  }
+
+  async function handleLineSignIn() {
+    setLineLoading(true)
+    setError(null)
+    try {
+      const idToken = await getLiffIdToken()
+      if (!idToken) {
+        setLineLoading(false)
+        return
+      }
+
+      const result = await signInWithLineIdToken(idToken, nextPath)
+      if (result?.error) {
+        setError(result.error)
+        setLineLoading(false)
+      }
+    } catch {
+      setError(t('auth.lineUnavailable'))
+      setLineLoading(false)
     }
   }
 
@@ -58,7 +81,7 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
             <Label htmlFor="password">{t('auth.password')}</Label>
             <Input id="password" name="password" type="password" required placeholder="••••••••" />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading || lineLoading}>
             {loading ? t('auth.loggingIn') : t('auth.login')}
           </Button>
         </form>
@@ -72,8 +95,14 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
 
         <form action={handleGoogleSignIn}>
           <input type="hidden" name="next" value={nextPath} />
-          <Button variant="outline" className="w-full" type="submit">
+          <Button variant="outline" className="w-full" type="submit" disabled={loading || lineLoading}>
             {t('auth.googleLogin')}
+          </Button>
+        </form>
+
+        <form action={handleLineSignIn}>
+          <Button type="submit" className="w-full bg-[#06C755] text-white hover:bg-[#05ad4b]" disabled={loading || lineLoading}>
+            {lineLoading ? t('auth.lineConnecting') : t('auth.lineLogin')}
           </Button>
         </form>
       </CardContent>
