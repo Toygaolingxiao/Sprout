@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.34';
+export const APP_VERSION = '1.9.35';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.35',
+    date: '2026-04-26',
+    items: [
+      '設定画面にアカウント削除機能を追加^',
+      '本人削除用RPC delete_my_accountを追加^',
+      '削除確認ダイアログと多言語文言を実装',
+    ],
+  },
   {
     version: '1.9.34',
     date: '2026-04-26',

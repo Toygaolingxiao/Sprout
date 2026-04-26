@@ -402,6 +402,26 @@ export async function unlinkProvider(formData: FormData) {
   return { success: true };
 }
 
+export async function deleteAccount() {
+  const supabase = await createClient();
+
+  const { error } = await supabase.rpc('delete_my_account');
+  if (error) {
+    const normalized = (error.message ?? '').toLowerCase();
+    if (normalized.includes('not_authenticated')) {
+      return { error: 'settings.accountDeleteNeedRelogin' };
+    }
+    if (normalized.includes('fetch failed') || normalized.includes('network')) {
+      return { error: 'auth.networkError' };
+    }
+    return { error: 'settings.accountDeleteFailed' };
+  }
+
+  // Clear local session state/cookies after account removal.
+  await supabase.auth.signOut();
+  return { success: true };
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

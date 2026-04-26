@@ -8,6 +8,7 @@ import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
 import { ChangePasswordSection } from '@/components/settings/change-password-section';
 import { ChangeEmailSection } from '@/components/settings/change-email-section';
+import { DeleteAccountSection } from '@/components/settings/delete-account-section';
 import { ProviderLinksSection } from '@/components/settings/provider-links-section';
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
@@ -151,6 +152,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           />
           <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />
+          <DeleteAccountSection />
           <form action={signOut}>
             <Button variant="outline" size="sm" className="w-full" type="submit">
               {t('nav.logout')}
