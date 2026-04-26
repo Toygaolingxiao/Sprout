@@ -20,7 +20,12 @@ export const metadata: Metadata = {
   title: '設定 | Sprout',
 };
 
-export default async function SettingsPage() {
+interface SettingsPageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function SettingsPage({ searchParams }: SettingsPageProps) {
+  const params = await searchParams;
   const profile = await getProfile();
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -72,6 +77,8 @@ export default async function SettingsPage() {
   const googleLinked = hasProvider(['google']);
   const lineLinked = hasProvider(['line', 'custom:line', normalizedLineProvider]);
   const linkedIdentityCount = identities.length;
+  const linkStatus = typeof params.link_status === 'string' ? params.link_status : null;
+  const linkProvider = typeof params.link_provider === 'string' ? params.link_provider : null;
   const currentEmail = user?.email ?? null;
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
@@ -136,6 +143,9 @@ export default async function SettingsPage() {
             googleLinked={googleLinked}
             lineLinked={lineLinked}
             linkedIdentityCount={linkedIdentityCount}
+            lineProviderAlias={lineProvider}
+            initialLinkStatus={linkStatus}
+            initialLinkProvider={linkProvider}
           />
           <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />

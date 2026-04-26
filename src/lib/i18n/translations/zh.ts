@@ -181,6 +181,8 @@ export const zh: Record<TranslationKey, string> = {
   'settings.providerConnect': '去关联',
   'settings.providerDisconnect': '解除关联',
   'settings.providerDisconnected': '已解除 {provider} 关联',
+  'settings.providerConnectedNow': '{provider} 关联已完成',
+  'settings.providerAlreadyLinked': '{provider} 已经处于关联状态',
   'settings.providerManualLinkingRequired': '解除关联前，请在 Supabase Auth 中开启 Enable Manual Linking。',
   'settings.providerUnsupported': '该关联方式当前不可用。',
   'settings.providerNotLinked': '未找到对应的关联账号。',
