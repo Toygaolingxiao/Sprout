@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.28';
+export const APP_VERSION = '1.9.29';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.29',
+    date: '2026-04-26',
+    items: [
+      '連携失敗メッセージをProvider別に改善^',
+      'Google未有効とLINE設定不備を明示^',
+      'callbackエラー判定をProvider別コードへ統一',
+    ],
+  },
   {
     version: '1.9.28',
     date: '2026-04-26',

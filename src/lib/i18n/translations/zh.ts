@@ -185,6 +185,8 @@ export const zh: Record<TranslationKey, string> = {
   'settings.providerAlreadyLinked': '{provider} 已经处于关联状态',
   'settings.providerManualLinkingRequired': '解除关联前，请在 Supabase Auth 中开启 Enable Manual Linking。',
   'settings.providerUnsupported': '该关联方式当前不可用。',
+  'settings.providerUnsupportedGoogle': 'Google 关联当前不可用。请在 Supabase Auth Providers 中启用 Google。',
+  'settings.providerUnsupportedLine': 'LINE 关联配置未完成。请检查 Supabase Custom OIDC 与 SUPABASE_LINE_PROVIDER（custom:line）。',
   'settings.providerNotLinked': '未找到对应的关联账号。',
   'settings.providerUnlinkNeedAnother': '当前仅有一种登录方式，无法解除关联。',
   'settings.providerOperationFailed': '关联设置变更失败，请稍后重试。',

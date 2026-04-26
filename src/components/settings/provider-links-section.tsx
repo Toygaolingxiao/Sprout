@@ -61,6 +61,8 @@ export function ProviderLinksSection({
     if (message === 'auth.networkError') return t('auth.networkError');
     if (message === 'settings.providerManualLinkingRequired') return t('settings.providerManualLinkingRequired');
     if (message === 'settings.providerUnsupported') return t('settings.providerUnsupported');
+    if (message === 'settings.providerUnsupportedGoogle') return t('settings.providerUnsupportedGoogle');
+    if (message === 'settings.providerUnsupportedLine') return t('settings.providerUnsupportedLine');
     if (message === 'settings.providerNotLinked') return t('settings.providerNotLinked');
     if (message === 'settings.providerAlreadyLinked') return t('settings.providerAlreadyLinked');
     if (message === 'settings.providerUnlinkNeedAnother') return t('settings.providerUnlinkNeedAnother');

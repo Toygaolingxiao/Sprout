@@ -183,6 +183,8 @@ export const ja = {
   'settings.providerAlreadyLinked': '{provider} はすでに連携済みです',
   'settings.providerManualLinkingRequired': '連携解除には Supabase Auth の Enable Manual Linking を有効にしてください。',
   'settings.providerUnsupported': 'この連携方法は利用できません。',
+  'settings.providerUnsupportedGoogle': 'Google 連携は現在無効です。Supabase Auth の Providers で Google を有効化してください。',
+  'settings.providerUnsupportedLine': 'LINE 連携設定が未完了です。Supabase Custom OIDC と SUPABASE_LINE_PROVIDER（custom:line）を確認してください。',
   'settings.providerNotLinked': '指定の連携は見つかりませんでした。',
   'settings.providerUnlinkNeedAnother': 'ログイン方法が1つだけのため連携解除できません。',
   'settings.providerOperationFailed': '連携設定の変更に失敗しました。時間をおいて再試行してください。',

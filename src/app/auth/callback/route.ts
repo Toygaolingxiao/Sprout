@@ -76,11 +76,13 @@ async function isProviderLinked(linkProvider: 'google' | 'line') {
   return hasAnyProviderAlias(providerSet, aliases);
 }
 
-function mapLinkCallbackError(message: string | undefined) {
+function mapLinkCallbackError(message: string | undefined, provider: 'google' | 'line') {
   const normalized = (message ?? '').toLowerCase();
   if (normalized.includes('manual linking')) return 'settings.providerManualLinkingRequired';
   if (normalized.includes('already linked') || normalized.includes('identity already exists')) return 'settings.providerAlreadyLinked';
-  if (normalized.includes('unsupported provider')) return 'settings.providerUnsupported';
+  if (normalized.includes('unsupported provider')) {
+    return provider === 'google' ? 'settings.providerUnsupportedGoogle' : 'settings.providerUnsupportedLine';
+  }
   if (normalized.includes('fetch failed') || normalized.includes('network')) return 'auth.networkError';
   return 'settings.providerOperationFailed';
 }
@@ -114,7 +116,7 @@ export async function GET(request: Request) {
         nextPath,
         linkProvider,
         'failed',
-        mapLinkCallbackError(error.message),
+        mapLinkCallbackError(error.message, linkProvider),
       );
     }
   }
@@ -125,7 +127,7 @@ export async function GET(request: Request) {
       nextPath,
       linkProvider,
       'failed',
-      mapLinkCallbackError(callbackErrorMessage),
+      mapLinkCallbackError(callbackErrorMessage, linkProvider),
     );
   }
 
