@@ -83,6 +83,21 @@ function mapLinkCallbackError(message: string | undefined, provider: 'google' | 
   if (normalized.includes('unsupported provider')) {
     return provider === 'google' ? 'settings.providerUnsupportedGoogle' : 'settings.providerUnsupportedLine';
   }
+  if (provider === 'line') {
+    if (
+      normalized.includes('invalid client') ||
+      normalized.includes('client id') ||
+      normalized.includes('client_id')
+    ) {
+      return 'settings.providerLineConfigInvalid';
+    }
+    if (normalized.includes('redirect uri') || normalized.includes('redirect_uri')) {
+      return 'settings.providerLineRedirectMismatch';
+    }
+    if (normalized.includes('access denied') || normalized.includes('access_denied')) {
+      return 'settings.providerLineAccessDenied';
+    }
+  }
   if (normalized.includes('fetch failed') || normalized.includes('network')) return 'auth.networkError';
   return 'settings.providerOperationFailed';
 }

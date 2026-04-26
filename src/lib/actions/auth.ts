@@ -117,6 +117,21 @@ function mapProviderError(message: string, target?: AuthProviderTarget) {
     if (target === 'line') return 'settings.providerUnsupportedLine';
     return 'settings.providerUnsupported';
   }
+  if (target === 'line') {
+    if (
+      normalized.includes('invalid client') ||
+      normalized.includes('client id') ||
+      normalized.includes('client_id')
+    ) {
+      return 'settings.providerLineConfigInvalid';
+    }
+    if (normalized.includes('redirect uri') || normalized.includes('redirect_uri')) {
+      return 'settings.providerLineRedirectMismatch';
+    }
+    if (normalized.includes('access denied') || normalized.includes('access_denied')) {
+      return 'settings.providerLineAccessDenied';
+    }
+  }
   if (normalized.includes('at least 2 identities')) {
     return 'settings.providerUnlinkNeedAnother';
   }
