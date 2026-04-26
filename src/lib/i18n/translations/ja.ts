@@ -27,6 +27,7 @@ export const ja = {
   'auth.lineUnavailable': 'LINEログインを開始できませんでした。時間をおいて再試行してください。',
   'auth.lineScopeHint': 'LINEログインの設定不足です。LINE Developers の LIFF Scope に openid を追加してください。',
   'auth.networkError': '通信エラーが発生しました。ネットワーク接続を確認して再試行してください。',
+  'auth.emailExists': 'このメールアドレスは既に登録されています。ログインしてください。',
   'auth.signupEmailSent': '確認メールを送信しました。メール内リンクから登録を完了してください。',
   'auth.forgotPassword': 'パスワードをお忘れですか？',
   'auth.noAccount': 'アカウントをお持ちでない方は',

@@ -12,11 +12,11 @@ function mapAuthError(message: string) {
     normalized.includes('already exists') ||
     normalized.includes('duplicate')
   ) {
-    return 'このメールアドレスは既に登録されています。ログインしてください。';
+    return 'auth.emailExists';
   }
 
   if (normalized.includes('fetch failed') || normalized.includes('network')) {
-    return '通信エラーが発生しました。ネットワーク接続を確認して再試行してください。';
+    return 'auth.networkError';
   }
 
   return message;
@@ -58,7 +58,7 @@ export async function signUp(formData: FormData) {
   }
 
   if ((data.user?.identities ?? []).length === 0) {
-    return { error: 'このメールアドレスは既に登録されています。ログインしてください。' };
+    return { error: 'auth.emailExists' };
   }
 
   if (!data.session) {

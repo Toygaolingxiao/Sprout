@@ -23,6 +23,12 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
   const [lineLoading, setLineLoading] = useState(false)
   const { t } = useTranslation()
 
+  function localizeError(message: string) {
+    if (message === 'auth.emailExists') return t('auth.emailExists')
+    if (message === 'auth.networkError') return t('auth.networkError')
+    return message
+  }
+
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError(null)
@@ -30,7 +36,7 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
     try {
       const result = await signUp(formData)
       if (result?.error) {
-        setError(result.error)
+        setError(localizeError(result.error))
       }
       if (result?.success) {
         setSuccess(result.success === 'auth.signupEmailSent' ? t('auth.signupEmailSent') : result.success)
@@ -48,7 +54,7 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
     try {
       const result = await signInWithGoogle(formData)
       if (result?.error) {
-        setError(result.error)
+        setError(localizeError(result.error))
       }
     } catch {
       setError(t('auth.networkError'))
@@ -64,7 +70,7 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
       try {
         const oauthResult = await signInWithLineOAuth(nextPath)
         if (oauthResult?.error) {
-          setError(t('auth.lineUnavailable'))
+          setError(localizeError(oauthResult.error))
           setLineLoading(false)
         }
       } catch {

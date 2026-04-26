@@ -22,13 +22,19 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
   const [lineLoading, setLineLoading] = useState(false)
   const { t } = useTranslation()
 
+  function localizeError(message: string) {
+    if (message === 'auth.emailExists') return t('auth.emailExists')
+    if (message === 'auth.networkError') return t('auth.networkError')
+    return message
+  }
+
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError(null)
     try {
       const result = await signIn(formData)
       if (result?.error) {
-        setError(result.error)
+        setError(localizeError(result.error))
       }
     } catch {
       setError(t('auth.networkError'))
@@ -42,7 +48,7 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
     try {
       const result = await signInWithGoogle(formData)
       if (result?.error) {
-        setError(result.error)
+        setError(localizeError(result.error))
       }
     } catch {
       setError(t('auth.networkError'))
@@ -57,7 +63,7 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
       try {
         const oauthResult = await signInWithLineOAuth(nextPath)
         if (oauthResult?.error) {
-          setError(t('auth.lineUnavailable'))
+          setError(localizeError(oauthResult.error))
           setLineLoading(false)
         }
       } catch {
