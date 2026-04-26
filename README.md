@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.7
+> for commit 1.9.8
 
 ---
 
@@ -125,6 +125,7 @@ Supabase Dashboard → Authentication → URL Configuration:
 1. LINE Developers の LIFF設定
 	- LIFF ID: `your-liff-id`
 	- Endpoint URL: `https://sprout-rose.vercel.app/`
+	- Scope: `openid profile`（IDトークン取得に必須）
 2. Supabase Auth で LINEプロバイダー（または Custom OIDC）を有効化
 3. `SUPABASE_LINE_PROVIDER` をプロバイダー名に合わせる
 	- 例: `line`
