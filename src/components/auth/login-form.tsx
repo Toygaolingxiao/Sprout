@@ -46,6 +46,11 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFo
         }
 
         const result = await signInWithLineIdToken(idToken, nextPath)
+        if (result?.success && !cancelled) {
+          window.location.assign(result.nextPath ?? nextPath)
+          return
+        }
+
         if (result?.error && !cancelled) {
           window.location.assign(`/auth/line?next=${encodeURIComponent(nextPath)}`)
         }
