@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { signIn, signInWithGoogle, signInWithLineIdToken } from '@/lib/actions/auth'
+import { signIn, signInWithGoogle, signInWithLineIdToken, signInWithLineOAuth } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -41,6 +41,15 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
   async function handleLineSignIn() {
     setLineLoading(true)
     setError(null)
+
+    async function startLineOAuthFallback() {
+      const oauthResult = await signInWithLineOAuth(nextPath)
+      if (oauthResult?.error) {
+        setError(t('auth.lineUnavailable'))
+        setLineLoading(false)
+      }
+    }
+
     try {
       const idToken = await getLiffIdToken()
       if (!idToken) {
@@ -50,12 +59,16 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
 
       const result = await signInWithLineIdToken(idToken, nextPath)
       if (result?.error) {
-        setError(result.error)
-        setLineLoading(false)
+        await startLineOAuthFallback()
       }
-    } catch {
-      setError(t('auth.lineUnavailable'))
-      setLineLoading(false)
+    } catch (error) {
+      if (error instanceof Error && error.message === 'LIFF_ID_TOKEN_NOT_AVAILABLE') {
+        setError(t('auth.lineScopeHint'))
+        setLineLoading(false)
+        return
+      }
+
+      await startLineOAuthFallback()
     }
   }
 
