@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.8
+> for commit 1.9.9
 
 ---
 
@@ -132,6 +132,10 @@ Supabase Dashboard → Authentication → URL Configuration:
 	- 例: `custom:line`
 4. 本番URLと `/auth/callback` を許可URLに追加
 5. デプロイ後、LIFF内でログイン画面の「LINEでログイン」から接続確認
+
+注意:
+- `https://liff.line.me/...` から開く場合、LINE側の仕様で最初にLINE認証画面が表示されます。
+- メール/Googleでの登録・ログイン導線を優先したい場合は、`https://sprout-rose.vercel.app/` を直接開いてください。
 
 ### 5.1 自動リリース（VerUp + commit + push + deploy）
 

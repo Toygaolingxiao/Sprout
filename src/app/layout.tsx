@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { WhatsNew } from "@/components/whats-new";
-import { LiffBootstrap } from "@/components/liff/liff-bootstrap";
 import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "@/lib/i18n/context";
 import { getLocale } from "@/lib/i18n/server";
@@ -73,7 +72,6 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <LanguageProvider initialLocale={locale}>
-            <LiffBootstrap />
             {children}
             <WhatsNew />
           </LanguageProvider>
