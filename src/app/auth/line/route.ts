@@ -29,14 +29,10 @@ function getSupabaseOrigin() {
 }
 
 async function isSupabaseReachable(origin: string) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 3000);
-
   try {
     await fetch(`${origin}/auth/v1/settings`, {
       method: 'GET',
       cache: 'no-store',
-      signal: controller.signal,
     });
 
     // Any HTTP response means DNS/TLS/network path is alive.
@@ -44,8 +40,6 @@ async function isSupabaseReachable(origin: string) {
     return true;
   } catch {
     return false;
-  } finally {
-    clearTimeout(timer);
   }
 }
 
