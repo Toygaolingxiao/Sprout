@@ -81,13 +81,21 @@ export function LandingPage() {
                 {t('lp.langZh')}
               </button>
             </div>
-            <Link href="/login" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
+            <button
+              type="button"
+              onClick={() => router.push('/login')}
+              className={buttonVariants({ variant: 'ghost', size: 'sm' })}
+            >
               {t('lp.login')}
-            </Link>
-            <Link href="/signup" className={buttonVariants({ size: 'sm' })}>
-                <Sparkles className="size-3.5" />
-                {t('lp.startFree')}
-            </Link>
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push('/signup')}
+              className={buttonVariants({ size: 'sm' })}
+            >
+              <Sparkles className="size-3.5" />
+              {t('lp.startFree')}
+            </button>
           </div>
         </nav>
       </header>
