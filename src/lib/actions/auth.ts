@@ -106,13 +106,15 @@ async function getCurrentProviderSet(supabase: Awaited<ReturnType<typeof createC
   return providers;
 }
 
-function mapProviderError(message: string) {
+function mapProviderError(message: string, target?: AuthProviderTarget) {
   const normalized = message.toLowerCase();
 
   if (normalized.includes('manual linking')) {
     return 'settings.providerManualLinkingRequired';
   }
   if (normalized.includes('unsupported provider')) {
+    if (target === 'google') return 'settings.providerUnsupportedGoogle';
+    if (target === 'line') return 'settings.providerUnsupportedLine';
     return 'settings.providerUnsupported';
   }
   if (normalized.includes('at least 2 identities')) {
@@ -285,7 +287,7 @@ export async function createProviderLink(formData: FormData) {
   });
 
   if (error) {
-    return { error: mapProviderError(error.message) };
+    return { error: mapProviderError(error.message, target) };
   }
 
   if (!data?.url) {
@@ -305,7 +307,7 @@ export async function unlinkProvider(formData: FormData) {
 
   const { data, error } = await supabase.auth.getUserIdentities();
   if (error || !data) {
-    return { error: mapProviderError(error?.message ?? '') };
+    return { error: mapProviderError(error?.message ?? '', target) };
   }
 
   const identities = data.identities ?? [];
@@ -324,7 +326,7 @@ export async function unlinkProvider(formData: FormData) {
 
   const { error: unlinkError } = await supabase.auth.unlinkIdentity(match);
   if (unlinkError) {
-    return { error: mapProviderError(unlinkError.message) };
+    return { error: mapProviderError(unlinkError.message, target) };
   }
 
   return { success: true };
