@@ -10,6 +10,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
 import { getLiffIdToken } from '@/lib/liff/client'
+import { GoogleIcon } from '@/components/auth/google-icon'
 
 interface LoginFormProps {
   nextPath?: string;
@@ -24,17 +25,27 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError(null)
-    const result = await signIn(formData)
-    if (result?.error) {
-      setError(result.error)
+    try {
+      const result = await signIn(formData)
+      if (result?.error) {
+        setError(result.error)
+      }
+    } catch {
+      setError(t('auth.networkError'))
+    } finally {
       setLoading(false)
     }
   }
 
   async function handleGoogleSignIn(formData: FormData) {
-    const result = await signInWithGoogle(formData)
-    if (result?.error) {
-      setError(result.error)
+    setError(null)
+    try {
+      const result = await signInWithGoogle(formData)
+      if (result?.error) {
+        setError(result.error)
+      }
+    } catch {
+      setError(t('auth.networkError'))
     }
   }
 
@@ -43,9 +54,14 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
     setError(null)
 
     async function startLineOAuthFallback() {
-      const oauthResult = await signInWithLineOAuth(nextPath)
-      if (oauthResult?.error) {
-        setError(t('auth.lineUnavailable'))
+      try {
+        const oauthResult = await signInWithLineOAuth(nextPath)
+        if (oauthResult?.error) {
+          setError(t('auth.lineUnavailable'))
+          setLineLoading(false)
+        }
+      } catch {
+        setError(t('auth.networkError'))
         setLineLoading(false)
       }
     }
@@ -63,9 +79,14 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
       }
     } catch (error) {
       if (error instanceof Error && error.message === 'LIFF_ID_TOKEN_NOT_AVAILABLE') {
-        const oauthResult = await signInWithLineOAuth(nextPath)
-        if (oauthResult?.error) {
-          setError(t('auth.lineScopeHint'))
+        try {
+          const oauthResult = await signInWithLineOAuth(nextPath)
+          if (oauthResult?.error) {
+            setError(t('auth.lineScopeHint'))
+            setLineLoading(false)
+          }
+        } catch {
+          setError(t('auth.networkError'))
           setLineLoading(false)
         }
         return
@@ -111,7 +132,13 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
 
         <form action={handleGoogleSignIn}>
           <input type="hidden" name="next" value={nextPath} />
-          <Button variant="outline" className="w-full" type="submit" disabled={loading || lineLoading}>
+          <Button
+            variant="outline"
+            className="w-full border-[#dadce0] bg-white text-[#3c4043] hover:bg-[#f8f9fa]"
+            type="submit"
+            disabled={loading || lineLoading}
+          >
+            <GoogleIcon className="size-4" />
             {t('auth.googleLogin')}
           </Button>
         </form>

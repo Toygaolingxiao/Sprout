@@ -10,6 +10,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
 import { getLiffIdToken } from '@/lib/liff/client'
+import { GoogleIcon } from '@/components/auth/google-icon'
 
 interface SignupFormProps {
   nextPath?: string;
@@ -17,6 +18,7 @@ interface SignupFormProps {
 
 export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [lineLoading, setLineLoading] = useState(false)
   const { t } = useTranslation()
@@ -24,28 +26,49 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError(null)
-    const result = await signUp(formData)
-    if (result?.error) {
-      setError(result.error)
+    setSuccess(null)
+    try {
+      const result = await signUp(formData)
+      if (result?.error) {
+        setError(result.error)
+      }
+      if (result?.success) {
+        setSuccess(result.success === 'auth.signupEmailSent' ? t('auth.signupEmailSent') : result.success)
+      }
+    } catch {
+      setError(t('auth.networkError'))
+    } finally {
       setLoading(false)
     }
   }
 
   async function handleGoogleSignUp(formData: FormData) {
-    const result = await signInWithGoogle(formData)
-    if (result?.error) {
-      setError(result.error)
+    setError(null)
+    setSuccess(null)
+    try {
+      const result = await signInWithGoogle(formData)
+      if (result?.error) {
+        setError(result.error)
+      }
+    } catch {
+      setError(t('auth.networkError'))
     }
   }
 
   async function handleLineSignUp() {
     setLineLoading(true)
     setError(null)
+    setSuccess(null)
 
     async function startLineOAuthFallback() {
-      const oauthResult = await signInWithLineOAuth(nextPath)
-      if (oauthResult?.error) {
-        setError(t('auth.lineUnavailable'))
+      try {
+        const oauthResult = await signInWithLineOAuth(nextPath)
+        if (oauthResult?.error) {
+          setError(t('auth.lineUnavailable'))
+          setLineLoading(false)
+        }
+      } catch {
+        setError(t('auth.networkError'))
         setLineLoading(false)
       }
     }
@@ -63,9 +86,14 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
       }
     } catch (error) {
       if (error instanceof Error && error.message === 'LIFF_ID_TOKEN_NOT_AVAILABLE') {
-        const oauthResult = await signInWithLineOAuth(nextPath)
-        if (oauthResult?.error) {
-          setError(t('auth.lineScopeHint'))
+        try {
+          const oauthResult = await signInWithLineOAuth(nextPath)
+          if (oauthResult?.error) {
+            setError(t('auth.lineScopeHint'))
+            setLineLoading(false)
+          }
+        } catch {
+          setError(t('auth.networkError'))
           setLineLoading(false)
         }
         return
@@ -81,6 +109,11 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
         <CardTitle className="text-center">{t('auth.signup')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        {success && (
+          <div className="rounded-md bg-emerald-500/10 p-3 text-sm text-emerald-700 dark:text-emerald-300">
+            {success}
+          </div>
+        )}
         {error && (
           <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
             {error}
@@ -122,7 +155,13 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
 
         <form action={handleGoogleSignUp}>
           <input type="hidden" name="next" value={nextPath} />
-          <Button variant="outline" className="w-full" type="submit" disabled={loading || lineLoading}>
+          <Button
+            variant="outline"
+            className="w-full border-[#dadce0] bg-white text-[#3c4043] hover:bg-[#f8f9fa]"
+            type="submit"
+            disabled={loading || lineLoading}
+          >
+            <GoogleIcon className="size-4" />
             {t('auth.googleSignup')}
           </Button>
         </form>
