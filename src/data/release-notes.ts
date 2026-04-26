@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.37';
+export const APP_VERSION = '1.9.38';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.38',
+    date: '2026-04-26',
+    items: [
+      '家族招待参加時に旧ファミリーの孤立を防止^',
+      'owner不整合時の自動移管処理を追加^',
+      '既存孤立families修復用SQLを追加',
+    ],
+  },
   {
     version: '1.9.37',
     date: '2026-04-26',
