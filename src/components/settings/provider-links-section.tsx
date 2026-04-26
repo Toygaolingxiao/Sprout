@@ -16,6 +16,8 @@ interface ProviderLinksSectionProps {
 type ProviderKey = 'google' | 'line';
 
 export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityCount }: ProviderLinksSectionProps) {
+    const hasAnyLinked = googleLinked || lineLinked;
+
   const [isPending, startTransition] = useTransition();
   const [pendingProvider, setPendingProvider] = useState<ProviderKey | null>(null);
   const router = useRouter();
@@ -125,7 +127,7 @@ export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityC
       <ProviderRow provider="line" linked={lineLinked} />
       <ProviderRow provider="google" linked={googleLinked} />
 
-      {linkedIdentityCount <= 1 && (
+      {hasAnyLinked && linkedIdentityCount <= 1 && (
         <p className="text-xs text-muted-foreground">{t('settings.providerUnlinkNeedAnother')}</p>
       )}
     </div>

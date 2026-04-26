@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.25';
+export const APP_VERSION = '1.9.26';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.26',
+    date: '2026-04-26',
+    items: [
+      '連携済み判定ロジックを強化^',
+      'user identitiesとmetadata providersを併用^',
+      '未連携時の解除注意文表示を調整',
+    ],
+  },
   {
     version: '1.9.25',
     date: '2026-04-26',
