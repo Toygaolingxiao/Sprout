@@ -48,7 +48,7 @@ export function LandingPage() {
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
         <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label={t('lp.mainNav')}>
-          <span className="text-lg font-bold tracking-tight" aria-label="Sprout">🌱 Sprout</span>
+          <Link href="/" className="text-lg font-bold tracking-tight" aria-label="Sprout home">🌱 Sprout</Link>
           <div className="flex gap-2">
             <Link href="/login">
               <Button variant="ghost" size="sm">{t('lp.login')}</Button>
