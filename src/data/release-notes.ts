@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.32';
+export const APP_VERSION = '1.9.33';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.33',
+    date: '2026-04-26',
+    items: [
+      'LINE連携失敗時に診断コード表示を追加^',
+      'callbackとserver actionで原因ヒント抽出^',
+      '同一文言時の切り分け速度を改善',
+    ],
+  },
   {
     version: '1.9.32',
     date: '2026-04-26',

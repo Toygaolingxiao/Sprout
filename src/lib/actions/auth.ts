@@ -42,6 +42,30 @@ function getSafeNextPath(rawNext: string | null | undefined, fallback = '/dashbo
 type AuthProviderTarget = 'google' | 'line';
 type IdentityLike = { provider?: string | null };
 
+function extractProviderErrorHint(message: string) {
+  const normalized = message.toLowerCase();
+  const knownHints = [
+    'access_denied',
+    'invalid_request',
+    'invalid_grant',
+    'invalid_client',
+    'invalid_scope',
+    'server_error',
+    'temporarily_unavailable',
+    'unsupported_response_type',
+    'unsupported_grant_type',
+    'provider_not_enabled',
+  ];
+
+  for (const hint of knownHints) {
+    if (normalized.includes(hint)) return hint;
+  }
+
+  // Keep the diagnostics short and safe for URL/query usage.
+  const compact = normalized.replace(/[^a-z0-9_:\- ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  return compact.slice(0, 64) || 'unknown';
+}
+
 function parseAuthProviderTarget(raw: FormDataEntryValue | null): AuthProviderTarget | null {
   if (raw === 'google') return 'google';
   if (raw === 'line') return 'line';
@@ -140,7 +164,7 @@ function mapProviderError(message: string, target?: AuthProviderTarget) {
       normalized.includes('invalid_grant') ||
       normalized.includes('oauth')
     ) {
-      return 'settings.providerLineTroubleshooting';
+      return `settings.providerLineTroubleshooting:${extractProviderErrorHint(message)}`;
     }
   }
   if (normalized.includes('at least 2 identities')) {
@@ -157,7 +181,7 @@ function mapProviderError(message: string, target?: AuthProviderTarget) {
   }
 
   if (target === 'line') {
-    return 'settings.providerLineTroubleshooting';
+    return `settings.providerLineTroubleshooting:${extractProviderErrorHint(message)}`;
   }
 
   return 'settings.providerOperationFailed';
