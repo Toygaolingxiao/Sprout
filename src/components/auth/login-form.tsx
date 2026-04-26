@@ -15,9 +15,10 @@ import { getLiffIdTokenWithOptions } from '@/lib/liff/client'
 interface LoginFormProps {
   nextPath?: string;
   autoLiff?: boolean;
+  initialErrorCode?: string | null;
 }
 
-export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFormProps) {
+export function LoginForm({ nextPath = '/dashboard', autoLiff = false, initialErrorCode = null }: LoginFormProps) {
   const lineAutoFallbackKey = 'sprout_line_auto_fallback_done'
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -25,10 +26,19 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFo
   const { t } = useTranslation()
 
   function localizeError(message: string) {
+    if (message === 'line_oauth_failed') return t('auth.lineUnavailable')
+    if (message === 'auth_callback_failed') return t('auth.lineCallbackFailed')
+    if (message === 'supabase_unreachable') return t('auth.supabaseUnavailable')
+    if (message === 'supabase_config_invalid') return t('auth.supabaseConfigInvalid')
     if (message === 'auth.emailExists') return t('auth.emailExists')
     if (message === 'auth.networkError') return t('auth.networkError')
     return message
   }
+
+  useEffect(() => {
+    if (!initialErrorCode) return
+    setError(localizeError(initialErrorCode))
+  }, [initialErrorCode, t])
 
   useEffect(() => {
     if (!autoLiff) return
