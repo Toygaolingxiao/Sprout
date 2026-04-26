@@ -33,12 +33,15 @@ async function isSupabaseReachable(origin: string) {
   const timer = setTimeout(() => controller.abort(), 3000);
 
   try {
-    const response = await fetch(`${origin}/auth/v1/settings`, {
+    await fetch(`${origin}/auth/v1/settings`, {
       method: 'GET',
       cache: 'no-store',
       signal: controller.signal,
     });
-    return response.ok;
+
+    // Any HTTP response means DNS/TLS/network path is alive.
+    // We only want to fail when request itself cannot be made.
+    return true;
   } catch {
     return false;
   } finally {
