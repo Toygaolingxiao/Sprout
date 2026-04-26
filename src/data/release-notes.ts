@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.38';
+export const APP_VERSION = '1.9.39';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.39',
+    date: '2026-04-26',
+    items: [
+      '孤立family修復SQLのUUID集約エラーを修正^',
+      'MIN(uuid)をDISTINCT ONへ置換^',
+      'SQL Editor実行互換性を改善',
+    ],
+  },
   {
     version: '1.9.38',
     date: '2026-04-26',
