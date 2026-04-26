@@ -118,6 +118,9 @@ function mapProviderError(message: string, target?: AuthProviderTarget) {
     return 'settings.providerUnsupported';
   }
   if (target === 'line') {
+    if (normalized.includes('provider is not enabled') || normalized.includes('provider not enabled')) {
+      return 'settings.providerUnsupportedLine';
+    }
     if (
       normalized.includes('invalid client') ||
       normalized.includes('client id') ||
@@ -131,6 +134,14 @@ function mapProviderError(message: string, target?: AuthProviderTarget) {
     if (normalized.includes('access denied') || normalized.includes('access_denied')) {
       return 'settings.providerLineAccessDenied';
     }
+    if (
+      normalized.includes('server_error') ||
+      normalized.includes('invalid_request') ||
+      normalized.includes('invalid_grant') ||
+      normalized.includes('oauth')
+    ) {
+      return 'settings.providerLineTroubleshooting';
+    }
   }
   if (normalized.includes('at least 2 identities')) {
     return 'settings.providerUnlinkNeedAnother';
@@ -143,6 +154,10 @@ function mapProviderError(message: string, target?: AuthProviderTarget) {
   }
   if (normalized.includes('fetch failed') || normalized.includes('network')) {
     return 'auth.networkError';
+  }
+
+  if (target === 'line') {
+    return 'settings.providerLineTroubleshooting';
   }
 
   return 'settings.providerOperationFailed';

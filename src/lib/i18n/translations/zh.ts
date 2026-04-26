@@ -193,6 +193,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.providerLineConfigInvalid': 'LINE OAuth 客户端配置无效。请检查 LINE Channel ID/Secret 与 Supabase Custom OIDC 配置。',
   'settings.providerLineRedirectMismatch': 'LINE 回调地址不匹配。请将 Supabase Callback URL 配置到 LINE。',
   'settings.providerLineAccessDenied': 'LINE 侧拒绝了关联请求。请确认授权同意后重试。',
+  'settings.providerLineTroubleshooting': 'LINE 关联失败。请检查 SUPABASE_LINE_PROVIDER、Custom OIDC 的 Client ID/Secret，以及 LINE 回调地址配置。',
   'settings.providerNotLinked': '未找到对应的关联账号。',
   'settings.providerUnlinkNeedAnother': '当前仅有一种登录方式，无法解除关联。',
   'settings.providerOperationFailed': '关联设置变更失败，请稍后重试。',

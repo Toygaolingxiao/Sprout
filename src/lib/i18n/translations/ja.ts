@@ -191,6 +191,7 @@ export const ja = {
   'settings.providerLineConfigInvalid': 'LINE OAuth のクライアント設定が不正です。LINE Channel ID/Secret と Supabase Custom OIDC 設定を確認してください。',
   'settings.providerLineRedirectMismatch': 'LINE のリダイレクトURLが一致していません。Supabase の Callback URL を LINE 側に登録してください。',
   'settings.providerLineAccessDenied': 'LINE 側で連携が拒否されました。権限同意を確認して再試行してください。',
+  'settings.providerLineTroubleshooting': 'LINE 連携に失敗しました。SUPABASE_LINE_PROVIDER、Custom OIDC の Client ID/Secret、LINE 側のリダイレクトURL設定を確認してください。',
   'settings.providerNotLinked': '指定の連携は見つかりませんでした。',
   'settings.providerUnlinkNeedAnother': 'ログイン方法が1つだけのため連携解除できません。',
   'settings.providerOperationFailed': '連携設定の変更に失敗しました。時間をおいて再試行してください。',
