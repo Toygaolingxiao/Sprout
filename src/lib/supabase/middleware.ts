@@ -5,7 +5,7 @@ export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const pathname = request.nextUrl.pathname;
-  const publicPaths = ['/login', '/signup', '/reset-password', '/auth/callback', '/invite', '/api/', '/terms', '/privacy'];
+  const publicPaths = ['/login', '/signup', '/reset-password', '/auth/', '/invite', '/api/', '/terms', '/privacy'];
   const isPublicPath = pathname === '/' || publicPaths.some((path) => pathname.startsWith(path));
   const hasAuthCookie = request.cookies
     .getAll()
