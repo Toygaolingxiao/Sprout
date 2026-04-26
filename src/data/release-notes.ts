@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.19';
+export const APP_VERSION = '1.9.20';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.20',
+    date: '2026-04-26',
+    items: [
+      'LIFF自動再ログイン抑止^',
+      'LINE OAuthフォールバック1回ガード^',
+      'LINE無限ループ対策',
+    ],
+  },
   {
     version: '1.9.19',
     date: '2026-04-26',
