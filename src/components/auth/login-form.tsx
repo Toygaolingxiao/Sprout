@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { signIn, signInWithGoogle } from '@/lib/actions/auth'
+import { signIn, signInWithGoogle, signInWithLineIdToken } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -10,12 +10,14 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
 import { GoogleIcon } from '@/components/auth/google-icon'
+import { getLiffIdToken } from '@/lib/liff/client'
 
 interface LoginFormProps {
   nextPath?: string;
+  autoLiff?: boolean;
 }
 
-export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
+export function LoginForm({ nextPath = '/dashboard', autoLiff = false }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [lineLoading, setLineLoading] = useState(false)
@@ -26,6 +28,40 @@ export function LoginForm({ nextPath = '/dashboard' }: LoginFormProps) {
     if (message === 'auth.networkError') return t('auth.networkError')
     return message
   }
+
+  useEffect(() => {
+    if (!autoLiff) return
+
+    let cancelled = false
+
+    async function runAutoLiffLogin() {
+      setLineLoading(true)
+      setError(null)
+
+      try {
+        const idToken = await getLiffIdToken()
+        if (!idToken) {
+          if (!cancelled) setLineLoading(false)
+          return
+        }
+
+        const result = await signInWithLineIdToken(idToken, nextPath)
+        if (result?.error && !cancelled) {
+          window.location.assign(`/auth/line?next=${encodeURIComponent(nextPath)}`)
+        }
+      } catch {
+        if (!cancelled) {
+          window.location.assign(`/auth/line?next=${encodeURIComponent(nextPath)}`)
+        }
+      }
+    }
+
+    void runAutoLiffLogin()
+
+    return () => {
+      cancelled = true
+    }
+  }, [autoLiff, nextPath])
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)

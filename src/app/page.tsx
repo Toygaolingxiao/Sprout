@@ -1,6 +1,41 @@
 import { LandingPage } from '@/components/landing/landing-page';
+import { redirect } from 'next/navigation';
 
-export default async function Home() {
+function getSafePath(rawPath: string | null | undefined, fallback = '/login') {
+  if (!rawPath || rawPath.length === 0) return fallback;
+  if (!rawPath.startsWith('/')) return fallback;
+  if (rawPath.startsWith('//')) return fallback;
+  return rawPath;
+}
+
+function decodeLiffState(rawState: string) {
+  try {
+    return decodeURIComponent(rawState);
+  } catch {
+    return rawState;
+  }
+}
+
+interface HomePageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function Home({ searchParams }: HomePageProps) {
+  const params = await searchParams;
+  const liffStateRaw = typeof params['liff.state'] === 'string' ? params['liff.state'] : undefined;
+
+  if (liffStateRaw) {
+    const decoded = decodeLiffState(liffStateRaw);
+    const safePath = getSafePath(decoded);
+
+    if (safePath.startsWith('/login')) {
+      const separator = safePath.includes('?') ? '&' : '?';
+      redirect(`${safePath}${separator}liff=1`);
+    }
+
+    redirect(safePath);
+  }
+
   return <LandingPage />;
 }
 

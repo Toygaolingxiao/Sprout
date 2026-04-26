@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.9.16';
+export const APP_VERSION = '1.9.17';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.17',
+    date: '2026-04-26',
+    items: [
+      'liff-auth-state-session-bridge',
+    ],
+  },
   {
     version: '1.9.16',
     date: '2026-04-26',
