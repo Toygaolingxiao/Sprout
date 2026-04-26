@@ -25,11 +25,52 @@ export default async function SettingsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const { data: identitiesData } = await supabase.auth.getUserIdentities();
-  const identities = identitiesData?.identities ?? [];
-  const providers = new Set(identities.map((identity) => identity.provider));
+
+  type IdentityLike = { provider?: string | null };
+
+  const fromEndpoint = (identitiesData?.identities ?? []) as IdentityLike[];
+  const fromUser = Array.isArray((user as { identities?: IdentityLike[] } | null)?.identities)
+    ? ((user as { identities?: IdentityLike[] }).identities ?? [])
+    : [];
+
+  const identities = fromEndpoint.length > 0 ? fromEndpoint : fromUser;
+  const providers = new Set(
+    identities
+      .map((identity) => identity.provider?.toLowerCase())
+      .filter((provider): provider is string => Boolean(provider)),
+  );
+
+  const metadataProvidersRaw = ((user as { app_metadata?: { providers?: unknown } } | null)?.app_metadata?.providers ?? []) as unknown;
+  const metadataProviders = new Set(
+    Array.isArray(metadataProvidersRaw)
+      ? metadataProvidersRaw
+          .filter((value): value is string => typeof value === 'string')
+          .map((value) => value.toLowerCase())
+      : [],
+  );
+
   const lineProvider = process.env.SUPABASE_LINE_PROVIDER || 'line';
-  const googleLinked = providers.has('google');
-  const lineLinked = providers.has('line') || providers.has('custom:line') || providers.has(lineProvider);
+  const normalizedLineProvider = lineProvider.toLowerCase();
+
+  const hasProvider = (aliases: string[]) => {
+    const normalizedAliases = aliases.map((alias) => alias.toLowerCase());
+
+    return normalizedAliases.some((alias) => {
+      if (providers.has(alias) || metadataProviders.has(alias)) return true;
+
+      for (const provider of providers) {
+        if (provider.endsWith(`:${alias}`) || provider.includes(alias)) return true;
+      }
+      for (const provider of metadataProviders) {
+        if (provider.endsWith(`:${alias}`) || provider.includes(alias)) return true;
+      }
+
+      return false;
+    });
+  };
+
+  const googleLinked = hasProvider(['google']);
+  const lineLinked = hasProvider(['line', 'custom:line', normalizedLineProvider]);
   const linkedIdentityCount = identities.length;
   const currentEmail = user?.email ?? null;
   const locale = await getLocale();
