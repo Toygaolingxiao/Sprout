@@ -1,15 +1,55 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+function getSafePath(rawPath: string | null | undefined, fallback = '/login') {
+  if (!rawPath || rawPath.length === 0) return fallback;
+  if (!rawPath.startsWith('/')) return fallback;
+  if (rawPath.startsWith('//')) return fallback;
+  return rawPath;
+}
+
+function decodeLiffState(rawState: string) {
+  try {
+    return decodeURIComponent(rawState);
+  } catch {
+    return rawState;
+  }
+}
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const pathname = request.nextUrl.pathname;
+  const liffStateRaw = request.nextUrl.searchParams.get('liff.state');
+
+  if (pathname === '/' && liffStateRaw) {
+    const decoded = decodeLiffState(liffStateRaw);
+    const safePath = getSafePath(decoded);
+
+    if (safePath.startsWith('/login')) {
+      const loginUrl = new URL(safePath, request.url);
+      if (!loginUrl.searchParams.has('liff')) {
+        loginUrl.searchParams.set('liff', '1');
+      }
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.redirect(new URL(safePath, request.url));
+  }
+
   const publicPaths = ['/login', '/signup', '/reset-password', '/auth/', '/invite', '/api/', '/terms', '/privacy'];
   const isPublicPath = pathname === '/' || publicPaths.some((path) => pathname.startsWith(path));
   const hasAuthCookie = request.cookies
     .getAll()
     .some(({ name }) => name.includes('-auth-token'));
+
+  // Fast path: authenticated users hitting root can go directly to dashboard without auth round-trip.
+  if (pathname === '/' && hasAuthCookie) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/dashboard';
+    url.search = '';
+    return NextResponse.redirect(url);
+  }
 
   // Fast path: unauthenticated access to public pages does not need Supabase round-trip.
   if (!hasAuthCookie && isPublicPath) {
