@@ -48,6 +48,29 @@ function hasAnyProviderAlias(providerSet: Set<string>, aliases: string[]) {
   });
 }
 
+function extractProviderErrorHint(message: string | undefined) {
+  const normalized = (message ?? '').toLowerCase();
+  const knownHints = [
+    'access_denied',
+    'invalid_request',
+    'invalid_grant',
+    'invalid_client',
+    'invalid_scope',
+    'server_error',
+    'temporarily_unavailable',
+    'unsupported_response_type',
+    'unsupported_grant_type',
+    'provider_not_enabled',
+  ];
+
+  for (const hint of knownHints) {
+    if (normalized.includes(hint)) return hint;
+  }
+
+  const compact = normalized.replace(/[^a-z0-9_:\- ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  return compact.slice(0, 64) || 'unknown';
+}
+
 async function isProviderLinked(linkProvider: 'google' | 'line') {
   const supabase = await createClient();
   const [{ data: identitiesData }, { data: userData }] = await Promise.all([
@@ -106,11 +129,13 @@ function mapLinkCallbackError(message: string | undefined, provider: 'google' | 
       normalized.includes('invalid_grant') ||
       normalized.includes('oauth')
     ) {
-      return 'settings.providerLineTroubleshooting';
+      return `settings.providerLineTroubleshooting:${extractProviderErrorHint(message)}`;
     }
   }
   if (normalized.includes('fetch failed') || normalized.includes('network')) return 'auth.networkError';
-  if (provider === 'line') return 'settings.providerLineTroubleshooting';
+  if (provider === 'line') {
+    return `settings.providerLineTroubleshooting:${extractProviderErrorHint(message)}`;
+  }
   return 'settings.providerOperationFailed';
 }
 

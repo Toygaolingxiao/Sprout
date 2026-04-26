@@ -66,7 +66,12 @@ export function ProviderLinksSection({
     if (message === 'settings.providerLineConfigInvalid') return t('settings.providerLineConfigInvalid');
     if (message === 'settings.providerLineRedirectMismatch') return t('settings.providerLineRedirectMismatch');
     if (message === 'settings.providerLineAccessDenied') return t('settings.providerLineAccessDenied');
-    if (message === 'settings.providerLineTroubleshooting') return t('settings.providerLineTroubleshooting');
+    if (message.startsWith('settings.providerLineTroubleshooting')) {
+      const [, rawHint] = message.split(':', 2);
+      const hint = rawHint?.trim();
+      const base = t('settings.providerLineTroubleshooting');
+      return hint ? `${base} (code: ${hint})` : base;
+    }
     if (message === 'settings.providerNotLinked') return t('settings.providerNotLinked');
     if (message === 'settings.providerAlreadyLinked') return t('settings.providerAlreadyLinked');
     if (message === 'settings.providerUnlinkNeedAnother') return t('settings.providerUnlinkNeedAnother');
