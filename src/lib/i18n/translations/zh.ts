@@ -247,6 +247,18 @@ export const zh: Record<TranslationKey, string> = {
   'settings.passwordTooShort': '密码至少需要8个字符',
   'settings.passwordMismatch': '两次输入的密码不一致',
   'settings.passwordChanged': '密码已修改',
+  'settings.deleteAccount': '删除账号',
+  'settings.deleteAccountTitle': '确定删除账号吗？',
+  'settings.deleteAccountDescription': '该操作不可撤销。将删除你的个人资料、家庭共享信息和任务记录等关联数据。',
+  'settings.deleteAccountConfirmLabel': '请输入 DELETE 以确认',
+  'settings.deleteAccountConfirmPlaceholder': 'DELETE',
+  'settings.deleteAccountConfirmHint': '仅当输入完全一致时才会执行删除。',
+  'settings.deleteAccountExecute': '执行删除',
+  'settings.accountDeleting': '删除中...',
+  'settings.accountDeleted': '账号已删除。',
+  'settings.accountDeleteConfirmMismatch': '确认字符串不匹配，请输入 DELETE。',
+  'settings.accountDeleteNeedRelogin': '登录状态已过期，请重新登录后再试。',
+  'settings.accountDeleteFailed': '删除账号失败，请稍后重试。',
 
   // Family
   'family.title': '👨‍👩‍👧 家庭',

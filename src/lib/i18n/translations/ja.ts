@@ -245,6 +245,18 @@ export const ja = {
   'settings.passwordTooShort': 'パスワードは8文字以上で入力してください',
   'settings.passwordMismatch': 'パスワードが一致しません',
   'settings.passwordChanged': 'パスワードを変更しました',
+  'settings.deleteAccount': 'アカウントを削除',
+  'settings.deleteAccountTitle': 'アカウントを削除しますか？',
+  'settings.deleteAccountDescription': 'この操作は取り消せません。プロフィール、家族共有情報、タスク履歴を含む関連データが削除されます。',
+  'settings.deleteAccountConfirmLabel': '確認のため DELETE と入力してください',
+  'settings.deleteAccountConfirmPlaceholder': 'DELETE',
+  'settings.deleteAccountConfirmHint': '入力内容が一致した場合のみ削除を実行します。',
+  'settings.deleteAccountExecute': '削除を実行',
+  'settings.accountDeleting': '削除中...',
+  'settings.accountDeleted': 'アカウントを削除しました。',
+  'settings.accountDeleteConfirmMismatch': '確認文字列が一致しません。DELETE と入力してください。',
+  'settings.accountDeleteNeedRelogin': '認証の有効期限が切れています。再ログイン後にもう一度お試しください。',
+  'settings.accountDeleteFailed': 'アカウント削除に失敗しました。時間をおいて再試行してください。',
 
   // Family
   'family.title': '👨‍👩‍👧 家族',
