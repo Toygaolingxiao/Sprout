@@ -4,6 +4,24 @@ import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 
+function mapAuthError(message: string) {
+  const normalized = message.toLowerCase();
+
+  if (
+    normalized.includes('already registered') ||
+    normalized.includes('already exists') ||
+    normalized.includes('duplicate')
+  ) {
+    return 'このメールアドレスは既に登録されています。ログインしてください。';
+  }
+
+  if (normalized.includes('fetch failed') || normalized.includes('network')) {
+    return '通信エラーが発生しました。ネットワーク接続を確認して再試行してください。';
+  }
+
+  return message;
+}
+
 async function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
   const headerStore = await headers();
@@ -27,7 +45,7 @@ export async function signUp(formData: FormData) {
   const nickname = formData.get('nickname') as string;
   const nextPath = getSafeNextPath(formData.get('next') as string | null);
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -36,7 +54,15 @@ export async function signUp(formData: FormData) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: mapAuthError(error.message) };
+  }
+
+  if ((data.user?.identities ?? []).length === 0) {
+    return { error: 'このメールアドレスは既に登録されています。ログインしてください。' };
+  }
+
+  if (!data.session) {
+    return { success: 'auth.signupEmailSent' };
   }
 
   redirect(nextPath);
@@ -52,7 +78,7 @@ export async function signIn(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    return { error: error.message };
+    return { error: mapAuthError(error.message) };
   }
 
   redirect(nextPath);
@@ -71,7 +97,7 @@ export async function signInWithGoogle(formData?: FormData) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: mapAuthError(error.message) };
   }
 
   if (data.url) {
@@ -93,7 +119,7 @@ export async function signInWithLineOAuth(rawNextPath?: string) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: mapAuthError(error.message) };
   }
 
   if (data.url) {
@@ -116,7 +142,7 @@ export async function signInWithLineIdToken(idToken: string, rawNextPath?: strin
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: mapAuthError(error.message) };
   }
 
   redirect(nextPath);
@@ -139,7 +165,7 @@ export async function resetPassword(formData: FormData) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: mapAuthError(error.message) };
   }
 
   return { success: 'パスワードリセットメールを送信しました' };

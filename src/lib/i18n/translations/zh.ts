@@ -28,6 +28,8 @@ export const zh: Record<TranslationKey, string> = {
   'auth.lineConnecting': 'LINE连接中...',
   'auth.lineUnavailable': '无法启动LINE登录，请稍后重试。',
   'auth.lineScopeHint': 'LINE登录配置不足，请在 LINE Developers 的 LIFF Scope 中加入 openid。',
+  'auth.networkError': '发生网络错误，请检查网络后重试。',
+  'auth.signupEmailSent': '确认邮件已发送，请通过邮件中的链接完成注册。',
   'auth.forgotPassword': '忘记密码？',
   'auth.noAccount': '还没有账号？',
   'auth.hasAccount': '已有账号？',
