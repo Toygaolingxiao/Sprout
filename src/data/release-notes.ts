@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.20';
+export const APP_VERSION = '1.9.21';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.21',
+    date: '2026-04-26',
+    items: [
+      '初回アクセス高速化のmiddleware最適化^',
+      'LIFF stateをEdge即時リダイレクト^',
+      'ルート認証ユーザーのSupabase照会削減',
+    ],
+  },
   {
     version: '1.9.20',
     date: '2026-04-26',
