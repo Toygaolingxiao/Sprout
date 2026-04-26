@@ -50,6 +50,26 @@ function redirectLoginWithError(origin: string, nextPath: string, errorCode: str
   return NextResponse.redirect(fallback);
 }
 
+function mapLineOauthStartError(message: string | undefined) {
+  const normalized = (message ?? '').toLowerCase();
+
+  if (normalized.includes('unsupported provider')) {
+    return 'line_provider_unsupported';
+  }
+  if (
+    normalized.includes('invalid client') ||
+    normalized.includes('client id') ||
+    normalized.includes('client_id')
+  ) {
+    return 'line_oauth_config_invalid';
+  }
+  if (normalized.includes('redirect uri') || normalized.includes('redirect_uri')) {
+    return 'line_redirect_mismatch';
+  }
+
+  return 'line_oauth_failed';
+}
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const nextPath = getSafeNextPath(url.searchParams.get('next'));
@@ -85,7 +105,7 @@ export async function GET(request: Request) {
   }
 
   if (error || !oauthUrl) {
-    return redirectLoginWithError(url.origin, nextPath, 'line_oauth_failed');
+    return redirectLoginWithError(url.origin, nextPath, mapLineOauthStartError(error?.message));
   }
 
   return NextResponse.redirect(oauthUrl);

@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.29';
+export const APP_VERSION = '1.9.30';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.30',
+    date: '2026-04-26',
+    items: [
+      'LINE失敗理由を開始時に詳細分類^',
+      'LINE設定不一致時の案内文を追加^',
+      'ログイン画面で原因別エラー表示を拡張',
+    ],
+  },
   {
     version: '1.9.29',
     date: '2026-04-26',
