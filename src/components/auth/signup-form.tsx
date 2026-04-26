@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { signUp, signInWithGoogle } from '@/lib/actions/auth'
+import { signUp, signInWithGoogle, signInWithLineIdToken } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useTranslation } from '@/lib/i18n/context'
+import { getLiffIdToken } from '@/lib/liff/client'
 
 interface SignupFormProps {
   nextPath?: string;
@@ -17,6 +18,7 @@ interface SignupFormProps {
 export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [lineLoading, setLineLoading] = useState(false)
   const { t } = useTranslation()
 
   async function handleSubmit(formData: FormData) {
@@ -29,10 +31,31 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
     }
   }
 
-  async function handleGoogleSignUp() {
-    const result = await signInWithGoogle()
+  async function handleGoogleSignUp(formData: FormData) {
+    const result = await signInWithGoogle(formData)
     if (result?.error) {
       setError(result.error)
+    }
+  }
+
+  async function handleLineSignUp() {
+    setLineLoading(true)
+    setError(null)
+    try {
+      const idToken = await getLiffIdToken()
+      if (!idToken) {
+        setLineLoading(false)
+        return
+      }
+
+      const result = await signInWithLineIdToken(idToken, nextPath)
+      if (result?.error) {
+        setError(result.error)
+        setLineLoading(false)
+      }
+    } catch {
+      setError(t('auth.lineUnavailable'))
+      setLineLoading(false)
     }
   }
 
@@ -62,7 +85,7 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
             <Label htmlFor="password">{t('auth.password')}</Label>
             <Input id="password" name="password" type="password" required minLength={8} placeholder={t('auth.passwordHint')} />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading || lineLoading}>
             {loading ? t('auth.registering') : t('auth.createAccount')}
           </Button>
           <p className="text-xs text-muted-foreground text-center">
@@ -83,8 +106,14 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
 
         <form action={handleGoogleSignUp}>
           <input type="hidden" name="next" value={nextPath} />
-          <Button variant="outline" className="w-full" type="submit">
+          <Button variant="outline" className="w-full" type="submit" disabled={loading || lineLoading}>
             {t('auth.googleSignup')}
+          </Button>
+        </form>
+
+        <form action={handleLineSignUp}>
+          <Button type="submit" className="w-full bg-[#06C755] text-white hover:bg-[#05ad4b]" disabled={loading || lineLoading}>
+            {lineLoading ? t('auth.lineConnecting') : t('auth.lineSignup')}
           </Button>
         </form>
       </CardContent>

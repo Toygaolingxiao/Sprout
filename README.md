@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.5
+> for commit 1.9.6
 
 ---
 
@@ -19,6 +19,7 @@
 - 🏷️ **カテゴリ分類** — 手続き・買い物・健康・お金・その他
 - 📱 **モバイルファースト** — ボトムナビ + レスポンシブ対応
 - 🔒 **セキュア** — Supabase Auth + Row Level Security
+- 💬 **LINEログイン対応** — LIFF経由のIDトークンでサインイン可能
 
 ## 技術スタック
 
@@ -47,7 +48,7 @@
 
 ## 使い方（最短）
 
-1. 新規登録（メール/Google）でログイン
+1. 新規登録（メール/Google/LINE）でログイン
 2. 設定画面でライフステージと日程を入力
 3. 家族画面で招待リンクを発行し、パートナーに共有
 4. パートナーがリンクから参加してチェックリストを共有
@@ -71,7 +72,12 @@ npm install
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_LIFF_ID=your-liff-id
+SUPABASE_LINE_PROVIDER=line
 ```
+
+補足:
+- `SUPABASE_LINE_PROVIDER` は Supabase 側の設定名です（標準なら `line`、Custom OIDCの場合は `custom:line` など）。
 
 ### 3. データベース
 
@@ -113,6 +119,18 @@ Vercel にGitHub連携でデプロイ。環境変数3つを設定:
 Supabase Dashboard → Authentication → URL Configuration:
 - Site URL: 本番URL
 - Redirect URLs: `https://your-app.vercel.app/**`
+
+### 5.2 LIFF + LINEログイン設定
+
+1. LINE Developers の LIFF設定
+	- LIFF ID: `your-liff-id`
+	- Endpoint URL: `https://sprout-rose.vercel.app/`
+2. Supabase Auth で LINEプロバイダー（または Custom OIDC）を有効化
+3. `SUPABASE_LINE_PROVIDER` をプロバイダー名に合わせる
+	- 例: `line`
+	- 例: `custom:line`
+4. 本番URLと `/auth/callback` を許可URLに追加
+5. デプロイ後、LIFF内でログイン画面の「LINEでログイン」から接続確認
 
 ### 5.1 自動リリース（VerUp + commit + push + deploy）
 
