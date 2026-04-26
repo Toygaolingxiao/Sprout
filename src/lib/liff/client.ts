@@ -1,6 +1,6 @@
 'use client';
 
-const LIFF_ID = process.env.NEXT_PUBLIC_LIFF_ID;
+const LIFF_ID = process.env.NEXT_PUBLIC_LIFF_ID || 'your-liff-id';
 
 let isInitialized = false;
 let initPromise: Promise<void> | null = null;
