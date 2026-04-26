@@ -20,7 +20,6 @@ export async function initLiff() {
     initPromise = liff
       .init({
         liffId: LIFF_ID,
-        withLoginOnExternalBrowser: true,
       })
       .then(() => {
         isInitialized = true;
