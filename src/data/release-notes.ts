@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.33';
+export const APP_VERSION = '1.9.34';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.34',
+    date: '2026-04-26',
+    items: [
+      'LINE連携にIDトークン優先フォールバックを追加^',
+      'LIFF取得成功時はOAuth経路を迂回^',
+      'server_error発生経路の回避手段を実装',
+    ],
+  },
   {
     version: '1.9.33',
     date: '2026-04-26',

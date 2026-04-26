@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useTranslation } from '@/lib/i18n/context';
 import { createClient } from '@/lib/supabase/client';
+import { getLiffIdTokenWithOptions } from '@/lib/liff/client';
 
 interface ProviderLinksSectionProps {
   googleLinked: boolean;
@@ -176,10 +177,30 @@ export function ProviderLinksSection({
       formData.set('provider', provider);
       formData.set('next', '/settings');
 
+      if (provider === 'line') {
+        try {
+          const idToken = await getLiffIdTokenWithOptions({ autoLogin: true });
+          if (!idToken) {
+            // LIFF login redirect has started.
+            return;
+          }
+          formData.set('idToken', idToken);
+        } catch {
+          // Fall back to OAuth linking path if LIFF is unavailable.
+        }
+      }
+
       const result = await createProviderLink(formData);
       if (result?.error) {
         toast.error(localizeError(result.error));
         setPendingProvider(null);
+        return;
+      }
+
+      if (result?.success) {
+        toast.success(t('settings.providerConnectedNow', { provider: providerLabel(provider) }));
+        setPendingProvider(null);
+        router.refresh();
         return;
       }
 

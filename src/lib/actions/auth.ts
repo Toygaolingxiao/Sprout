@@ -326,11 +326,27 @@ export async function createProviderLink(formData: FormData) {
   const siteUrl = await getSiteUrl();
   const nextPath = getSafeNextPath((formData.get('next') as string | null) ?? '/settings', '/settings');
   const provider = resolveProviderForLink(target);
+  const idToken = ((formData.get('idToken') as string | null) ?? '').trim();
   const aliases = getIdentityProviderAliases(target);
   const currentProviders = await getCurrentProviderSet(supabase);
 
   if (hasAnyProviderAlias(currentProviders, aliases)) {
     return { alreadyLinked: true };
+  }
+
+  // Prefer direct OIDC token linking for LINE when LIFF can provide an ID token.
+  // This avoids provider-side OAuth redirect path mismatches in some LINE setups.
+  if (target === 'line' && idToken.length > 0) {
+    const { error } = await supabase.auth.linkIdentity({
+      provider: provider as never,
+      token: idToken,
+    });
+
+    if (error) {
+      return { error: mapProviderError(error.message, target) };
+    }
+
+    return { success: true };
   }
 
   const { data, error } = await supabase.auth.linkIdentity({
