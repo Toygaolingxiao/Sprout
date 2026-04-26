@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.39';
+export const APP_VERSION = '1.9.40';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.40',
+    date: '2026-04-26',
+    items: [
+      '野良families清掃の定期実行関数を追加^',
+      'pg_cron有効時に日次ジョブを自動登録^',
+      'owner不整合の自動補正を関数化',
+    ],
+  },
   {
     version: '1.9.39',
     date: '2026-04-26',
