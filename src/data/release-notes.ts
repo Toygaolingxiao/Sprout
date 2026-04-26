@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.23';
+export const APP_VERSION = '1.9.24';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.24',
+    date: '2026-04-26',
+    items: [
+      'Supabase到達チェックのタイムアウト撤廃^',
+      '復帰直後の誤判定抑止^',
+      'LINE連携エラー再発防止',
+    ],
+  },
   {
     version: '1.9.23',
     date: '2026-04-26',
