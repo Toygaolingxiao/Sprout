@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.9.12';
+export const APP_VERSION = '1.9.13';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.13',
+    date: '2026-04-26',
+    items: [
+      'signup-duplicate-message-and-google-button-ui',
+    ],
+  },
   {
     version: '1.9.12',
     date: '2026-04-26',
