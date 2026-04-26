@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.40';
+export const APP_VERSION = '1.9.41';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.41',
+    date: '2026-04-26',
+    items: [
+      '設定画面に簡略更新履歴を追加',
+      'アプリ情報カード内で直近履歴を折りたたみ表示',
+      '更新項目テキストのノイズ記号を整形',
+    ],
+  },
   {
     version: '1.9.40',
     date: '2026-04-26',

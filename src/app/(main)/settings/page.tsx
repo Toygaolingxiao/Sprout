@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
-import { APP_VERSION } from '@/data/release-notes';
+import { APP_VERSION, RELEASE_NOTES } from '@/data/release-notes';
 import { signOut } from '@/lib/actions/auth';
 import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
@@ -84,6 +84,13 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   const currentEmail = user?.email ?? null;
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
+  const compactReleaseNotes = RELEASE_NOTES.slice(0, 5).map((note) => ({
+    ...note,
+    items: note.items
+      .map((item) => item.replace(/\^+$/g, '').trim())
+      .filter(Boolean)
+      .slice(0, 2),
+  }));
 
   return (
     <div className="space-y-5">
@@ -129,6 +136,29 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
               {t('settings.openManual')}
             </Link>
           </div>
+          <details className="rounded-lg border px-3 py-2">
+            <summary className="cursor-pointer text-muted-foreground text-sm">
+              {t('settings.releaseNotesBrief')}
+            </summary>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {t('settings.releaseNotesBriefHint', { count: compactReleaseNotes.length })}
+            </p>
+            <div className="mt-2 space-y-2">
+              {compactReleaseNotes.map((note) => (
+                <div key={note.version} className="rounded-md bg-muted/50 px-2 py-1.5">
+                  <p className="text-xs font-medium">
+                    v{note.version}
+                    <span className="ml-1 text-muted-foreground">({note.date})</span>
+                  </p>
+                  <ul className="mt-1 list-disc pl-4 text-xs text-muted-foreground">
+                    {note.items.map((item) => (
+                      <li key={`${note.version}-${item}`}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
           <p className="text-xs text-muted-foreground">
             {t('settings.tagline')}
           </p>
