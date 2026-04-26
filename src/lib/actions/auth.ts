@@ -9,6 +9,10 @@ import { provisionCurrentUserFromOAuth } from '@/lib/auth/provision';
 function mapAuthError(message: string) {
   const normalized = message.toLowerCase();
 
+  if (normalized.includes('invalid login credentials')) {
+    return 'auth.invalidCredentials';
+  }
+
   if (
     normalized.includes('already registered') ||
     normalized.includes('already exists') ||
