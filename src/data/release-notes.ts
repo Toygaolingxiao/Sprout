@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.36';
+export const APP_VERSION = '1.9.37';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.37',
+    date: '2026-04-26',
+    items: [
+      'ログイン失敗英語メッセージを翻訳キー化^',
+      'invalid credentialsを日中翻訳で表示^',
+      'ログイン画面のエラーローカライズを改善',
+    ],
+  },
   {
     version: '1.9.36',
     date: '2026-04-26',

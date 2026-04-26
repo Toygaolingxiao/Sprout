@@ -26,6 +26,7 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false, initialEr
   const { t } = useTranslation()
 
   function localizeError(message: string) {
+    if (message === 'auth.invalidCredentials') return t('auth.invalidCredentials')
     if (message === 'line_oauth_failed') return t('auth.lineUnavailable')
     if (message === 'line_provider_unsupported') return t('auth.lineProviderUnsupported')
     if (message === 'line_oauth_config_invalid') return t('auth.lineOAuthConfigInvalid')

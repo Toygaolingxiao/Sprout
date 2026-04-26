@@ -34,6 +34,7 @@ export const zh: Record<TranslationKey, string> = {
   'auth.lineScopeHint': 'LINE登录配置不足，请在 LINE Developers 的 LIFF Scope 中加入 openid。',
   'auth.supabaseUnavailable': '无法连接认证服务器，请稍后重试。',
   'auth.supabaseConfigInvalid': '认证配置存在问题，请联系管理员。',
+  'auth.invalidCredentials': '邮箱或密码不正确。',
   'auth.networkError': '发生网络错误，请检查网络后重试。',
   'auth.emailExists': '该邮箱已被注册，请直接登录。',
   'auth.signupEmailSent': '确认邮件已发送，请通过邮件中的链接完成注册。',
