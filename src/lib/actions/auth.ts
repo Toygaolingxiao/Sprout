@@ -79,6 +79,28 @@ export async function signInWithGoogle(formData?: FormData) {
   }
 }
 
+export async function signInWithLineOAuth(rawNextPath?: string) {
+  const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
+  const nextPath = getSafeNextPath(rawNextPath ?? '/dashboard');
+  const provider = process.env.SUPABASE_LINE_PROVIDER || 'line';
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: provider as never,
+    options: {
+      redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+    },
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  if (data.url) {
+    redirect(data.url);
+  }
+}
+
 export async function signInWithLineIdToken(idToken: string, rawNextPath?: string) {
   if (!idToken) {
     return { error: 'LINE IDトークンが取得できませんでした。' };

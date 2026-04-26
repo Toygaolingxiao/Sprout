@@ -27,6 +27,7 @@ export const zh: Record<TranslationKey, string> = {
   'auth.lineSignup': '使用LINE注册',
   'auth.lineConnecting': 'LINE连接中...',
   'auth.lineUnavailable': '无法启动LINE登录，请稍后重试。',
+  'auth.lineScopeHint': 'LINE登录配置不足，请在 LINE Developers 的 LIFF Scope 中加入 openid。',
   'auth.forgotPassword': '忘记密码？',
   'auth.noAccount': '还没有账号？',
   'auth.hasAccount': '已有账号？',
@@ -287,6 +288,8 @@ export const zh: Record<TranslationKey, string> = {
   'lp.privacy': '隐私政策',
   'lp.signup': '注册',
   'lp.mainNav': '主导航',
+  'lp.langJa': '日本語',
+  'lp.langZh': '中文',
 
   // WhatsNew
   'whatsNew.title': '更新信息',

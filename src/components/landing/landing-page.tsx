@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import {
   CheckCircle2,
   Users,
@@ -15,7 +17,14 @@ import { useTranslation } from '@/lib/i18n/context';
 /* ─────────────────────────── component ────────────────────── */
 
 export function LandingPage() {
-  const { t } = useTranslation();
+  const { t, locale, setLocale } = useTranslation();
+  const router = useRouter();
+
+  function changeLocale(nextLocale: 'ja' | 'zh') {
+    if (locale === nextLocale) return;
+    setLocale(nextLocale);
+    router.refresh();
+  }
 
   const STAGES = [
     { emoji: '🌱', label: t('stage.prenatal_care'), desc: t('lp.stage1Desc') },
@@ -49,15 +58,35 @@ export function LandingPage() {
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
         <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label={t('lp.mainNav')}>
           <Link href="/" className="text-lg font-bold tracking-tight" aria-label="Sprout home">🌱 Sprout</Link>
-          <div className="flex gap-2">
-            <Link href="/login">
-              <Button variant="ghost" size="sm">{t('lp.login')}</Button>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex rounded-lg border border-border/60 bg-background/60 p-0.5">
+              <button
+                type="button"
+                onClick={() => changeLocale('ja')}
+                className={cn(
+                  'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                  locale === 'ja' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {t('lp.langJa')}
+              </button>
+              <button
+                type="button"
+                onClick={() => changeLocale('zh')}
+                className={cn(
+                  'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                  locale === 'zh' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {t('lp.langZh')}
+              </button>
+            </div>
+            <Link href="/login" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
+              {t('lp.login')}
             </Link>
-            <Link href="/signup">
-              <Button size="sm">
+            <Link href="/signup" className={buttonVariants({ size: 'sm' })}>
                 <Sparkles className="size-3.5" />
                 {t('lp.startFree')}
-              </Button>
             </Link>
           </div>
         </nav>
@@ -86,16 +115,12 @@ export function LandingPage() {
             {t('lp.heroDesc')}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link href="/signup">
-              <Button size="lg" className="text-base px-6 h-11">
+            <Link href="/signup" className={buttonVariants({ size: 'lg', className: 'text-base px-6 h-11' })}>
                 {t('lp.startFree')}
                 <ChevronRight className="size-4" />
-              </Button>
             </Link>
-            <a href="#features">
-              <Button variant="outline" size="lg" className="text-base px-6 h-11">
-                {t('lp.viewFeatures')}
-              </Button>
+            <a href="#features" className={buttonVariants({ variant: 'outline', size: 'lg', className: 'text-base px-6 h-11' })}>
+              {t('lp.viewFeatures')}
             </a>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
@@ -221,11 +246,9 @@ export function LandingPage() {
             {t('lp.ctaDesc')}
           </p>
           <div className="mt-8">
-            <Link href="/signup">
-              <Button size="lg" className="text-base px-8 h-12">
+            <Link href="/signup" className={buttonVariants({ size: 'lg', className: 'text-base px-8 h-12' })}>
                 {t('lp.ctaButton')}
                 <ChevronRight className="size-4" aria-hidden="true" />
-              </Button>
             </Link>
           </div>
         </div>

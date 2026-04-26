@@ -25,6 +25,7 @@ export const ja = {
   'auth.lineSignup': 'LINEで登録',
   'auth.lineConnecting': 'LINE連携中...',
   'auth.lineUnavailable': 'LINEログインを開始できませんでした。時間をおいて再試行してください。',
+  'auth.lineScopeHint': 'LINEログインの設定不足です。LINE Developers の LIFF Scope に openid を追加してください。',
   'auth.forgotPassword': 'パスワードをお忘れですか？',
   'auth.noAccount': 'アカウントをお持ちでない方は',
   'auth.hasAccount': '既にアカウントをお持ちの方は',
@@ -285,6 +286,8 @@ export const ja = {
   'lp.privacy': 'プライバシーポリシー',
   'lp.signup': '新規登録',
   'lp.mainNav': 'メインナビゲーション',
+  'lp.langJa': '日本語',
+  'lp.langZh': '中文',
 
   // WhatsNew
   'whatsNew.title': 'アップデート情報',
