@@ -25,6 +25,8 @@ export function DeleteAccountSection() {
   const { t } = useTranslation();
 
   function localizeError(message: string) {
+    if (message === 'settings.accountDeleteMigrationRequired') return t('settings.accountDeleteMigrationRequired');
+    if (message === 'settings.accountDeleteDataConflict') return t('settings.accountDeleteDataConflict');
     if (message === 'settings.accountDeleteNeedRelogin') return t('settings.accountDeleteNeedRelogin');
     if (message === 'settings.accountDeleteFailed') return t('settings.accountDeleteFailed');
     if (message === 'auth.networkError') return t('auth.networkError');

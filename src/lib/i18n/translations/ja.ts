@@ -255,6 +255,8 @@ export const ja = {
   'settings.accountDeleting': '削除中...',
   'settings.accountDeleted': 'アカウントを削除しました。',
   'settings.accountDeleteConfirmMismatch': '確認文字列が一致しません。DELETE と入力してください。',
+  'settings.accountDeleteMigrationRequired': '削除機能のDB設定が未反映です。最新マイグレーションを適用してください。',
+  'settings.accountDeleteDataConflict': '関連データの整合性エラーで削除できませんでした。時間をおいて再試行してください。',
   'settings.accountDeleteNeedRelogin': '認証の有効期限が切れています。再ログイン後にもう一度お試しください。',
   'settings.accountDeleteFailed': 'アカウント削除に失敗しました。時間をおいて再試行してください。',
 

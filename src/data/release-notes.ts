@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.35';
+export const APP_VERSION = '1.9.36';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.36',
+    date: '2026-04-26',
+    items: [
+      'アカウント削除RPCを外部キー制約対応へ改良^',
+      '家族保持時の参照データ再割当を追加^',
+      '削除失敗時の診断メッセージを強化',
+    ],
+  },
   {
     version: '1.9.35',
     date: '2026-04-26',

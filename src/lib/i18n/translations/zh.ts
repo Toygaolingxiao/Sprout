@@ -257,6 +257,8 @@ export const zh: Record<TranslationKey, string> = {
   'settings.accountDeleting': '删除中...',
   'settings.accountDeleted': '账号已删除。',
   'settings.accountDeleteConfirmMismatch': '确认字符串不匹配，请输入 DELETE。',
+  'settings.accountDeleteMigrationRequired': '删除功能的数据库配置尚未生效，请先应用最新迁移。',
+  'settings.accountDeleteDataConflict': '因关联数据一致性冲突导致删除失败，请稍后重试。',
   'settings.accountDeleteNeedRelogin': '登录状态已过期，请重新登录后再试。',
   'settings.accountDeleteFailed': '删除账号失败，请稍后重试。',
 

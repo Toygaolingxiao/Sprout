@@ -408,6 +408,12 @@ export async function deleteAccount() {
   const { error } = await supabase.rpc('delete_my_account');
   if (error) {
     const normalized = (error.message ?? '').toLowerCase();
+    if (normalized.includes('does not exist') && normalized.includes('delete_my_account')) {
+      return { error: 'settings.accountDeleteMigrationRequired' };
+    }
+    if (normalized.includes('violates foreign key constraint')) {
+      return { error: 'settings.accountDeleteDataConflict' };
+    }
     if (normalized.includes('not_authenticated')) {
       return { error: 'settings.accountDeleteNeedRelogin' };
     }
