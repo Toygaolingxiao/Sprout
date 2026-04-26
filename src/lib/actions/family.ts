@@ -46,6 +46,13 @@ export async function acceptInvitation(token: string) {
 
   const supabase = await createClient();
 
+  const { data: currentProfile } = await supabase
+    .from('profiles')
+    .select('family_id')
+    .eq('id', user.id)
+    .single() as { data: { family_id: string | null } | null };
+  const previousFamilyId = currentProfile?.family_id ?? null;
+
   const { data: invitation } = await supabase
     .from('family_invitations')
     .select('*')
@@ -72,6 +79,34 @@ export async function acceptInvitation(token: string) {
     .from('family_invitations')
     .update({ used_by: user.id })
     .eq('id', invitation.id);
+
+  // If user moved from another family, prevent leaving stale orphan family rows.
+  if (previousFamilyId && previousFamilyId !== invitation.family_id) {
+    const { data: members } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('family_id', previousFamilyId) as { data: { id: string }[] | null };
+
+    if (!members || members.length === 0) {
+      await supabase.from('families').delete().eq('id', previousFamilyId);
+    } else {
+      const { data: previousFamily } = await supabase
+        .from('families')
+        .select('owner_id')
+        .eq('id', previousFamilyId)
+        .single() as { data: { owner_id: string } | null };
+
+      if (previousFamily?.owner_id === user.id) {
+        const replacementOwnerId = members[0]?.id;
+        if (replacementOwnerId) {
+          await supabase
+            .from('families')
+            .update({ owner_id: replacementOwnerId })
+            .eq('id', previousFamilyId);
+        }
+      }
+    }
+  }
 
   return { success: true };
 }
