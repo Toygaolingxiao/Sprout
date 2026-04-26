@@ -148,7 +148,7 @@ export async function signInWithLineIdToken(idToken: string, rawNextPath?: strin
 
   await provisionCurrentUserFromOAuth();
 
-  redirect(nextPath);
+  return { success: true, nextPath };
 }
 
 export async function updateEmail(formData: FormData) {
