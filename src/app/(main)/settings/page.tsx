@@ -79,6 +79,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   const linkedIdentityCount = identities.length;
   const linkStatus = typeof params.link_status === 'string' ? params.link_status : null;
   const linkProvider = typeof params.link_provider === 'string' ? params.link_provider : null;
+  const linkError = typeof params.link_error === 'string' ? params.link_error : null;
   const currentEmail = user?.email ?? null;
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
@@ -146,6 +147,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
             lineProviderAlias={lineProvider}
             initialLinkStatus={linkStatus}
             initialLinkProvider={linkProvider}
+            initialLinkError={linkError}
           />
           <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />
