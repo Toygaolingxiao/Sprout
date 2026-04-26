@@ -179,6 +179,8 @@ export const ja = {
   'settings.providerConnect': '連携する',
   'settings.providerDisconnect': '連携解除',
   'settings.providerDisconnected': '{provider} の連携を解除しました',
+  'settings.providerConnectedNow': '{provider} の連携が完了しました',
+  'settings.providerAlreadyLinked': '{provider} はすでに連携済みです',
   'settings.providerManualLinkingRequired': '連携解除には Supabase Auth の Enable Manual Linking を有効にしてください。',
   'settings.providerUnsupported': 'この連携方法は利用できません。',
   'settings.providerNotLinked': '指定の連携は見つかりませんでした。',

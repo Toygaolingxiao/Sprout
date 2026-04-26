@@ -1,33 +1,64 @@
 "use client";
 
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { createProviderLink, unlinkProvider } from '@/lib/actions/auth';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useTranslation } from '@/lib/i18n/context';
+import { createClient } from '@/lib/supabase/client';
 
 interface ProviderLinksSectionProps {
   googleLinked: boolean;
   lineLinked: boolean;
   linkedIdentityCount: number;
+  lineProviderAlias: string;
+  initialLinkStatus?: string | null;
+  initialLinkProvider?: string | null;
 }
 
 type ProviderKey = 'google' | 'line';
+type IdentityLike = { provider?: string | null };
 
-export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityCount }: ProviderLinksSectionProps) {
-    const hasAnyLinked = googleLinked || lineLinked;
+function hasAnyProviderAlias(providerSet: Set<string>, aliases: string[]) {
+  const normalizedAliases = aliases.map((alias) => alias.toLowerCase());
+
+  return normalizedAliases.some((alias) => {
+    if (providerSet.has(alias)) return true;
+
+    for (const provider of providerSet) {
+      if (provider.endsWith(`:${alias}`) || provider.includes(alias)) return true;
+    }
+
+    return false;
+  });
+}
+
+export function ProviderLinksSection({
+  googleLinked,
+  lineLinked,
+  linkedIdentityCount,
+  lineProviderAlias,
+  initialLinkStatus = null,
+  initialLinkProvider = null,
+}: ProviderLinksSectionProps) {
+  const [googleLinkedState, setGoogleLinkedState] = useState(googleLinked);
+  const [lineLinkedState, setLineLinkedState] = useState(lineLinked);
+  const [linkedIdentityCountState, setLinkedIdentityCountState] = useState(linkedIdentityCount);
 
   const [isPending, startTransition] = useTransition();
   const [pendingProvider, setPendingProvider] = useState<ProviderKey | null>(null);
   const router = useRouter();
   const { t } = useTranslation();
 
+  const hasAnyLinked = googleLinkedState || lineLinkedState;
+
   function localizeError(message: string) {
     if (message === 'auth.networkError') return t('auth.networkError');
     if (message === 'settings.providerManualLinkingRequired') return t('settings.providerManualLinkingRequired');
     if (message === 'settings.providerUnsupported') return t('settings.providerUnsupported');
     if (message === 'settings.providerNotLinked') return t('settings.providerNotLinked');
+    if (message === 'settings.providerAlreadyLinked') return t('settings.providerAlreadyLinked');
     if (message === 'settings.providerUnlinkNeedAnother') return t('settings.providerUnlinkNeedAnother');
     if (message === 'settings.providerOperationFailed') return t('settings.providerOperationFailed');
     return message;
@@ -36,6 +67,65 @@ export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityC
   function providerLabel(provider: ProviderKey) {
     return provider === 'google' ? t('settings.providerGoogle') : t('settings.providerLine');
   }
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function refreshProviderStatus() {
+      const supabase = createClient();
+
+      const [{ data: identitiesData }, { data: userData }] = await Promise.all([
+        supabase.auth.getUserIdentities(),
+        supabase.auth.getUser(),
+      ]);
+
+      if (cancelled) return;
+
+      const fromEndpoint = (identitiesData?.identities ?? []) as IdentityLike[];
+      const user = userData.user as ({ identities?: IdentityLike[]; app_metadata?: { providers?: unknown } } | null);
+      const fromUser = Array.isArray(user?.identities) ? (user?.identities ?? []) : [];
+      const metadataProviders = Array.isArray(user?.app_metadata?.providers)
+        ? user!.app_metadata!.providers.filter((value): value is string => typeof value === 'string')
+        : [];
+
+      const providers = new Set<string>();
+      for (const identity of [...fromEndpoint, ...fromUser]) {
+        const provider = identity.provider?.toLowerCase();
+        if (provider) providers.add(provider);
+      }
+      for (const provider of metadataProviders) {
+        providers.add(provider.toLowerCase());
+      }
+
+      setGoogleLinkedState(hasAnyProviderAlias(providers, ['google']));
+      setLineLinkedState(hasAnyProviderAlias(providers, ['line', 'custom:line', lineProviderAlias]));
+      setLinkedIdentityCountState(fromEndpoint.length > 0 ? fromEndpoint.length : fromUser.length);
+    }
+
+    void refreshProviderStatus();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [lineProviderAlias]);
+
+  useEffect(() => {
+    if (!initialLinkStatus || !initialLinkProvider) return;
+
+    const provider = initialLinkProvider === 'google' ? 'google' : initialLinkProvider === 'line' ? 'line' : null;
+    if (!provider) return;
+
+    if (initialLinkStatus === 'linked') {
+      toast.success(t('settings.providerConnectedNow', { provider: providerLabel(provider) }));
+      router.replace('/settings');
+      return;
+    }
+
+    if (initialLinkStatus === 'failed') {
+      toast.error(t('settings.providerOperationFailed'));
+      router.replace('/settings');
+    }
+  }, [initialLinkStatus, initialLinkProvider, t, router]);
 
   function handleLink(provider: ProviderKey) {
     startTransition(async () => {
@@ -49,6 +139,13 @@ export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityC
       if (result?.error) {
         toast.error(localizeError(result.error));
         setPendingProvider(null);
+        return;
+      }
+
+      if (result?.alreadyLinked) {
+        toast.success(t('settings.providerAlreadyLinked', { provider: providerLabel(provider) }));
+        setPendingProvider(null);
+        router.refresh();
         return;
       }
 
@@ -83,7 +180,7 @@ export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityC
 
   function ProviderRow({ provider, linked }: { provider: ProviderKey; linked: boolean }) {
     const isCurrentPending = isPending && pendingProvider === provider;
-    const isUnlinkDisabled = linked && linkedIdentityCount <= 1;
+    const isUnlinkDisabled = linked && linkedIdentityCountState <= 1;
 
     return (
       <div className="flex items-center justify-between rounded-lg border px-3 py-2">
@@ -124,10 +221,10 @@ export function ProviderLinksSection({ googleLinked, lineLinked, linkedIdentityC
         <p className="text-xs text-muted-foreground">{t('settings.providerLinksDesc')}</p>
       </div>
 
-      <ProviderRow provider="line" linked={lineLinked} />
-      <ProviderRow provider="google" linked={googleLinked} />
+      <ProviderRow provider="line" linked={lineLinkedState} />
+      <ProviderRow provider="google" linked={googleLinkedState} />
 
-      {hasAnyLinked && linkedIdentityCount <= 1 && (
+      {hasAnyLinked && linkedIdentityCountState <= 1 && (
         <p className="text-xs text-muted-foreground">{t('settings.providerUnlinkNeedAnother')}</p>
       )}
     </div>

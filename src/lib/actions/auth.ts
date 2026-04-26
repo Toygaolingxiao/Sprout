@@ -40,6 +40,7 @@ function getSafeNextPath(rawNext: string | null | undefined, fallback = '/dashbo
 }
 
 type AuthProviderTarget = 'google' | 'line';
+type IdentityLike = { provider?: string | null };
 
 function parseAuthProviderTarget(raw: FormDataEntryValue | null): AuthProviderTarget | null {
   if (raw === 'google') return 'google';
@@ -63,6 +64,48 @@ function getIdentityProviderAliases(target: AuthProviderTarget) {
   return Array.from(new Set(['line', 'custom:line', configured]));
 }
 
+function hasAnyProviderAlias(providerSet: Set<string>, aliases: string[]) {
+  const normalizedAliases = aliases.map((alias) => alias.toLowerCase());
+
+  return normalizedAliases.some((alias) => {
+    if (providerSet.has(alias)) return true;
+
+    for (const provider of providerSet) {
+      if (provider.endsWith(`:${alias}`) || provider.includes(alias)) return true;
+    }
+
+    return false;
+  });
+}
+
+async function getCurrentProviderSet(supabase: Awaited<ReturnType<typeof createClient>>) {
+  const [{ data: identitiesData }, { data: userData }] = await Promise.all([
+    supabase.auth.getUserIdentities(),
+    supabase.auth.getUser(),
+  ]);
+
+  const fromEndpoint = (identitiesData?.identities ?? []) as IdentityLike[];
+  const user = userData.user as ({ identities?: IdentityLike[]; app_metadata?: { providers?: unknown } } | null);
+  const fromUser = Array.isArray(user?.identities) ? (user?.identities ?? []) : [];
+  const rawMetadataProviders = user?.app_metadata?.providers;
+
+  const providers = new Set<string>();
+  for (const identity of [...fromEndpoint, ...fromUser]) {
+    const provider = identity.provider?.toLowerCase();
+    if (provider) providers.add(provider);
+  }
+
+  if (Array.isArray(rawMetadataProviders)) {
+    for (const value of rawMetadataProviders) {
+      if (typeof value === 'string') {
+        providers.add(value.toLowerCase());
+      }
+    }
+  }
+
+  return providers;
+}
+
 function mapProviderError(message: string) {
   const normalized = message.toLowerCase();
 
@@ -77,6 +120,9 @@ function mapProviderError(message: string) {
   }
   if (normalized.includes('identity not found') || normalized.includes('not linked')) {
     return 'settings.providerNotLinked';
+  }
+  if (normalized.includes('already linked') || normalized.includes('identity already exists')) {
+    return 'settings.providerAlreadyLinked';
   }
   if (normalized.includes('fetch failed') || normalized.includes('network')) {
     return 'auth.networkError';
@@ -224,11 +270,17 @@ export async function createProviderLink(formData: FormData) {
   const siteUrl = await getSiteUrl();
   const nextPath = getSafeNextPath((formData.get('next') as string | null) ?? '/settings', '/settings');
   const provider = resolveProviderForLink(target);
+  const aliases = getIdentityProviderAliases(target);
+  const currentProviders = await getCurrentProviderSet(supabase);
+
+  if (hasAnyProviderAlias(currentProviders, aliases)) {
+    return { alreadyLinked: true };
+  }
 
   const { data, error } = await supabase.auth.linkIdentity({
     provider: provider as never,
     options: {
-      redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+      redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(nextPath)}&link_provider=${encodeURIComponent(target)}`,
     },
   });
 
@@ -262,7 +314,10 @@ export async function unlinkProvider(formData: FormData) {
   }
 
   const aliases = getIdentityProviderAliases(target);
-  const match = identities.find((identity: UserIdentity) => aliases.includes(identity.provider));
+  const match = identities.find((identity: UserIdentity) => {
+    const provider = identity.provider.toLowerCase();
+    return hasAnyProviderAlias(new Set([provider]), aliases);
+  });
   if (!match) {
     return { error: 'settings.providerNotLinked' };
   }
