@@ -8,6 +8,7 @@ import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
 import { ChangePasswordSection } from '@/components/settings/change-password-section';
 import { ChangeEmailSection } from '@/components/settings/change-email-section';
+import { ProviderLinksSection } from '@/components/settings/provider-links-section';
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
 import { createClient } from '@/lib/supabase/server';
@@ -23,6 +24,13 @@ export default async function SettingsPage() {
   const profile = await getProfile();
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const { data: identitiesData } = await supabase.auth.getUserIdentities();
+  const identities = identitiesData?.identities ?? [];
+  const providers = new Set(identities.map((identity) => identity.provider));
+  const lineProvider = process.env.SUPABASE_LINE_PROVIDER || 'line';
+  const googleLinked = providers.has('google');
+  const lineLinked = providers.has('line') || providers.has('custom:line') || providers.has(lineProvider);
+  const linkedIdentityCount = identities.length;
   const currentEmail = user?.email ?? null;
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
@@ -83,6 +91,11 @@ export default async function SettingsPage() {
           <CardTitle className="text-base">{t('settings.account')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
+          <ProviderLinksSection
+            googleLinked={googleLinked}
+            lineLinked={lineLinked}
+            linkedIdentityCount={linkedIdentityCount}
+          />
           <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />
           <form action={signOut}>

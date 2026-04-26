@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
+import type { UserIdentity } from '@supabase/auth-js';
 import { createClient } from '@/lib/supabase/server';
 import { provisionCurrentUserFromOAuth } from '@/lib/auth/provision';
 
@@ -36,6 +37,52 @@ function getSafeNextPath(rawNext: string | null | undefined, fallback = '/dashbo
   if (!rawNext.startsWith('/')) return fallback;
   if (rawNext.startsWith('//')) return fallback;
   return rawNext;
+}
+
+type AuthProviderTarget = 'google' | 'line';
+
+function parseAuthProviderTarget(raw: FormDataEntryValue | null): AuthProviderTarget | null {
+  if (raw === 'google') return 'google';
+  if (raw === 'line') return 'line';
+  return null;
+}
+
+function resolveLineProvider() {
+  return process.env.SUPABASE_LINE_PROVIDER || 'line';
+}
+
+function resolveProviderForLink(target: AuthProviderTarget) {
+  if (target === 'google') return 'google';
+  return resolveLineProvider();
+}
+
+function getIdentityProviderAliases(target: AuthProviderTarget) {
+  if (target === 'google') return ['google'];
+
+  const configured = resolveLineProvider();
+  return Array.from(new Set(['line', 'custom:line', configured]));
+}
+
+function mapProviderError(message: string) {
+  const normalized = message.toLowerCase();
+
+  if (normalized.includes('manual linking')) {
+    return 'settings.providerManualLinkingRequired';
+  }
+  if (normalized.includes('unsupported provider')) {
+    return 'settings.providerUnsupported';
+  }
+  if (normalized.includes('at least 2 identities')) {
+    return 'settings.providerUnlinkNeedAnother';
+  }
+  if (normalized.includes('identity not found') || normalized.includes('not linked')) {
+    return 'settings.providerNotLinked';
+  }
+  if (normalized.includes('fetch failed') || normalized.includes('network')) {
+    return 'auth.networkError';
+  }
+
+  return 'settings.providerOperationFailed';
 }
 
 export async function signUp(formData: FormData) {
@@ -162,6 +209,67 @@ export async function updateEmail(formData: FormData) {
   const { error } = await supabase.auth.updateUser({ email });
   if (error) {
     return { error: mapAuthError(error.message) };
+  }
+
+  return { success: true };
+}
+
+export async function createProviderLink(formData: FormData) {
+  const target = parseAuthProviderTarget(formData.get('provider'));
+  if (!target) {
+    return { error: 'settings.providerUnsupported' };
+  }
+
+  const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
+  const nextPath = getSafeNextPath((formData.get('next') as string | null) ?? '/settings', '/settings');
+  const provider = resolveProviderForLink(target);
+
+  const { data, error } = await supabase.auth.linkIdentity({
+    provider: provider as never,
+    options: {
+      redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+    },
+  });
+
+  if (error) {
+    return { error: mapProviderError(error.message) };
+  }
+
+  if (!data?.url) {
+    return { error: 'settings.providerOperationFailed' };
+  }
+
+  return { url: data.url };
+}
+
+export async function unlinkProvider(formData: FormData) {
+  const target = parseAuthProviderTarget(formData.get('provider'));
+  if (!target) {
+    return { error: 'settings.providerUnsupported' };
+  }
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.getUserIdentities();
+  if (error || !data) {
+    return { error: mapProviderError(error?.message ?? '') };
+  }
+
+  const identities = data.identities ?? [];
+  if (identities.length <= 1) {
+    return { error: 'settings.providerUnlinkNeedAnother' };
+  }
+
+  const aliases = getIdentityProviderAliases(target);
+  const match = identities.find((identity: UserIdentity) => aliases.includes(identity.provider));
+  if (!match) {
+    return { error: 'settings.providerNotLinked' };
+  }
+
+  const { error: unlinkError } = await supabase.auth.unlinkIdentity(match);
+  if (unlinkError) {
+    return { error: mapProviderError(unlinkError.message) };
   }
 
   return { success: true };

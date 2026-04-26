@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.24
+> for commit 1.9.25
 
 ---
 
