@@ -27,6 +27,9 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false, initialEr
 
   function localizeError(message: string) {
     if (message === 'line_oauth_failed') return t('auth.lineUnavailable')
+    if (message === 'line_provider_unsupported') return t('auth.lineProviderUnsupported')
+    if (message === 'line_oauth_config_invalid') return t('auth.lineOAuthConfigInvalid')
+    if (message === 'line_redirect_mismatch') return t('auth.lineRedirectMismatch')
     if (message === 'auth_callback_failed') return t('auth.lineCallbackFailed')
     if (message === 'supabase_unreachable') return t('auth.supabaseUnavailable')
     if (message === 'supabase_config_invalid') return t('auth.supabaseConfigInvalid')
