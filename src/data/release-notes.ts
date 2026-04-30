@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.44';
+export const APP_VERSION = '1.9.45';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.45',
+    date: '2026-04-30',
+    items: [
+      '設定画面を機能単位で再編成',
+      'プロフィール/日程編集の導線を明確化',
+      '危険操作を専用セクションへ分離',
+    ],
+  },
   {
     version: '1.9.44',
     date: '2026-04-30',

@@ -94,32 +94,45 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
 
   return (
     <div className="space-y-5">
-      <h1 className="text-2xl font-bold">{t('settings.title')}</h1>
+      <div>
+        <h1 className="text-2xl font-bold">{t('settings.title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('settings.pageSummary')}</p>
+      </div>
 
-      {/* Language */}
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-base">{t('settings.language')}</CardTitle>
+          <CardTitle className="text-base">{t('settings.profileScheduleTitle')}</CardTitle>
         </CardHeader>
-        <CardContent>
-          <LanguageSwitcher />
+        <CardContent className="space-y-3 text-sm">
+          <p className="text-muted-foreground">{t('settings.profileScheduleDesc')}</p>
+          <Link
+            href="/family"
+            className="inline-flex h-9 items-center rounded-lg border px-3 text-xs font-medium text-primary hover:underline"
+          >
+            {t('settings.openFamilyProfileSchedule')}
+          </Link>
         </CardContent>
       </Card>
 
-      {/* Theme */}
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-base">{t('settings.appearance')}</CardTitle>
+          <CardTitle className="text-base">{t('settings.displayTitle')}</CardTitle>
         </CardHeader>
-        <CardContent>
-          <ThemeSwitcher />
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <p className="text-sm font-medium">{t('settings.language')}</p>
+            <LanguageSwitcher />
+          </div>
+          <Separator />
+          <div className="space-y-2">
+            <p className="text-sm font-medium">{t('settings.appearance')}</p>
+            <ThemeSwitcher />
+          </div>
         </CardContent>
       </Card>
 
-      {/* Template tools */}
       {profile && <TemplateManagementSection defaultStage={profile.current_stage} />}
 
-      {/* App info */}
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">{t('settings.appInfo')}</CardTitle>
@@ -165,7 +178,6 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
         </CardContent>
       </Card>
 
-      {/* Account */}
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">{t('settings.account')}</CardTitle>
@@ -182,6 +194,15 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           />
           <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />
+        </CardContent>
+      </Card>
+
+      <Card className="border-destructive/30">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base text-destructive">{t('settings.dangerZone')}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-xs text-muted-foreground">{t('settings.dangerZoneDesc')}</p>
           <DeleteAccountSection />
           <form action={signOut}>
             <Button variant="outline" size="sm" className="w-full" type="submit">
