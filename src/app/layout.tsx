@@ -65,7 +65,7 @@ export default async function RootLayout({
   const locale = await getLocale();
   return (
     <html
-      lang={locale === 'zh' ? 'zh-CN' : 'ja'}
+      lang={locale === 'zh' ? 'zh-CN' : locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

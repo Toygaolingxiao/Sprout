@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import type { Locale } from '@/lib/i18n';
 import {
   CheckCircle2,
   Users,
@@ -20,7 +21,7 @@ export function LandingPage() {
   const { t, locale, setLocale } = useTranslation();
   const router = useRouter();
 
-  function changeLocale(nextLocale: 'ja' | 'zh') {
+  function changeLocale(nextLocale: Locale) {
     if (locale === nextLocale) return;
     setLocale(nextLocale);
     router.refresh();
@@ -79,6 +80,16 @@ export function LandingPage() {
                 )}
               >
                 {t('lp.langZh')}
+              </button>
+              <button
+                type="button"
+                onClick={() => changeLocale('en')}
+                className={cn(
+                  'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                  locale === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {t('lp.langEn')}
               </button>
             </div>
             <button

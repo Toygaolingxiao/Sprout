@@ -72,6 +72,9 @@ export const zh: Record<TranslationKey, string> = {
   'dashboard.completedSummary': '✅ 已完成 {n} 项 — 查看全部',
   'dashboard.otherStages': '📊 其他阶段',
   'dashboard.completed': '已完成',
+  'dashboard.emptyTitle': '先添加第一条任务吧',
+  'dashboard.emptyDesc': '打开分阶段清单，快速登记你们需要准备的事项。',
+  'dashboard.openChecklist': '打开清单',
 
   // Date
   'date.daysAgo': '{n}天前',
@@ -174,8 +177,12 @@ export const zh: Record<TranslationKey, string> = {
   'theme.color': '主题颜色',
   'theme.green': '绿色',
   'theme.pink': '粉色',
+  'theme.yellow': '黄色',
+  'theme.aqua': '水蓝',
   'theme.changeTo.green': '切换主题为绿色',
   'theme.changeTo.pink': '切换主题为粉色',
+  'theme.changeTo.yellow': '切换主题为黄色',
+  'theme.changeTo.aqua': '切换主题为水蓝',
   'settings.nickname': '昵称',
   'settings.lifeStage': '人生阶段',
   'settings.lifeStageSelect': '选择人生阶段',
@@ -221,6 +228,10 @@ export const zh: Record<TranslationKey, string> = {
   'settings.providerUnlinkNeedAnother': '当前仅有一种登录方式，无法解除关联。',
   'settings.providerOperationFailed': '关联设置变更失败，请稍后重试。',
   'settings.language': '🌐 语言',
+  'settings.textSize': '文字大小',
+  'settings.textSize.small': '小',
+  'settings.textSize.medium': '标准',
+  'settings.textSize.large': '大',
   'settings.saving': '保存中...',
   'settings.save': '保存',
   'settings.resetDate': '重置',
@@ -385,6 +396,7 @@ export const zh: Record<TranslationKey, string> = {
   'lp.mainNav': '主导航',
   'lp.langJa': '日本語',
   'lp.langZh': '中文',
+  'lp.langEn': 'English',
 
   // WhatsNew
   'whatsNew.title': '更新信息',

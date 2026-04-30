@@ -4,7 +4,7 @@ import { t as translate, LOCALE_COOKIE, type Locale, type TranslationKey } from 
 export async function getLocale(): Promise<Locale> {
   const cookieStore = await cookies();
   const value = cookieStore.get(LOCALE_COOKIE)?.value;
-  if (value === 'ja' || value === 'zh') return value;
+  if (value === 'ja' || value === 'zh' || value === 'en') return value;
   return 'ja';
 }
 

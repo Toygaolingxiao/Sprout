@@ -70,6 +70,9 @@ export const ja = {
   'dashboard.completedSummary': '✅ 完了済み {n}件 — すべて見る',
   'dashboard.otherStages': '📊 他のステージ',
   'dashboard.completed': '完了',
+  'dashboard.emptyTitle': '最初のタスクを追加しましょう',
+  'dashboard.emptyDesc': 'ステージ別のチェックリストを開いて、必要な準備を登録できます。',
+  'dashboard.openChecklist': 'チェックリストを開く',
 
   // Date
   'date.daysAgo': '{n}日前',
@@ -172,8 +175,12 @@ export const ja = {
   'theme.color': 'テーマカラー',
   'theme.green': 'グリーン',
   'theme.pink': 'ピンク',
+  'theme.yellow': 'イエロー',
+  'theme.aqua': 'アクア',
   'theme.changeTo.green': 'テーマをグリーンに変更',
   'theme.changeTo.pink': 'テーマをピンクに変更',
+  'theme.changeTo.yellow': 'テーマをイエローに変更',
+  'theme.changeTo.aqua': 'テーマをアクアに変更',
   'settings.nickname': 'ニックネーム',
   'settings.lifeStage': 'ライフステージ',
   'settings.lifeStageSelect': 'ライフステージを選択',
@@ -219,6 +226,10 @@ export const ja = {
   'settings.providerUnlinkNeedAnother': 'ログイン方法が1つだけのため連携解除できません。',
   'settings.providerOperationFailed': '連携設定の変更に失敗しました。時間をおいて再試行してください。',
   'settings.language': '🌐 言語',
+  'settings.textSize': '文字サイズ',
+  'settings.textSize.small': '小',
+  'settings.textSize.medium': '標準',
+  'settings.textSize.large': '大',
   'settings.saving': '保存中...',
   'settings.save': '保存',
   'settings.resetDate': 'リセット',
@@ -383,6 +394,7 @@ export const ja = {
   'lp.mainNav': 'メインナビゲーション',
   'lp.langJa': '日本語',
   'lp.langZh': '中文',
+  'lp.langEn': 'English',
 
   // WhatsNew
   'whatsNew.title': 'アップデート情報',
