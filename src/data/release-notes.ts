@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.2';
+export const APP_VERSION = '1.10.3';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.3',
+    date: '2026-04-30',
+    items: [
+      '日付入力langをロケール連動へ修正、英語UIで英語表記に変更、設定画面の表示整合性を改善',
+    ],
+  },
   {
     version: '1.10.2',
     date: '2026-04-30',

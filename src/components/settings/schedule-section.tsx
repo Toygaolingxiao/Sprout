@@ -27,7 +27,9 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
   const [pregnancyDate, setPregnancyDate] = useState(profile.expected_pregnancy_date ?? '');
   const [dueDate, setDueDate] = useState(profile.expected_due_date ?? '');
   const [resetTarget, setResetTarget] = useState<'pregnancy' | 'due' | null>(null);
-  const { t } = useTranslation();
+  const { locale, t } = useTranslation();
+
+  const dateInputLang = locale === 'ja' ? 'ja-JP' : locale === 'zh' ? 'zh-CN' : 'en-US';
 
   const resetLabel = resetTarget === 'pregnancy'
     ? t('settings.pregnancyDate')
@@ -93,7 +95,7 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
                 id="expected_pregnancy_date"
                 name="expected_pregnancy_date"
                 type="date"
-                lang="ja-JP"
+                lang={dateInputLang}
                 value={pregnancyDate}
                 onChange={(event: { target: { value: string } }) => setPregnancyDate(event.target.value)}
               />
@@ -119,7 +121,7 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
                 id="expected_due_date"
                 name="expected_due_date"
                 type="date"
-                lang="ja-JP"
+                lang={dateInputLang}
                 value={dueDate}
                 onChange={(event: { target: { value: string } }) => setDueDate(event.target.value)}
               />
