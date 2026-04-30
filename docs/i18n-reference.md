@@ -1,6 +1,7 @@
 # 🌱 Sprout 日中表現対照表（UI翻訳リファレンス）
 
 > 作成日: 2026-04-14
+> 最終更新: 2026-04-30
 > 対象: 日本語 (ja) ↔ 简体中文 (zh)
 
 ---
@@ -206,6 +207,63 @@
 
 ---
 
+## 1.9.x 追加キー（認証・連携）
+
+| キー | 日本語 | 中文 |
+|------|--------|------|
+| auth.lineLogin | LINEでログイン | 使用LINE登录 |
+| auth.lineSignup | LINEで登録 | 使用LINE注册 |
+| auth.oauthCallbackFailed | 外部ログインの確認処理に失敗しました。もう一度お試しください。 | 外部登录回调处理失败，请重试。 |
+| auth.oauthAccessDenied | 外部サービス側でログインがキャンセルまたは拒否されました。 | 外部服务侧取消或拒绝了登录请求。 |
+| auth.lineProviderUnsupported | LINEプロバイダーが無効か名称不一致です。Supabase AuthのProvider設定とSUPABASE_LINE_PROVIDERを確認してください。 | LINE提供商未启用或名称不一致。请检查Supabase Auth Provider配置与SUPABASE_LINE_PROVIDER。 |
+| auth.lineOAuthConfigInvalid | LINE OAuthのクライアント設定が不正です。Channel ID/SecretとOIDC設定を確認してください。 | LINE OAuth客户端配置无效。请检查Channel ID/Secret与OIDC配置。 |
+| auth.lineRedirectMismatch | LINEのリダイレクトURL設定が一致していません。SupabaseのCallback URLをLINE側に登録してください。 | LINE回调地址不匹配。请将Supabase Callback URL登记到LINE配置。 |
+
+---
+
+## 1.9.x 追加キー（設定・安全操作）
+
+| キー | 日本語 | 中文 |
+|------|--------|------|
+| settings.pageSummary | 表示・連携・セキュリティ設定を機能ごとに管理できます。 | 可按功能管理显示、关联与安全设置。 |
+| settings.quickProfileSchedule | プロフィール・日程 | 资料与日程 |
+| settings.quickDanger | 注意操作 | 高风险操作 |
+| settings.releaseNotesBrief | 更新履歴（簡略） | 更新记录（简版） |
+| settings.providerLinks | 外部連携 | 外部账号关联 |
+| settings.providerConnected | 連携済み | 已关联 |
+| settings.providerNotConnected | 未連携 | 未关联 |
+| settings.providerConnect | 連携する | 去关联 |
+| settings.providerDisconnect | 連携解除 | 解除关联 |
+| settings.dangerZone | 注意が必要な操作 | 高风险操作 |
+| settings.deleteAccountConfirmLabel | 確認のため DELETE と入力してください | 请输入 DELETE 以确认 |
+
+---
+
+## 1.9.x 追加キー（家族退出）
+
+| キー | 日本語 | 中文 |
+|------|--------|------|
+| family.leaveTitle | 家族グループから退出 | 退出家庭组 |
+| family.leaveAction | 家族グループから退出する | 退出当前家庭组 |
+| family.leaveDialogTitle | 家族グループから退出しますか？ | 确定要退出家庭组吗？ |
+| family.leaveConfirmLabel | 確認のため LEAVE と入力してください | 请输入 LEAVE 以确认 |
+| family.leaveSuccess | 家族グループから退出しました。 | 已退出家庭组。 |
+| family.leaveFailed | 家族グループからの退出に失敗しました。時間をおいて再試行してください。 | 退出家庭组失败，请稍后重试。 |
+
+---
+
+## 1.9.x 追加キー（アプリ内マニュアル）
+
+| キー | 日本語 | 中文 |
+|------|--------|------|
+| manual.title | 利用マニュアル | 使用手册 |
+| manual.section.start | はじめる | 开始使用 |
+| manual.section.family | 家族共有 | 家庭共享 |
+| manual.section.checklist | チェックリスト運用 | 清单使用 |
+| manual.section.troubleshoot | トラブル対応 | 故障排查 |
+
+---
+
 ## 注意事項
 
 1. **チェックリスト本文は段階的翻訳対応** — 未翻訳の詳細文は中国語画面で中国語補完メッセージを表示
@@ -213,3 +271,4 @@
 3. 中文は简体中文（中国大陸向け）を採用
 4. 敬語・丁寧語は中文では省略（文化的に自然な表現を優先）
 5. 「さん」等の敬称は中文では不使用
+6. この表は主要キーの抜粋です。完全な最新一覧は `src/lib/i18n/translations/ja.ts` と `src/lib/i18n/translations/zh.ts` を参照してください。

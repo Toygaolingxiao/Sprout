@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.47';
+export const APP_VERSION = '1.9.48';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.48',
+    date: '2026-04-30',
+    items: [
+      '1.9.x履歴の説明更新',
+      'READMEとマニュアルを現行機能へ同期',
+      '日中ドキュメントと翻訳文言を整合',
+    ],
+  },
   {
     version: '1.9.47',
     date: '2026-04-30',
@@ -68,8 +77,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.40',
     date: '2026-04-26',
     items: [
-      '野良families清掃の定期実行関数を追加^',
-      'pg_cron有効時に日次ジョブを自動登録^',
+      '野良 families 清掃の定期実行関数を追加',
+      'pg_cron 有効時に日次ジョブを自動登録',
       'owner不整合の自動補正を関数化',
     ],
   },
@@ -77,8 +86,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.39',
     date: '2026-04-26',
     items: [
-      '孤立family修復SQLのUUID集約エラーを修正^',
-      'MIN(uuid)をDISTINCT ONへ置換^',
+      '孤立 family 修復 SQL の UUID 集約エラーを修正',
+      'MIN(uuid) を DISTINCT ON へ置換',
       'SQL Editor実行互換性を改善',
     ],
   },
@@ -86,17 +95,17 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.38',
     date: '2026-04-26',
     items: [
-      '家族招待参加時に旧ファミリーの孤立を防止^',
-      'owner不整合時の自動移管処理を追加^',
-      '既存孤立families修復用SQLを追加',
+      '家族招待参加時に旧ファミリーの孤立を防止',
+      'owner 不整合時の自動移管処理を追加',
+      '既存孤立 families 修復用 SQL を追加',
     ],
   },
   {
     version: '1.9.37',
     date: '2026-04-26',
     items: [
-      'ログイン失敗英語メッセージを翻訳キー化^',
-      'invalid credentialsを日中翻訳で表示^',
+      'ログイン失敗英語メッセージを翻訳キー化',
+      'invalid credentials を日中翻訳で表示',
       'ログイン画面のエラーローカライズを改善',
     ],
   },
@@ -104,8 +113,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.36',
     date: '2026-04-26',
     items: [
-      'アカウント削除RPCを外部キー制約対応へ改良^',
-      '家族保持時の参照データ再割当を追加^',
+      'アカウント削除 RPC を外部キー制約対応へ改良',
+      '家族保持時の参照データ再割当を追加',
       '削除失敗時の診断メッセージを強化',
     ],
   },
@@ -113,8 +122,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.35',
     date: '2026-04-26',
     items: [
-      '設定画面にアカウント削除機能を追加^',
-      '本人削除用RPC delete_my_accountを追加^',
+      '設定画面にアカウント削除機能を追加',
+      '本人削除用 RPC delete_my_account を追加',
       '削除確認ダイアログと多言語文言を実装',
     ],
   },
@@ -122,17 +131,17 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.34',
     date: '2026-04-26',
     items: [
-      'LINE連携にIDトークン優先フォールバックを追加^',
-      'LIFF取得成功時はOAuth経路を迂回^',
-      'server_error発生経路の回避手段を実装',
+      'LINE連携に ID トークン優先フォールバックを追加',
+      'LIFF 取得成功時は OAuth 経路を迂回',
+      'server_error 発生経路の回避手段を実装',
     ],
   },
   {
     version: '1.9.33',
     date: '2026-04-26',
     items: [
-      'LINE連携失敗時に診断コード表示を追加^',
-      'callbackとserver actionで原因ヒント抽出^',
+      'LINE連携失敗時に診断コード表示を追加',
+      'callback と server action で原因ヒント抽出',
       '同一文言時の切り分け速度を改善',
     ],
   },
@@ -140,17 +149,17 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.32',
     date: '2026-04-26',
     items: [
-      'LINE連携の未知エラーを詳細案内にフォールバック^',
-      'callbackのerror_codeも判定対象に追加^',
-      'settings汎用失敗表示をさらに削減',
+      'LINE連携の未知エラーを詳細案内にフォールバック',
+      'callback の error_code も判定対象に追加',
+      'settings 汎用失敗表示をさらに削減',
     ],
   },
   {
     version: '1.9.31',
     date: '2026-04-26',
     items: [
-      'LINE連携エラーを原因別に詳細化^',
-      'settings連携失敗の汎用表示を削減^',
+      'LINE連携エラーを原因別に詳細化',
+      'settings 連携失敗の汎用表示を削減',
       'LINE設定不整合の案内文を追加',
     ],
   },
@@ -158,8 +167,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.30',
     date: '2026-04-26',
     items: [
-      'LINE失敗理由を開始時に詳細分類^',
-      'LINE設定不一致時の案内文を追加^',
+      'LINE失敗理由を開始時に詳細分類',
+      'LINE設定不一致時の案内文を追加',
       'ログイン画面で原因別エラー表示を拡張',
     ],
   },
@@ -167,17 +176,17 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.29',
     date: '2026-04-26',
     items: [
-      '連携失敗メッセージをProvider別に改善^',
-      'Google未有効とLINE設定不備を明示^',
-      'callbackエラー判定をProvider別コードへ統一',
+      '連携失敗メッセージを Provider 別に改善',
+      'Google 未有効と LINE 設定不備を明示',
+      'callback エラー判定を Provider 別コードへ統一',
     ],
   },
   {
     version: '1.9.28',
     date: '2026-04-26',
     items: [
-      '連携失敗時の原因コード返却を追加^',
-      'callback後に連携済み再判定して成功扱い補正^',
+      '連携失敗時の原因コード返却を追加',
+      'callback 後に連携済み再判定して成功扱い補正',
       '設定画面で結果トーストとURLクエリ自動クリア',
     ],
   },
@@ -185,8 +194,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.27',
     date: '2026-04-26',
     items: [
-      '連携完了の結果トースト表示を追加^',
-      '連携済み再判定をクライアント側で即時反映^',
+      '連携完了の結果トースト表示を追加',
+      '連携済み再判定をクライアント側で即時反映',
       '連携済み時の再認証遷移を抑止',
     ],
   },
@@ -194,8 +203,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.26',
     date: '2026-04-26',
     items: [
-      '連携済み判定ロジックを強化^',
-      'user identitiesとmetadata providersを併用^',
+      '連携済み判定ロジックを強化',
+      'user identities と metadata providers を併用',
       '未連携時の解除注意文表示を調整',
     ],
   },
@@ -203,8 +212,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.25',
     date: '2026-04-26',
     items: [
-      '設定画面にGoogle/LINE連携状態を追加^',
-      '連携開始と解除操作を実装^',
+      '設定画面に Google/LINE 連携状態を追加',
+      '連携開始と解除操作を実装',
       '連携解除エラーの多言語メッセージ追加',
     ],
   },
@@ -212,8 +221,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.24',
     date: '2026-04-26',
     items: [
-      'Supabase到達チェックのタイムアウト撤廃^',
-      '復帰直後の誤判定抑止^',
+      'Supabase 到達チェックのタイムアウト撤廃',
+      '復帰直後の誤判定抑止',
       'LINE連携エラー再発防止',
     ],
   },
@@ -221,8 +230,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.23',
     date: '2026-04-26',
     items: [
-      'Supabase到達判定の誤検知を修正^',
-      '401応答を到達不可扱いしない^',
+      'Supabase 到達判定の誤検知を修正',
+      '401 応答を到達不可扱いしない',
       'LINE連携再開時の誤ブロック解消',
     ],
   },
@@ -230,8 +239,8 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.22',
     date: '2026-04-26',
     items: [
-      'LINE連携時のSupabase到達性チェック追加^',
-      '壊れたSupabase URL遷移を防止^',
+      'LINE連携時の Supabase 到達性チェック追加',
+      '壊れた Supabase URL 遷移を防止',
       'ログイン画面で設定エラーを明示表示',
     ],
   },
@@ -239,17 +248,17 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.21',
     date: '2026-04-26',
     items: [
-      '初回アクセス高速化のmiddleware最適化^',
-      'LIFF stateをEdge即時リダイレクト^',
-      'ルート認証ユーザーのSupabase照会削減',
+      '初回アクセス高速化の middleware 最適化',
+      'LIFF state を Edge 即時リダイレクト',
+      'ルート認証ユーザーの Supabase 照会削減',
     ],
   },
   {
     version: '1.9.20',
     date: '2026-04-26',
     items: [
-      'LIFF自動再ログイン抑止^',
-      'LINE OAuthフォールバック1回ガード^',
+      'LIFF 自動再ログイン抑止',
+      'LINE OAuth フォールバック1回ガード',
       'LINE無限ループ対策',
     ],
   },
@@ -257,17 +266,17 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.19',
     date: '2026-04-26',
     items: [
-      'LINEログインループ修正^',
-      'LINE IDトークン成功時の遷移安定化^',
-      'autoLiff失敗誤判定の解消',
+      'LINEログインループ修正',
+      'LINE IDトークン成功時の遷移安定化',
+      'auto LIFF 失敗誤判定の解消',
     ],
   },
   {
     version: '1.9.18',
     date: '2026-04-26',
     items: [
-      'LINEログイン後の自動プロフィール整備^',
-      'LINE名のニックネーム同期^',
+      'LINEログイン後の自動プロフィール整備',
+      'LINE名のニックネーム同期',
       '設定画面でメール後追加対応',
     ],
   },
@@ -275,49 +284,61 @@ export const RELEASE_NOTES: { version: string; date: string; items: string[] }[]
     version: '1.9.17',
     date: '2026-04-26',
     items: [
-      'liff-auth-state-session-bridge',
+      'LIFF認証状態をセッションへ橋渡しする処理を追加',
+      'LINE認証後の状態引き継ぎを安定化',
+      'callback復帰時の判定ブレを低減',
     ],
   },
   {
     version: '1.9.16',
     date: '2026-04-26',
     items: [
-      'line-login-click-response-improved',
+      'LINEログイン開始時のクリック応答性を改善',
+      'ログイン開始直後の体感待ち時間を短縮',
+      'ログインボタン押下時のフィードバックを強化',
     ],
   },
   {
     version: '1.9.15',
     date: '2026-04-26',
     items: [
-      'landing-header-navigation-fix',
+      'ランディングヘッダーナビゲーション不具合を修正',
+      '未ログイン時の導線切り替えを安定化',
+      'ヘッダー遷移の一貫性を改善',
     ],
   },
   {
     version: '1.9.14',
     date: '2026-04-26',
     items: [
-      'root-access-latency-optimization',
+      'ルートアクセス時のレイテンシを最適化',
+      '認証済みユーザーの初回遷移時間を短縮',
+      '不要な認証照会を削減',
     ],
   },
   {
     version: '1.9.13',
     date: '2026-04-26',
     items: [
-      'signup-duplicate-message-and-google-button-ui',
+      'サインアップ重複メッセージの表示内容を改善',
+      'Google登録ボタンUIを調整',
+      '登録導線の視認性を改善',
     ],
   },
   {
     version: '1.9.12',
     date: '2026-04-26',
     items: [
-      'auth-signup-feedback-and-google-style',
+      '認証・サインアップ時のフィードバック表示を改善',
+      'Googleログイン/登録ボタンのスタイルを統一',
+      '認証画面の操作一貫性を向上',
     ],
   },
   {
     version: '1.9.11',
     date: '2026-04-26',
     items: [
-      '🔧LINEログインと導線不具合を修正',
+      'LINEログインと導線不具合を修正',
     ],
   },
   {
