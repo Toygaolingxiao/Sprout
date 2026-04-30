@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.6';
+export const APP_VERSION = '1.10.7';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.7',
+    date: '2026-04-30',
+    items: [
+      '認証画面の言語切替UIをコンパクト化、右上配置でロゴ周辺の余白を確保、ログイン画面の視覚バランスを改善',
+    ],
+  },
   {
     version: '1.10.6',
     date: '2026-04-30',
