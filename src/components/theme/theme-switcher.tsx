@@ -6,7 +6,7 @@ import { useTranslation } from '@/lib/i18n/context';
 const THEMES = [
   { id: 'green' as const, emoji: '🌿', colors: 'from-green-400 to-emerald-500' },
   { id: 'pink' as const, emoji: '🌸', colors: 'from-pink-400 to-rose-500' },
-  { id: 'yellow' as const, emoji: '🌼', colors: 'from-amber-300 to-yellow-500' },
+  { id: 'yellow' as const, emoji: '🌼', colors: 'from-amber-200 to-yellow-400' },
   { id: 'aqua' as const, emoji: '💧', colors: 'from-sky-300 to-cyan-500' },
 ];
 
