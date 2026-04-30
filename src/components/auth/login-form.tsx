@@ -208,6 +208,9 @@ export function LoginForm({ nextPath = '/dashboard', autoLiff = false, initialEr
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-2 text-sm text-muted-foreground">
+        <Link href="/" className="hover:text-foreground transition-colors">
+          {t('auth.backToHome')}
+        </Link>
         <Link href={`/reset-password?next=${encodeURIComponent(nextPath)}`} className="hover:text-foreground transition-colors">
           {t('auth.forgotPassword')}
         </Link>

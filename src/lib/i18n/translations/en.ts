@@ -54,6 +54,7 @@ export const en: Record<TranslationKey, string> = {
   'auth.sending': 'Sending...',
   'auth.sendResetEmail': 'Send reset email',
   'auth.backToLogin': 'Back to login',
+  'auth.backToHome': 'Back to home',
 
   // Auth layout
   'authLayout.tagline': 'Prepare for your new life together',
