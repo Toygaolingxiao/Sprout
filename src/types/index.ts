@@ -8,6 +8,7 @@ export type TargetGender = 'both' | 'female' | 'male';
 export type BabyGender = 'female' | 'male' | 'unknown';
 export type UserGender = 'female' | 'male' | 'other' | 'unknown';
 export type TaskPriority = 'high' | 'medium' | 'low';
+export type SubscriptionTier = 'free' | 'pro';
 
 export interface Profile {
   id: string;
@@ -19,6 +20,8 @@ export interface Profile {
   expected_pregnancy_date: string | null;
   baby_gender: BabyGender;
   user_gender: UserGender;
+  subscription_tier: SubscriptionTier;
+  subscription_updated_at: string;
   created_at: string;
   updated_at: string;
 }
@@ -197,6 +200,7 @@ export type Database = {
     Enums: {
       life_stage: LifeStage;
       activity_action: ActivityAction;
+      subscription_tier: SubscriptionTier;
     };
   };
 };

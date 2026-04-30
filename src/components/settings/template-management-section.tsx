@@ -4,24 +4,28 @@ import { useState, useTransition } from 'react';
 import { resetStageTemplates, deleteCustomTasksByStage, deleteAllCustomTasks } from '@/lib/actions/tasks';
 import { STAGES } from '@/data/seed/stages';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import { canUseFeature } from '@/lib/billing/plans';
 import { toast } from 'sonner';
 import { useTranslation } from '@/lib/i18n/context';
 import type { TranslationKey } from '@/lib/i18n';
-import type { LifeStage, TaskPriority } from '@/types';
+import type { LifeStage, SubscriptionTier, TaskPriority } from '@/types';
 
 interface TemplateManagementSectionProps {
   defaultStage: LifeStage;
+  subscriptionTier: SubscriptionTier;
 }
 
-export function TemplateManagementSection({ defaultStage }: TemplateManagementSectionProps) {
+export function TemplateManagementSection({ defaultStage, subscriptionTier }: TemplateManagementSectionProps) {
   const { t } = useTranslation();
   const [stageId, setStageId] = useState<LifeStage>(defaultStage);
   const [selectedPriorities, setSelectedPriorities] = useState<TaskPriority[]>(['high', 'medium', 'low']);
   const [isResetPending, startResetTransition] = useTransition();
   const [isDeleteStagePending, startDeleteStageTransition] = useTransition();
   const [isDeleteAllPending, startDeleteAllTransition] = useTransition();
+  const canDeleteAllCustom = canUseFeature(subscriptionTier, 'delete_all_custom_tasks');
 
   function togglePriority(priority: TaskPriority) {
     setSelectedPriorities((prev) =>
@@ -52,8 +56,17 @@ export function TemplateManagementSection({ defaultStage }: TemplateManagementSe
   }
 
   function handleDeleteAllCustom() {
+    if (!canDeleteAllCustom) {
+      toast.error(t('settings.proFeatureLockedDeleteAllCustomTasks'));
+      return;
+    }
+
     startDeleteAllTransition(async () => {
       const result = await deleteAllCustomTasks();
+      if (result?.errorCode === 'pro_required_delete_all_custom_tasks') {
+        toast.error(t('settings.proFeatureLockedDeleteAllCustomTasks'));
+        return;
+      }
       if (result?.error) {
         toast.error(result.error);
         return;
@@ -139,10 +152,20 @@ export function TemplateManagementSection({ defaultStage }: TemplateManagementSe
             className="w-full"
             variant="outline"
             onClick={handleDeleteAllCustom}
-            disabled={isDeleteAllPending}
+            disabled={isDeleteAllPending || !canDeleteAllCustom}
           >
-            {isDeleteAllPending ? t('settings.customTasksDeleting') : t('settings.deleteAllCustomTasksShort')}
+            {isDeleteAllPending
+              ? t('settings.customTasksDeleting')
+              : canDeleteAllCustom
+                ? t('settings.deleteAllCustomTasksShort')
+                : t('settings.deleteAllCustomTasksProOnly')}
           </Button>
+          {!canDeleteAllCustom && (
+            <p className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Badge variant="outline">PRO</Badge>
+              {t('settings.proFeatureLockedDeleteAllCustomTasks')}
+            </p>
+          )}
         </div>
       </CardContent>
     </Card>

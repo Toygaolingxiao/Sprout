@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
 import { APP_VERSION, RELEASE_NOTES } from '@/data/release-notes';
+import { normalizeTier } from '@/lib/billing/plans';
 import { signOut } from '@/lib/actions/auth';
 import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
@@ -86,6 +88,8 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   const currentEmail = user?.email ?? null;
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
+  const subscriptionTier = normalizeTier((profile as { subscription_tier?: string } | null)?.subscription_tier);
+  const isPro = subscriptionTier === 'pro';
   const compactReleaseNotes = RELEASE_NOTES.slice(0, 5).map((note) => ({
     ...note,
     items: note.items
@@ -152,7 +156,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
       </section>
 
       <section id="template-data" className="scroll-mt-24">
-        {profile && <TemplateManagementSection defaultStage={profile.current_stage} />}
+        {profile && <TemplateManagementSection defaultStage={profile.current_stage} subscriptionTier={subscriptionTier} />}
       </section>
 
       <section id="app-info" className="scroll-mt-24">
@@ -165,6 +169,17 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
             <span className="text-muted-foreground">{t('settings.version')}</span>
             <span className="font-mono text-xs">{APP_VERSION}</span>
           </div>
+          <div className="flex items-center justify-between rounded-lg border px-3 py-2">
+            <span className="text-muted-foreground">{t('settings.planCurrent')}</span>
+            <div className="flex items-center gap-2">
+              <Badge variant={isPro ? 'default' : 'outline'}>
+                {isPro ? t('settings.planPro') : t('settings.planFree')}
+              </Badge>
+            </div>
+          </div>
+          {!isPro && (
+            <p className="text-xs text-muted-foreground">{t('settings.planProUpsell')}</p>
+          )}
           <Separator className="my-2" />
           <div className="flex items-center justify-between rounded-lg border px-3 py-2">
             <span className="text-muted-foreground">{t('settings.manual')}</span>
