@@ -155,11 +155,17 @@ export const ja = {
   'settings.title': '設定',
   'settings.pageSummary': '表示・連携・セキュリティ設定を機能ごとに管理できます。',
   'settings.profileScheduleTitle': '👤 プロフィールと日程',
-  'settings.profileScheduleDesc': 'ニックネーム、ライフステージ、出産予定日などは家族ページから編集できます。',
+  'settings.profileScheduleDesc': 'ニックネーム、ライフステージ、出産予定日などをこのページでまとめて編集できます。',
   'settings.openFamilyProfileSchedule': '家族ページで編集する',
   'settings.displayTitle': '🪄 表示と言語',
   'settings.dangerZone': '注意が必要な操作',
   'settings.dangerZoneDesc': 'アカウント削除やログアウトを行います。誤操作に注意してください。',
+  'settings.quickProfileSchedule': 'プロフィール・日程',
+  'settings.quickDisplay': '表示',
+  'settings.quickTemplateData': 'テンプレート',
+  'settings.quickAppInfo': 'アプリ情報',
+  'settings.quickAccount': 'アカウント',
+  'settings.quickDanger': '注意操作',
   'settings.profile': '👤 プロフィール',
 
   // Theme

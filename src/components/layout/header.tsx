@@ -1,13 +1,17 @@
 "use client";
 
+import { useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { signOut } from '@/lib/actions/auth';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/lib/i18n/context';
 
+const MAIN_ROUTES = ['/dashboard', '/checklists', '/family', '/settings'];
+
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const { t } = useTranslation();
 
   const DESKTOP_NAV = [
@@ -17,10 +21,18 @@ export function Header() {
     { href: '/settings', label: t('nav.settings') },
   ];
 
+  useEffect(() => {
+    for (const route of MAIN_ROUTES) {
+      if (!pathname.startsWith(route)) {
+        router.prefetch(route);
+      }
+    }
+  }, [pathname, router]);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/10" style={{ background: `linear-gradient(to right, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))` }}>
       <div className="w-full flex h-14 items-center gap-4 px-4 max-w-2xl mx-auto">
-        <Link href="/dashboard" className="flex items-center gap-1.5 font-bold text-lg text-primary flex-shrink-0">
+        <Link href="/dashboard" prefetch className="flex items-center gap-1.5 font-bold text-lg text-primary flex-shrink-0">
           <span className="text-2xl">🌱</span>
           <span>Sprout</span>
         </Link>
@@ -31,6 +43,8 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch
+                onMouseEnter={() => router.prefetch(item.href)}
                 className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
                   isActive
                     ? 'bg-muted text-foreground'

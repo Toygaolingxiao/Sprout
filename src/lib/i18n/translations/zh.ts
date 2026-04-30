@@ -157,11 +157,17 @@ export const zh: Record<TranslationKey, string> = {
   'settings.title': '设置',
   'settings.pageSummary': '可按功能管理显示、关联与安全设置。',
   'settings.profileScheduleTitle': '👤 资料与日程',
-  'settings.profileScheduleDesc': '昵称、人生阶段、预产期等信息可在家庭页面编辑。',
+  'settings.profileScheduleDesc': '昵称、人生阶段、预产期等信息可在本页面统一编辑。',
   'settings.openFamilyProfileSchedule': '前往家庭页面编辑',
   'settings.displayTitle': '🪄 显示与语言',
   'settings.dangerZone': '高风险操作',
   'settings.dangerZoneDesc': '此处执行删除账号和退出登录，请谨慎操作。',
+  'settings.quickProfileSchedule': '资料与日程',
+  'settings.quickDisplay': '显示',
+  'settings.quickTemplateData': '模板',
+  'settings.quickAppInfo': '应用信息',
+  'settings.quickAccount': '账号',
+  'settings.quickDanger': '高风险操作',
   'settings.profile': '👤 个人资料',
 
   // Theme

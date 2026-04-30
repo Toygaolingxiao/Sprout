@@ -28,7 +28,12 @@ export default async function DashboardPage() {
   try {
     // Initialize current stage templates
     const initResult = await initializeTasksFromTemplates(currentStage);
-    tasks = await getTasks(currentStage);
+    const [loadedTasks, loadedStats] = await Promise.all([
+      getTasks(currentStage),
+      getTaskStats(),
+    ]);
+    tasks = loadedTasks;
+    stats = loadedStats;
 
     // Fallback to local templates if DB unavailable
     if (tasks.length === 0 && initResult && 'error' in initResult) {
@@ -61,7 +66,6 @@ export default async function DashboardPage() {
         } satisfies Task));
     }
 
-    stats = await getTaskStats();
   } catch (e) {
     console.error('[DashboardPage] Task loading failed:', e);
     dbOffline = true;
