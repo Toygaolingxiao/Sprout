@@ -12,6 +12,8 @@ import { DeleteAccountSection } from '@/components/settings/delete-account-secti
 import { ProviderLinksSection } from '@/components/settings/provider-links-section';
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
+import { ProfileSection } from '@/components/settings/profile-section';
+import { ScheduleSection } from '@/components/settings/schedule-section';
 import { createClient } from '@/lib/supabase/server';
 import { getLocale } from '@/lib/i18n/server';
 import { serverT } from '@/lib/i18n/server';
@@ -92,6 +94,15 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
       .slice(0, 2),
   }));
 
+  const sectionLinks = [
+    { id: 'profile-schedule', label: t('settings.quickProfileSchedule') },
+    { id: 'display', label: t('settings.quickDisplay') },
+    { id: 'template-data', label: t('settings.quickTemplateData') },
+    { id: 'app-info', label: t('settings.quickAppInfo') },
+    { id: 'account', label: t('settings.quickAccount') },
+    { id: 'danger-zone', label: t('settings.quickDanger') },
+  ];
+
   return (
     <div className="space-y-5">
       <div>
@@ -99,21 +110,29 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
         <p className="mt-1 text-sm text-muted-foreground">{t('settings.pageSummary')}</p>
       </div>
 
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">{t('settings.profileScheduleTitle')}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm">
-          <p className="text-muted-foreground">{t('settings.profileScheduleDesc')}</p>
-          <Link
-            href="/family"
-            className="inline-flex h-9 items-center rounded-lg border px-3 text-xs font-medium text-primary hover:underline"
-          >
-            {t('settings.openFamilyProfileSchedule')}
-          </Link>
-        </CardContent>
-      </Card>
+      <div className="-mx-1 overflow-x-auto pb-1">
+        <div className="flex min-w-max gap-2 px-1">
+          {sectionLinks.map((section) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              className="inline-flex h-8 items-center rounded-full border bg-background px-3 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+            >
+              {section.label}
+            </a>
+          ))}
+        </div>
+      </div>
 
+      <section id="profile-schedule" className="scroll-mt-24 space-y-4">
+        <div className="rounded-xl border border-primary/20 bg-gradient-to-r from-primary/5 via-background to-emerald-500/10 px-4 py-3">
+          <p className="text-sm text-muted-foreground">{t('settings.profileScheduleDesc')}</p>
+        </div>
+        {profile && <ProfileSection profile={profile} />}
+        {profile && <ScheduleSection profile={profile} />}
+      </section>
+
+      <section id="display" className="scroll-mt-24">
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">{t('settings.displayTitle')}</CardTitle>
@@ -130,9 +149,13 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           </div>
         </CardContent>
       </Card>
+      </section>
 
-      {profile && <TemplateManagementSection defaultStage={profile.current_stage} />}
+      <section id="template-data" className="scroll-mt-24">
+        {profile && <TemplateManagementSection defaultStage={profile.current_stage} />}
+      </section>
 
+      <section id="app-info" className="scroll-mt-24">
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">{t('settings.appInfo')}</CardTitle>
@@ -177,7 +200,9 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           </p>
         </CardContent>
       </Card>
+      </section>
 
+      <section id="account" className="scroll-mt-24">
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">{t('settings.account')}</CardTitle>
@@ -196,7 +221,9 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           <ChangePasswordSection />
         </CardContent>
       </Card>
+      </section>
 
+      <section id="danger-zone" className="scroll-mt-24">
       <Card className="border-destructive/30">
         <CardHeader className="pb-3">
           <CardTitle className="text-base text-destructive">{t('settings.dangerZone')}</CardTitle>
@@ -211,6 +238,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           </form>
         </CardContent>
       </Card>
+      </section>
     </div>
   );
 }

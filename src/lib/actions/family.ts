@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from 'next/headers';
+import { cache } from 'react';
 import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import type { Profile, FamilyInvitation } from '@/types';
 
@@ -111,7 +112,7 @@ export async function acceptInvitation(token: string) {
   return { success: true };
 }
 
-export async function getFamilyMembers(): Promise<Profile[]> {
+const getFamilyMembersCached = cache(async (): Promise<Profile[]> => {
   const user = await getAuthUser();
   if (!user) return [];
 
@@ -125,4 +126,8 @@ export async function getFamilyMembers(): Promise<Profile[]> {
     .eq('family_id', familyId);
 
   return (data ?? []) as Profile[];
+});
+
+export async function getFamilyMembers(): Promise<Profile[]> {
+  return getFamilyMembersCached();
 }

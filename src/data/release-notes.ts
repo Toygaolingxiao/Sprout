@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.45';
+export const APP_VERSION = '1.9.46';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.46',
+    date: '2026-04-30',
+    items: [
+      '設定画面へプロフィール/日程編集を統合',
+      '設定セクション内ジャンプ導線を追加',
+      '主要ページ遷移のprefetchと読取処理最適化',
+    ],
+  },
   {
     version: '1.9.45',
     date: '2026-04-30',

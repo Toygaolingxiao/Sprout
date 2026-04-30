@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getFamilyMembers } from '@/lib/actions/family';
 import { getProfile } from '@/lib/actions/profile';
 import { STAGE_MAP } from '@/data/seed/stages';
@@ -12,8 +13,6 @@ export const metadata: Metadata = {
   description: '家族メンバーの管理',
 };
 import { InviteSection } from '@/components/family/invite-section';
-import { ProfileSection } from '@/components/settings/profile-section';
-import { ScheduleSection } from '@/components/settings/schedule-section';
 
 export default async function FamilyPage() {
   const [profile, members] = await Promise.all([getProfile(), getFamilyMembers()]);
@@ -28,11 +27,20 @@ export default async function FamilyPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">{t('family.title')}</h1>
 
-      {/* プロフィール編集（ニックネーム・ステージ・赤ちゃんの性別） */}
-      {profile && <ProfileSection profile={profile} />}
-
-      {/* スケジュール設定（妊娠予定時期・出産予定日） */}
-      {profile && <ScheduleSection profile={profile} />}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t('family.schedule')}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">{t('family.scheduleDesc')}</p>
+          <Link
+            href="/settings#profile-schedule"
+            className="inline-flex h-9 items-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+          >
+            {t('family.editSchedule')}
+          </Link>
+        </CardContent>
+      </Card>
 
       {/* 近くの病院検索 */}
       <Card>

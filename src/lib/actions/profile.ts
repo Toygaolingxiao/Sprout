@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from 'next/cache';
+import { cache } from 'react';
 import { createClient, getAuthUser } from '@/lib/supabase/server';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, Profile } from '@/types';
@@ -164,6 +165,8 @@ async function recalculateTaskDueDates(
   );
 }
 
+const getProfileCached = cache(ensureProfile);
+
 export async function getProfile(): Promise<Profile | null> {
-  return ensureProfile();
+  return getProfileCached();
 }
