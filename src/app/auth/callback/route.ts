@@ -139,6 +139,27 @@ function mapLinkCallbackError(message: string | undefined, provider: 'google' | 
   return 'settings.providerOperationFailed';
 }
 
+function mapAuthCallbackError(message: string | undefined) {
+  const normalized = (message ?? '').toLowerCase();
+
+  if (normalized.includes('access denied') || normalized.includes('access_denied')) {
+    return 'auth.oauthAccessDenied';
+  }
+  if (
+    normalized.includes('provider is not enabled') ||
+    normalized.includes('provider not enabled') ||
+    normalized.includes('provider_not_enabled') ||
+    normalized.includes('unsupported provider')
+  ) {
+    return 'auth.oauthProviderUnsupported';
+  }
+  if (normalized.includes('fetch failed') || normalized.includes('network')) {
+    return 'auth.networkError';
+  }
+
+  return 'auth.oauthCallbackFailed';
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
@@ -189,5 +210,6 @@ export async function GET(request: Request) {
     );
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`);
+  const authErrorCode = mapAuthCallbackError(callbackErrorMessage);
+  return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(authErrorCode)}`);
 }

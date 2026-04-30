@@ -251,7 +251,7 @@ export async function signInWithGoogle(formData?: FormData) {
   });
 
   if (error) {
-    return { error: mapAuthError(error.message) };
+    return { error: mapProviderError(error.message, 'google') };
   }
 
   if (data.url) {
