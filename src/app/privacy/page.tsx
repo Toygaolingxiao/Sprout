@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { getLocale } from '@/lib/i18n/server';
+import { getLocale, serverT } from '@/lib/i18n/server';
 import { PRIVACY_COPY, resolveLegalLocale } from '@/lib/legal-copy';
+import Link from 'next/link';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = resolveLegalLocale(await getLocale());
@@ -14,10 +15,26 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PrivacyPage() {
   const locale = resolveLegalLocale(await getLocale());
   const copy = PRIVACY_COPY[locale];
+  const homeLabel = serverT(locale, 'nav.home');
+  const loginLabel = serverT(locale, 'auth.login');
 
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-2xl px-4 py-12">
+        <nav className="mb-6 flex items-center justify-end gap-2 text-sm">
+          <Link
+            href="/"
+            className="rounded-full border border-border/70 bg-background px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {homeLabel}
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-full border border-border/70 bg-background px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {loginLabel}
+          </Link>
+        </nav>
         <h1 className="text-2xl font-bold mb-8">{copy.heading}</h1>
         <div className="prose prose-sm max-w-none space-y-6 text-foreground/90">
           <p className="text-muted-foreground text-xs">{copy.updatedAtLabel}: {copy.updatedAt}</p>

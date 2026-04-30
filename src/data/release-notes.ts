@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.7';
+export const APP_VERSION = '1.10.8';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.8',
+    date: '2026-04-30',
+    items: [
+      'legal-nav-links-added',
+    ],
+  },
   {
     version: '1.10.7',
     date: '2026-04-30',
