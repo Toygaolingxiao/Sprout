@@ -238,8 +238,6 @@ export async function initializeTasksFromTemplates(stageId: LifeStage) {
     return { error: error.message };
   }
 
-  revalidatePath('/checklists');
-  revalidatePath('/dashboard');
   return { success: true };
 }
 

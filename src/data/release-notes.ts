@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.43';
+export const APP_VERSION = '1.9.44';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.44',
+    date: '2026-04-30',
+    items: [
+      'LINEログイン後に出るDB警告の原因を修正',
+      'レンダリング中のrevalidatePath呼び出しを削除',
+      '初期タスク投入処理をNext16仕様に適合',
+    ],
+  },
   {
     version: '1.9.43',
     date: '2026-04-30',
