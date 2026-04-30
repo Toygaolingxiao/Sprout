@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import { cache } from 'react';
+import { revalidatePath } from 'next/cache';
 import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import type { Profile, FamilyInvitation } from '@/types';
 
@@ -130,4 +131,35 @@ const getFamilyMembersCached = cache(async (): Promise<Profile[]> => {
 
 export async function getFamilyMembers(): Promise<Profile[]> {
   return getFamilyMembersCached();
+}
+
+export async function leaveFamily() {
+  const user = await getAuthUser();
+  if (!user) return { error: 'family.leaveNeedRelogin' };
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('leave_my_family');
+
+  if (error) {
+    const normalized = (error.message ?? '').toLowerCase();
+    if (normalized.includes('does not exist') && normalized.includes('leave_my_family')) {
+      return { error: 'family.leaveMigrationRequired' };
+    }
+    if (normalized.includes('no_family')) {
+      return { error: 'family.leaveNoFamily' };
+    }
+    if (normalized.includes('not_authenticated')) {
+      return { error: 'family.leaveNeedRelogin' };
+    }
+    if (normalized.includes('fetch failed') || normalized.includes('network')) {
+      return { error: 'auth.networkError' };
+    }
+    return { error: 'family.leaveFailed' };
+  }
+
+  revalidatePath('/family');
+  revalidatePath('/dashboard');
+  revalidatePath('/checklists');
+  revalidatePath('/settings');
+  return { success: true };
 }

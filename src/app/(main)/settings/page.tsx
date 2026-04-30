@@ -219,6 +219,12 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           />
           <ChangeEmailSection currentEmail={currentEmail} />
           <ChangePasswordSection />
+          <Separator className="my-2" />
+          <form action={signOut}>
+            <Button variant="outline" size="sm" className="w-full" type="submit">
+              {t('nav.logout')}
+            </Button>
+          </form>
         </CardContent>
       </Card>
       </section>
@@ -231,11 +237,6 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
         <CardContent className="space-y-3">
           <p className="text-xs text-muted-foreground">{t('settings.dangerZoneDesc')}</p>
           <DeleteAccountSection />
-          <form action={signOut}>
-            <Button variant="outline" size="sm" className="w-full" type="submit">
-              {t('nav.logout')}
-            </Button>
-          </form>
         </CardContent>
       </Card>
       </section>

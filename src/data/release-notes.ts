@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.46';
+export const APP_VERSION = '1.9.47';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.47',
+    date: '2026-04-30',
+    items: [
+      '家族グループ退出機能を追加',
+      '退出時の所有権移譲と空家族削除RPCを実装',
+      'ログアウトを削除操作から分離して誤操作を抑制',
+    ],
+  },
   {
     version: '1.9.46',
     date: '2026-04-30',
