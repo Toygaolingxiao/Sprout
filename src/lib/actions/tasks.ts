@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
+import { canUseFeature, normalizeTier } from '@/lib/billing/plans';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import type { LifeStage, CategoryId, Task, TaskPriority } from '@/types';
 
@@ -381,6 +382,17 @@ export async function deleteAllCustomTasks() {
   if (!familyId) return { error: '家族グループが見つかりません' };
 
   const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('subscription_tier')
+    .eq('id', user.id)
+    .single() as { data: { subscription_tier: string | null } | null };
+
+  const tier = normalizeTier(profile?.subscription_tier);
+  if (!canUseFeature(tier, 'delete_all_custom_tasks')) {
+    return { errorCode: 'pro_required_delete_all_custom_tasks' as const };
+  }
+
   const { count, error: countError } = await supabase
     .from('tasks')
     .select('*', { count: 'exact', head: true })

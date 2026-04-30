@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.48
+> for commit 1.9.49
 
 ---
 
@@ -15,7 +15,8 @@
 - 🎯 **タスク優先度** — 高/中/低で優先順に整理
 - ♀️♂️ **性別フィルター** — 女性向け/男性向けタスクをワンタップ切替
 - ♻️ **テンプレート再適用** — 優先度（高/中/低）でデフォルト項目を復元
-- 🧹 **一括整理** — 手動追加タスクをステージ単位/全ステージで削除
+- 🧹 **一括整理** — 手動追加タスクをステージ単位で削除（全ステージ一括は Pro）
+- 💎 **プラン区分** — Free / Pro の機能判定基盤を実装
 - 🔐 **アカウント安全運用** — ログアウトと削除を分離、確認入力付きで誤操作を抑制
 - 🔗 **外部連携管理** — 設定画面で Google/LINE の連携状態確認・連携解除
 - ⚡ **体感速度改善** — 主要導線の prefetch、並列読取、キャッシュで初動を高速化
@@ -115,6 +116,7 @@ Supabase SQL Editor で `supabase/migrations/` の SQL を**ファイル名順**
 17. `016_cleanup_orphan_families.sql`
 18. `017_schedule_orphan_family_cleanup.sql`
 19. `018_add_leave_my_family.sql`
+20. `019_add_subscription_tier.sql`
 
 注意:
 - 既存環境で `001_initial_schema.sql` を再実行しないでください（既存 enum/type 衝突の原因になります）。

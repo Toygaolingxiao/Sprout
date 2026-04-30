@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.48';
+export const APP_VERSION = '1.9.49';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.49',
+    date: '2026-04-30',
+    items: [
+      '有料無料のプラン区分基盤を追加',
+      'subscription_tierマイグレーションと型を追加',
+      'テンプレ管理の全ステージ削除をPro限定化',
+    ],
+  },
   {
     version: '1.9.48',
     date: '2026-04-30',
