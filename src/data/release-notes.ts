@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.3';
+export const APP_VERSION = '1.10.4';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.4',
+    date: '2026-04-30',
+    items: [
+      'ログイン画面にホームへ戻るリンクを追加、Sproutロゴクリックでトップへ遷移、認証画面導線を改善',
+    ],
+  },
   {
     version: '1.10.3',
     date: '2026-04-30',

@@ -54,6 +54,7 @@ export const zh: Record<TranslationKey, string> = {
   'auth.sending': '发送中...',
   'auth.sendResetEmail': '发送重置邮件',
   'auth.backToLogin': '返回登录',
+  'auth.backToHome': '返回首页',
 
   // Auth layout
   'authLayout.tagline': '夫妻共同迎接新生命',

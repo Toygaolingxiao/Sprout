@@ -52,6 +52,7 @@ export const ja = {
   'auth.sending': '送信中...',
   'auth.sendResetEmail': 'リセットメールを送信',
   'auth.backToLogin': 'ログイン画面に戻る',
+  'auth.backToHome': 'ホームページに戻る',
 
   // Auth layout
   'authLayout.tagline': '夫婦で育てる、新しい命の準備',
