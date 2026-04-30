@@ -4,22 +4,32 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.47
+> for commit 1.9.48
 
 ---
 
 ## 特徴
 
 - 📋 **80+のチェック項目** — 妊活〜育児の4フェーズを網羅、根拠ある要点・注意事項付き
-- 👫 **夫婦共有** — 家族グループで進捗をリアルタイム共有
+- 👫 **夫婦共有** — 家族グループで進捗をリアルタイム共有、招待参加と退出に対応
 - 🎯 **タスク優先度** — 高/中/低で優先順に整理
 - ♀️♂️ **性別フィルター** — 女性向け/男性向けタスクをワンタップ切替
 - ♻️ **テンプレート再適用** — 優先度（高/中/低）でデフォルト項目を復元
 - 🧹 **一括整理** — 手動追加タスクをステージ単位/全ステージで削除
-- 🏷️ **カテゴリ分類** — 手続き・買い物・健康・お金・その他
+- 🔐 **アカウント安全運用** — ログアウトと削除を分離、確認入力付きで誤操作を抑制
+- 🔗 **外部連携管理** — 設定画面で Google/LINE の連携状態確認・連携解除
+- ⚡ **体感速度改善** — 主要導線の prefetch、並列読取、キャッシュで初動を高速化
 - 📱 **モバイルファースト** — ボトムナビ + レスポンシブ対応
-- 🔒 **セキュア** — Supabase Auth + Row Level Security
-- 💬 **LINEログイン対応** — LIFF経由のIDトークンでサインイン可能
+- 🔒 **セキュア** — Supabase Auth + Row Level Security + SECURITY DEFINER RPC
+
+## 1.9.x 主な更新ハイライト
+
+- 1.9.25-1.9.34: Google/LINE 連携管理、LIFF優先ログイン、原因別エラー表示を強化
+- 1.9.35-1.9.36: アカウント削除機能（`delete_my_account`）と参照整合性対応を実装
+- 1.9.37-1.9.43: 認証エラーの多言語化、Googleログイン成功時の誤エラー表示を修正
+- 1.9.44: Next.js 16 実行時警告の原因だった render 中 `revalidatePath` 呼び出しを解消
+- 1.9.45-1.9.47: 設定画面の情報設計刷新、危険操作分離、家族退出機能（`leave_my_family`）を追加
+- 1.9.21-1.9.47: middleware最適化、prefetch、request-scope cache、並列データ取得で表示速度を改善
 
 ## 技術スタック
 
@@ -36,13 +46,14 @@
 /dashboard        → ホーム（現在ステージのタスク + 全ステージ概要）
 /checklists       → ステージ一覧
 /checklists/:id   → チェックリスト詳細（カテゴリ/性別フィルター付き）
-/family           → 家族メンバー管理・招待・プロフィール/日程設定
-/settings         → 言語・外観・アカウント設定
+/family           → 家族メンバー管理・招待・退出・病院検索
+/settings         → プロフィール/日程・言語・外観・連携・アカウント管理
 ```
 
 ## ドキュメント
 
 - [利用マニュアル](docs/user-manual.md)
+- [利用マニュアル（简体中文）](docs/user-manual.zh-CN.md)
 - [日中表現対照表（i18nリファレンス）](docs/i18n-reference.md)
 - [事業化企画書](docs/business-plan.md)
 
@@ -81,17 +92,33 @@ SUPABASE_LINE_PROVIDER=line
 
 ### 3. データベース
 
-Supabase SQL Editor で以下を順番に実行:
+Supabase SQL Editor で `supabase/migrations/` の SQL を**ファイル名順**に適用してください。
 
-1. `supabase/migrations/001_initial_schema.sql` — テーブル + RLS + トリガー
-2. `supabase/migrations/002_add_gender_tips.sql` — 性別に応じたタスク補足情報
-3. `supabase/migrations/002_grants.sql` — 権限設定
-4. `supabase/migrations/003_fix_postgrest.sql` — PostgREST関連修正
-5. `supabase/migrations/004_fix_test_user.sql` — テストユーザー関連修正
-6. `supabase/migrations/005_ensure_profile_fn.sql` — プロフィール作成関数の整備
-7. `supabase/migrations/006_all_in_one_fix.sql` — 主要修正の統合
-8. `supabase/migrations/007_add_expected_due_date.sql` — 出産予定日カラム追加
-9. `supabase/migrations/008_add_expected_pregnancy_date.sql` — 妊娠予定時期カラム追加
+現行のファイル（2026-04-30 時点）:
+
+1. `001_initial_schema.sql`
+2. `002_add_gender_tips.sql`
+3. `002_grants.sql`
+4. `003_fix_postgrest.sql`
+5. `004_fix_test_user.sql`
+6. `005_ensure_profile_fn.sql`
+7. `006_all_in_one_fix.sql`
+8. `007_add_expected_due_date.sql`
+9. `008_add_expected_pregnancy_date.sql`
+10. `009_fix_signup_trigger.sql`
+11. `010_add_baby_gender.sql`
+12. `011_add_task_priority.sql`
+13. `012_add_user_gender.sql`
+14. `013_task_query_performance_indexes.sql`
+15. `014_add_delete_my_account.sql`
+16. `015_fix_delete_my_account_constraints.sql`
+17. `016_cleanup_orphan_families.sql`
+18. `017_schedule_orphan_family_cleanup.sql`
+19. `018_add_leave_my_family.sql`
+
+注意:
+- 既存環境で `001_initial_schema.sql` を再実行しないでください（既存 enum/type 衝突の原因になります）。
+- 既存環境は「未適用の migration のみ」を順次適用してください。
 
 ### 4. 開発サーバー
 
@@ -146,6 +173,7 @@ npm run release:auto -- --type patch --notes "項目1|項目2|項目3"
 ```
 
 主なオプション:
+- `--type` 省略時は `patch`（例: `1.9.47 -> 1.9.48`）
 - `--type minor` / `--type major`
 - `--skip-build`（ビルド省略）
 - `--skip-deploy`（deployトリガー省略）
