@@ -255,8 +255,10 @@ export async function signInWithGoogle(formData?: FormData) {
   }
 
   if (data.url) {
-    redirect(data.url);
+    return { url: data.url };
   }
+
+  return { error: 'auth.oauthCallbackFailed' };
 }
 
 export async function signInWithLineOAuth(rawNextPath?: string) {

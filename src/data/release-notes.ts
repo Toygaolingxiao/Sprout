@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.42';
+export const APP_VERSION = '1.9.43';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.43',
+    date: '2026-04-30',
+    items: [
+      'Googleログイン成功時の誤エラー表示を修正',
+      'Server Actionのredirect例外経路をURL返却へ変更',
+      'ログイン/登録画面でOAuth遷移をクライアント処理に統一',
+    ],
+  },
   {
     version: '1.9.42',
     date: '2026-04-30',
