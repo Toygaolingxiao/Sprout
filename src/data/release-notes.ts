@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.53';
+export const APP_VERSION = '1.9.54';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.54',
+    date: '2026-04-30',
+    items: [
+      'イエローテーマの明度を引き上げて全体を明るく調整',
+      'テーマ選択チップの黄色グラデーションを明るく修正',
+      'ビルド検証済みで配色のみ改善',
+    ],
+  },
   {
     version: '1.9.53',
     date: '2026-04-30',
