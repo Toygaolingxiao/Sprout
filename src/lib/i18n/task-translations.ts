@@ -1,5 +1,6 @@
 import type { Locale } from './index';
 import type { LifeStage } from '@/types';
+import enTaskTranslations from './task-translations-en.json';
 
 export type TaskTranslationField = 'title' | 'description' | 'tips';
 
@@ -10,6 +11,9 @@ export interface TaskTranslationValue {
 }
 
 export type TaskTranslations = Record<LifeStage, Record<string, TaskTranslationValue>>;
+
+const EN_TASK_TRANSLATIONS_BY_SORT =
+  enTaskTranslations as Partial<Record<LifeStage, Record<string, TaskTranslationValue>>>;
 
 export const TASK_TRANSLATIONS: Partial<Record<Locale, TaskTranslations>> = {
   zh: {
@@ -550,7 +554,13 @@ export function translateTaskField(
   taskTitle: string,
   field: TaskTranslationField,
   fallback?: string,
+  sortOrder?: number,
 ): string {
+  if (locale === 'en' && typeof sortOrder === 'number') {
+    const translatedBySort = EN_TASK_TRANSLATIONS_BY_SORT[stageId]?.[String(sortOrder)]?.[field];
+    if (translatedBySort) return translatedBySort;
+  }
+
   const translated = TASK_TRANSLATIONS[locale]?.[stageId]?.[taskTitle]?.[field];
   if (translated) return translated;
 

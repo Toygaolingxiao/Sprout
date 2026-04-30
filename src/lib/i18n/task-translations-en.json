@@ -1,0 +1,510 @@
+{
+  "prenatal_care": {
+    "1": {
+      "title": "Start recording basal body temperature",
+      "description": "Measure and record your basal body temperature with a women's thermometer every morning when you wake up.",
+      "tips": "・Measure inside the mouth (under the tongue) at the same time every day\n・If you record your basal body temperature for more than 3 months using a chart or app, you will be able to see your ovulation pattern.\n・If there are two phases of low temperature and high temperature periods, there is a high possibility that you are ovulating.\n・If your body temperature does not rise, please see a doctor as there is a possibility that you are not ovulating."
+    },
+    "2": {
+      "title": "Start taking folic acid supplements",
+      "description": "Recommended intake of 400μg/day starting one month before pregnancy (Ministry of Health, Labor and Welfare)",
+      "tips": "・Reduced risk of neural tube defects (such as spina bifida) by 70%\n・Supplements are effective because food alone tends to be insufficient.\n・Ideal to continue until 3 months of pregnancy\n・We recommend supplements that contain both iron and vitamin B12."
+    },
+    "3": {
+      "title": "Get a bridal check (premarital medical checkup)",
+      "description": "Comprehensive examination for both men and women before trying to conceive. Consultation at obstetrics and gynecology/urology department",
+      "tips": "[Women] Comprehensive examination at the obstetrics and gynecology department, including the condition of the uterus and ovaries, hormone levels, sexually transmitted diseases, etc. (own expense: 10,000 to 30,000 yen)\n・It is a good idea to take an AMH test (ovarian reserve) as well.\n[Male] Urology, semen analysis, sexually transmitted disease, hormone tests, etc. (self-pay 5,000 to 15,000 yen)\n-About half of the causes of infertility are male-related.\n・Even if there are problems with the results, early detection and early treatment can increase the possibility of pregnancy.\n\n🔍 Find a nearby obstetrics and gynecology department → https://www.google.com/maps/search/産婦人科 and Gynecology"
+    },
+    "4": {
+      "title": "undergo a semen analysis",
+      "description": "Check the status of your sperm at a urology or infertility clinic",
+      "tips": "-About half of the causes of infertility are male-related.\n- Examine the number, motility, and morphology of sperm\n・Collected after 2-7 days of abstinence\n・Even if the results are poor, it may improve with lifestyle changes or supplements.\n・Cost is around 3,000 to 5,000 yen\n\n🔍 Find a urology department near you → https://www.google.com/maps/search/泌尿器科"
+    },
+    "5": {
+      "title": "Get a rubella antibody test",
+      "description": "Rubella infection during early pregnancy causes congenital rubella syndrome",
+      "tips": "・In particular, men born between 1979 and 1987 are highly likely to have no vaccination history.\n・Vaccination if antibody titer is low (women need to use contraception for 2 months after vaccination)\n・You may be able to use free coupons from local governments.\n・It is important to have your partner tested as well."
+    },
+    "6": {
+      "title": "undergo a dental checkup",
+      "description": "Dental treatment is limited during pregnancy, so take care in advance.",
+      "tips": "・During pregnancy, periodontal disease is more likely to worsen due to the influence of hormones.\n・Gum disease increases the risk of premature birth and low birth weight babies\n・Caries treatment, tartar removal, and wisdom tooth treatment before pregnancy\n・Complete in advance to avoid X-rays during pregnancy\n\n🔍 Find a dentist near you → https://www.google.com/maps/search/歯科"
+    },
+    "7": {
+      "title": "undergo a dental checkup",
+      "description": "Fathers should also take care to prevent cavities from infecting their babies.",
+      "tips": "- Dental caries bacteria (Streptococcus mutans) is transmitted from parents to children through saliva.\n・Complete tooth decay treatment and periodontal disease care before childbirth\n・Reducing the amount of bacteria in the oral cavity is directly linked to preventing cavities in babies."
+    },
+    "8": {
+      "title": "Review your lifestyle habits (no smoking/limiting alcohol consumption)",
+      "description": "Smoking and excessive drinking reduce fertility in both men and women",
+      "tips": "・Smoking is directly linked to a decline in the quality of eggs and a decline in the number and motility of sperm.\n・Passive smoking is equally harmful.\n・Ideally, women should avoid alcohol completely, and men should also consume it in moderation.\n・Caffeine should be less than 200mg (2 cups of coffee) a day"
+    },
+    "9": {
+      "title": "Practice lifestyle habits that improve sperm quality",
+      "description": "Improve sperm quality with diet, exercise, and sleep",
+      "tips": "-Consume foods rich in zinc (oysters, beef, nuts)\n- Sitting for long periods of time, saunas, and hot baths are bad for sperm.\n・Trunks are better at regulating temperature than briefs.\n・Moderate exercise improves sperm quality, but excessive exercise has the opposite effect.\n・Do not put your smartphone in your pants pocket"
+    },
+    "10": {
+      "title": "Aim for a healthy weight",
+      "description": "The ideal BMI is between 18.5 and 25. Being too thin or overweight are risks",
+      "tips": "・Being too thin (BMI<18.5) is at risk of ovulation disorders and giving birth to a low birth weight baby.\n・Overweight (BMI>25) is at risk of ovulation disorders, gestational diabetes, and pregnancy hypertension.\n・Rapid diets can disrupt hormonal balance, so diet slowly.\n-Keep in mind a well-balanced diet and moderate exercise"
+    },
+    "11": {
+      "title": "Get tested for sexually transmitted infections (STIs)",
+      "description": "Chlamydia, gonorrhea, etc. pose a risk of infertility and miscarriage",
+      "tips": "-Chlamydia can damage the fallopian tubes without any symptoms.\n・Men are often asymptomatic, so couples should get tested.\n- Can be treated with antibiotics if detected early\n・It is safe to check for HIV and hepatitis B tests before pregnancy."
+    },
+    "12": {
+      "title": "Find out costs and subsidies for infertility treatment",
+      "description": "Infertility treatment will be covered by insurance from April 2022 (conditions apply)",
+      "tips": "・Artificial insemination: Approximately 5,000 to 30,000 yen per time\n・In vitro fertilization: Approximately 200,000 to 600,000 yen per session\n・There are restrictions on age and frequency of insurance coverage (for women under 43, etc.)\n・Please check as there may be additional subsidies provided by local governments.\n・Don't forget to deduct medical expenses on your final tax return."
+    },
+    "13": {
+      "title": "Confirmation of medical insurance and consideration of joining",
+      "description": "Many insurance policies have restrictions on enrollment after pregnancy.",
+      "tips": "・It is safe to enroll in medical insurance with special provisions for women before becoming pregnant.\n・Approximately 20% of people experience caesarean section, and insurance coverage + medical insurance can be used.\n・If you have already subscribed, check the coverage details.\n・There are often conditions attached to joining once you know you are pregnant."
+    },
+    "14": {
+      "title": "Estimate the cost of childbirth and childcare",
+      "description": "Future outlook such as childbirth costs, child care supplies, education costs, etc.",
+      "tips": "・Childbirth expenses: Average approximately 500,000 yen (mostly covered by childbirth and childcare lump-sum allowance)\n・Childcare supplies (initial): Approximately 100,000 to 200,000 yen\n・Monthly milk/diaper fee: Approximately 10,000 to 20,000 yen\n・Future education expenses: Approximately 10 to 25 million yen from kindergarten to university\n・It is safe to do a household budget simulation"
+    },
+    "15": {
+      "title": "Discuss fertility with your partner",
+      "description": "Share your pregnancy strategy, schedule, and concerns",
+      "tips": "・Discuss when you would like to receive the pregnancy and how far the treatment will go.\n・Make time to listen to each other's pressures and concerns\n- Pregnancy is a two-person problem. Don't put the burden on one side only\n・Discuss in advance what to do when things don't go well."
+    },
+    "16": {
+      "title": "Consider a work-life balance plan",
+      "description": "Visualize how you will work during pregnancy and after giving birth",
+      "tips": "・Check your workplace's maternity and childcare leave system\n・Check if the environment makes it easy for you to take the necessary time off for hospital visits.\n・Some companies have support systems for balancing infertility treatment and work.\n・Think about when to consult with your boss."
+    },
+    "17": {
+      "title": "Find out about taking childcare leave",
+      "description": "Check the childcare leave system for men (including postpartum paternity leave)",
+      "tips": "・Starting from October 2022, “Postpartum Dad Childcare Leave” system (up to 4 weeks within 8 weeks after birth)\n・Can be taken in up to 4 times in conjunction with regular childcare leave\n・Childcare leave benefits are 67% of wages (50% after 180 days)\n・Although the acquisition rate is increasing, please consult with your supervisor early and prepare for business transfer."
+    },
+    "18": {
+      "title": "Considering fertility supplements for men",
+      "description": "Improves sperm quality with zinc, coenzyme Q10, vitamin E, etc.",
+      "tips": "・Zinc: Essential for sperm formation (15 mg/day is recommended)\n・Coenzyme Q10: Research results show that it improves sperm motility\n・Vitamin E: Antioxidant effect reduces DNA damage in sperm\n・L-carnitine: kinetic energy source for sperm\n・Basically, intake from food, supplement the deficiency with supplements"
+    },
+    "19": {
+      "title": "Adjust your sleep rhythm (early to bed and early to rise)",
+      "description": "Quality sleep is the foundation of pregnancy. Aim to go to bed before 11pm",
+      "tips": "・Sleep is essential for hormonal balance. Deep sleep during the “golden time” from 10pm to 2pm\n・Cut off blue light from smartphones 1 hour before bedtime\n・The bedroom should be dark and cool (ideally 16-20℃)\n・Avoid caffeine after 2pm\n・A regular wake-up time resets your body clock"
+    },
+    "20": {
+      "title": "Be conscious of a well-balanced diet",
+      "description": "The basics of building a body that is conducive to pregnancy is your daily diet.",
+      "tips": "・Basically ``one soup and three side dishes'' consisting of a staple food, main dish, and side dish.\n・Consciously increase iron (spinach, liver), zinc (oysters, nuts), and folic acid\n・Limit processed foods and instant foods\n・Trans fatty acids (margarine, etc.) have a negative effect on the quality of sperm and eggs.\n・Eat fish twice a week (DHA/EPA has a positive effect on reproductive function)"
+    },
+    "21": {
+      "title": "Start taking measures against the cold",
+      "description": "Coldness causes lack of blood flow. It also affects the function of the uterus and ovaries.",
+      "tips": "・Use innerwear and belly wraps to warm your stomach and lower back\n・In addition to showering, soak in a 38-40℃ bathtub for 10-15 minutes.\n・Avoid cold drinks and drink hot water or drinks with ginger\n・Heating the ankle pressure point “Sanyinjiao” is effective for gynecology.\n・Raising your basal metabolism through moderate exercise is also effective."
+    }
+  },
+  "pregnancy": {
+    "1": {
+      "title": "Submit a pregnancy notification form and receive a maternal and child health handbook",
+      "description": "Submit it to the municipal office. You can also receive a subsidy ticket for prenatal checkups.",
+      "tips": "・Notify after confirming pregnancy at a medical institution (around 6 to 10 weeks)\n・At the same time as notification, you will receive a maternal and child health handbook and a subsidy ticket for 14 prenatal checkups.\n・Additional services (interviews, midwife consultation, etc.) may be available depending on the local government.\n・Procedures will be smoother if you have a My Number card"
+    },
+    "2": {
+      "title": "Decide on a hospital to give birth",
+      "description": "Book your delivery early. Popular hospitals fill up early in pregnancy",
+      "tips": "・General hospital: High-risk treatment available, NICU available\n・Private clinic: Homey, short waiting time\n・Midwifery clinic: For those who wish to give birth naturally, with less medical intervention\n・If you want a painless delivery, choose a hospital that supports it (facilities are limited)\n・Choose considering distance from home, cost, and birth style\n\n🔍 Find a nearby obstetrics and gynecology department → https://www.google.com/maps/search/産婦人科 and Gynecology\n🔍 Find a nearby birthing clinic → https://www.google.com/maps/search/助産院 clinic"
+    },
+    "3": {
+      "title": "Pregnancy notification to workplace/maternity leave procedures",
+      "description": "Report to your boss when you enter the stable period (around 16 weeks)",
+      "tips": "・The timing of reporting is flexible depending on your physical condition and type of job.\n・If your morning sickness is severe, please consult us as soon as possible.\n・If you use the “Maternity Health Management Guidance Notification Card,” you can receive measures such as staggered commuting and breaks.\n・Maternity leave can be taken from 6 weeks before childbirth (14 weeks for multiple births)\n・Create a business handover list early"
+    },
+    "4": {
+      "title": "Reporting to your workplace that you are becoming a father",
+      "description": "If you plan to take childcare leave, talk to your boss early.",
+      "tips": "・Application must be submitted at least 1 month before taking childcare leave (2 weeks in advance for postpartum paternity leave)\n・It will be smoother if you have a business handover plan in place.\n・Make a plan to get paid before and after giving birth\n・If you wish to have a birth attended, be prepared."
+    },
+    "5": {
+      "title": "Have regular prenatal checkups",
+      "description": "Once a month in the early stage, once every two weeks in the middle stage, once a week in the latter stage",
+      "tips": "・A total of 14 medical checkups are recommended (use auxiliary coupons)\n・Check your baby's growth with ultrasound\n・Check the mother's condition with blood and urine tests\n・Feel free to consult with us about any symptoms you are concerned about, even outside of the medical checkup.\n・Creating opportunities for your partner to attend the examination together◎"
+    },
+    "6": {
+      "title": "Learn about morning sickness countermeasures",
+      "description": "It peaks between 5 and 16 weeks pregnant. Survive by changing your diet and lifestyle",
+      "tips": "・Avoid hunger (small frequent meals, crackers by the bedside, etc.)\n-Cold and sour foods are often easier to eat\n・Don't forget to stay hydrated (dehydration is dangerous)\n・If you have severe vomiting and weight loss of 5% or more, you may have “hyperemesis gravidarum” → See a doctor\n・Morning sickness is a sign that your baby is healthy and positive."
+    },
+    "7": {
+      "title": "Support your partner's morning sickness",
+      "description": "Preparing meals, reducing the burden of housework, and providing emotional support",
+      "tips": "- Avoid eating foods with strong scents as you may become sensitive to odors.\n- Actively share housework (cooking, cleaning, laundry)\n・Just asking “Are you okay?” can help.\n・Do not push yourself too hard when you are not feeling well\n・It is important to understand and sympathize with the pain of morning sickness."
+    },
+    "8": {
+      "title": "Check out the foods to avoid during pregnancy",
+      "description": "Be careful with raw meat, raw fish, alcohol, caffeine, etc.",
+      "tips": "・Raw meat/cured ham: Toxoplasma infection risk\n・Some sashimi: Mercury risk (tuna only once a week)\n・Natural cheese (undercooked): Listeria monocytogenes risk\n・Alcohol: Cause of fetal alcohol syndrome (even a small amount is NG)\n・Caffeine: limited to 200mg or less per day"
+    },
+    "9": {
+      "title": "Learn about gestational diabetes and gestational hypertension syndrome",
+      "description": "Early detection is important for the safety of mother and child",
+      "tips": "- Gestational diabetes: Approximately 10% of pregnant women develop it. Diet therapy is the basis\n・Pregnancy hypertension syndrome: Blood pressure 140/90 or higher or proteinuria. Dangerous if severe\n・Early detection is possible through health checkups.\n・Prevent by reducing salt intake, having a well-balanced diet, and moderate exercise\n・Obesity and childbirth at an advanced age are risk factors"
+    },
+    "10": {
+      "title": "continue to exercise moderately",
+      "description": "Maternity yoga, walking, etc. after consulting with your doctor.",
+      "tips": "・Moderate exercise is recommended once you enter a stable period (check with your doctor)\n・Walking, maternity yoga, and swimming are recommended.\n-Avoid exercises that put pressure on your stomach or that have a high risk of falling.\n・It also prevents back pain and is effective for building physical strength during childbirth.\n- Rest if your stomach is bloated"
+    },
+    "11": {
+      "title": "Participate in parent class/mother class",
+      "description": "Basic knowledge of childbirth and childcare, bathing practice, breathing techniques, etc.",
+      "tips": "- Sponsored by local governments (free of charge) and hospitals.\n・Choose a class that you can attend with your partner\n・Practice on bathing, diaper changing, and holding\n・Learn how to breathe and relax during childbirth\n・It also serves as a place to interact with other pregnant women and fathers."
+    },
+    "12": {
+      "title": "Receive a maternity dental checkup",
+      "description": "Periodontal disease during pregnancy increases the risk of premature birth. Take advantage of free health checkups provided by local governments",
+      "tips": "-Gingivitis is more likely to occur during pregnancy due to hormonal changes\n・Free dental checkups for pregnant women in many municipalities\n・The best time for treatment is the second trimester (5-7 months)\n・If you have morning sickness and find it difficult to brush your teeth, use a small toothbrush or gargle.\n\n🔍 Find a dentist near you → https://www.google.com/maps/search/歯科"
+    },
+    "13": {
+      "title": "Acquire knowledge about pregnancy and childbirth",
+      "description": "Learn about the process of pregnancy and childbirth through books and apps",
+      "tips": "・Know the baby's growth and changes in the mother's body at each gestational week\n・Understand the flow of labor and childbirth in advance\n・There are many pregnancy and childbirth books for fathers.\n・It is also effective to include a pregnancy app and share information.\n・Knowledge reduces anxiety and improves the quality of support"
+    },
+    "14": {
+      "title": "Check childbirth and childcare lump sum allowance",
+      "description": "500,000 yen will be paid from health insurance (from April 2023)",
+      "tips": "・Payment at the hospital counter can be reduced by using the direct payment system\n・If there is a difference, you can receive it by applying at a later date.\n・Can receive benefits from both National Insurance and Social Insurance\n・If you have twins or more, you will receive the amount for the number of children.\n・Facilities not covered by the obstetric medical compensation system are 488,000 yen"
+    },
+    "15": {
+      "title": "Check maternity allowance",
+      "description": "Health insurance (social insurance) members can receive benefits during maternity leave",
+      "tips": "・Payment amount: 2/3 of the standard daily amount x 42 days before childbirth + 56 days after childbirth\n・National Health Insurance does not include maternity allowance\n・You may be able to receive benefits even after retirement if you meet the conditions.\n・Applications should be made through your workplace after giving birth."
+    },
+    "16": {
+      "title": "Check the high-cost medical expenses system",
+      "description": "Used when hospitalization costs for caesarean section or threatened premature birth become expensive",
+      "tips": "・The amount of monthly medical expenses that exceed the upper limit will be refunded.\n・Obtaining a limit application certificate in advance will reduce the burden at the counter.\n・Caesarean sections are covered by insurance.\n・Please note that if your hospitalization spans more than one month, it will be divided into two months."
+    },
+    "17": {
+      "title": "Make a note of medical expense deductions",
+      "description": "Prenatal checkups, childbirth expenses, hospital transportation expenses, etc. are eligible for medical expense deduction.",
+      "tips": "- Annual medical expenses exceeding 100,000 yen can be deducted from income.\n- Covers infertility treatment costs, prenatal checkup costs, childbirth costs, and hospitalization costs.\n・Taxi fares are only applicable in emergencies (train and bus fares are applicable)\n・Do not throw away your receipts; keep them.\n・Refund application on final tax return (February to March of the following year)"
+    },
+    "18": {
+      "title": "Prepare maternity wear",
+      "description": "Required from around 5 months when the stomach starts to become noticeable.",
+      "tips": "・Maternity pants and dresses are easy to mix and match.\n・If you choose a bra that can also be used for nursing, you can use it even after giving birth.\n・Abdominal belt (pregnancy belt) supports the stomach and prevents coldness.\n・Switch to low heels for stability\n- Leggings that cover your stomach are convenient in winter."
+    },
+    "19": {
+      "title": "Make a list of baby supplies",
+      "description": "Arrange large items such as child seats, cribs, and clothing early.",
+      "tips": "・Minimum necessary items: 5 to 6 underwear, diapers, baby wipes, gauze\n・You will need a child seat when you leave the hospital, so please do so early (if using a car)\n・Rental option for crib\n・Use hand-me-downs from senior moms\n・It costs 100,000 to 200,000 yen if you get everything. prioritize"
+    },
+    "20": {
+      "title": "Prepare a hospital preparation bag",
+      "description": "Ready by 36 weeks. So that you can take it out immediately during labor",
+      "tips": "・Maternity record book, health insurance card, and medical examination card are required.\n・Pajamas (open in the front), postpartum shorts, nursing bra\n・Slippers, toiletries, charger\n・Maternity pads are often provided at hospitals (please check in advance)\n・Don't forget the baby's clothes (underwear + dress overalls) when leaving the hospital."
+    },
+    "21": {
+      "title": "think of a baby name",
+      "description": "The deadline for birth registration is within 14 days after birth. Think carefully",
+      "tips": "・Usable characters: Commonly used kanji, kanji for personal names, hiragana, katakana\n・There are no restrictions on how it can be pronounced, but choose a name that will not cause problems for your child in the future.\n・Considering the number of strokes, sound, meaning, and balance with the last name\n・Check whether it can be used in the family register before filling out the birth registration.\n・We recommend creating a candidate list with your partner."
+    },
+    "22": {
+      "title": "Create a contact list for birth",
+      "description": "Be prepared to call immediately when labor comes",
+      "tips": "・Hospital phone number (available at night and on holidays)\n・Taxi company (Register with Labor Taxi for peace of mind)\n・Contact information for both parents' homes\n・Workplace contact information\n・Think of a plan for when your partner is absent."
+    },
+    "23": {
+      "title": "Prepare to attend the birth",
+      "description": "Preparations and preparations if you wish to have an attended birth",
+      "tips": "・Check the hospital's attendance rules (there may be restrictions after the coronavirus pandemic)\n・Understand the process of childbirth (labor to delivery)\n・Learn how to support your partner, such as rubbing their lower back and helping them stay hydrated.\n-Childbirth may take a long time. Prepare your own food and drinks\n・Discuss in advance whether or not to capture the emotional moment on camera."
+    },
+    "24": {
+      "title": "Imagine and prepare for life after giving birth",
+      "description": "Division of housework, support system, food storage, etc.",
+      "tips": "-After giving birth, the mother's recovery is the top priority. Minimize housework\n・Stockpiling frozen foods and retorts\n・Registration for housekeeping services and online supermarkets\n・Check if you can receive support from your parents' home\n・Check out postpartum helpers and local government support services."
+    },
+    "25": {
+      "title": "Start stretch mark care",
+      "description": "Moisturizing care for the stomach, bust, and thighs from around the 5th month of pregnancy",
+      "tips": "・Once stretch marks appear, they do not disappear completely. Prevention is important\n-Apply moisturizing cream or oil morning and night\n・Avoid rapid weight gain (a major cause of stretch marks)\n・Don't forget not only your stomach but also your chest, buttocks, and thighs.\n・If itching occurs, don't scratch it, treat it with moisturizer"
+    },
+    "26": {
+      "title": "Accompany pregnant women to medical checkups",
+      "description": "Check your baby's growth with an echo",
+      "tips": "・The echoes after the first and middle stages are especially moving.\n- Opportunity to ask questions directly to the doctor\n・An opportunity to understand changes in your partner's physical condition\n・If it is difficult to coordinate work, even if it is only for important times\n・4D Echo often requires reservations, so please check in advance."
+    },
+    "27": {
+      "title": "Start managing your weight",
+      "description": "Maintain proper weight gain during pregnancy. Be careful not to increase too much or too little",
+      "tips": "・Recommended increase amount (Revised in 2021 by the Ministry of Health, Labor and Welfare)\n  BMI<18.5 (thin): +12~15kg\n  BMI 18.5~25 (normal): +10~13kg\n  BMI 25~30: +7~10kg\n  BMI>30: +5~7kg (individual support)\n・A sudden increase of 500g or more per week is a risk of pregnancy hypertension.\n・For people who tend to increase their appetite due to “eating cravings”, make snacks low in calories.\n・Make it a habit to step on the scale at the same time every day and record your weight."
+    },
+    "28": {
+      "title": "get enough sleep",
+      "description": "During pregnancy, you need more sleep than usual. Approximately 7 to 9 hours",
+      "tips": "・In early pregnancy, you may experience strong sleepiness (hormonal influence, normal)\n・After the middle stage, your stomach gets bigger and it becomes difficult to sleep → This can be dealt with by using a body pillow or the Sims position.\n・Conscious intake of magnesium and potassium to prevent cramps\n- Drink water at least 2 hours before going to bed as the toilet will be nearby.\n・A 15-20 minute power nap is also recommended."
+    },
+    "29": {
+      "title": "Be conscious of nutritional management during pregnancy",
+      "description": "Actively intake nutrients necessary for baby's growth",
+      "tips": "・Iron: Demand will double from the mid-term onwards. Liver, Komatsuna, Soybean products\n・Calcium: For baby's bone development. Milk, yogurt, small fish\n・DHA: Important for brain development. Blue fish (mackerel, saury) twice a week\n・Dietary fiber: To prevent constipation. Vegetables, mushrooms, seaweed\n・Aim for 2 liters of water per day (drink small amounts frequently during morning sickness)"
+    }
+  },
+  "postpartum": {
+    "1": {
+      "title": "Submit birth registration",
+      "description": "Submit to the municipal office within 14 days after birth.",
+      "tips": "・The notification destination is either the permanent domicile, place of birth, or place of residence of the person making the notification.\n・Reporter is father or mother\n- Attach birth certificate (completed at hospital)\n・At the time of notification, there will be information on resident record registration, My Number notification, and child allowance.\n・If the name has not been decided, it is possible to submit it at a later date using a “additional notification,” but please avoid it as much as possible."
+    },
+    "2": {
+      "title": "enroll your baby in health insurance",
+      "description": "Procedures for enrolling in parents' health insurance immediately after birth",
+      "tips": "・Social insurance: Submit a “Dependent (Change) Notification” to your workplace\n・National Health Insurance: Procedures at the municipal office\n・Until the insurance card is issued, the entire amount will be paid out of pocket (payment can be made at a later date)\n・It is common for the partner with a higher income to be placed as a dependent.\n・It is ideal to obtain your insurance card before your one-month medical checkup."
+    },
+    "3": {
+      "title": "Application for infant medical expenses subsidy (Marunyuu)",
+      "description": "Subsidy details vary depending on the local government. Apply immediately after birth",
+      "tips": "・In many local governments, medical expenses are free or partially covered until junior high school graduation (or high school graduation)\n・Baby's health insurance card is required\n・If you apply late, it will not be possible to trace back the application, so immediately after birth\n・Separate procedures are required when moving in."
+    },
+    "4": {
+      "title": "Apply for child allowance",
+      "description": "Apply within 15 days from the day after birth. Please note that it cannot be traced back.",
+      "tips": "・Amount paid (from October 2024): 15,000 yen per month for ages 0 to under 3, 10,000 yen per month for ages 3 and up\n・No income restrictions (revised from October 2024)\n・The amount increases to 30,000 yen per month for the third child and beyond.\n・Please note that if you apply late, you may not be able to receive it for some months.\n・Payment should be made to the account in the applicant's name."
+    },
+    "5": {
+      "title": "Apply for the difference in childbirth and childcare lump sum allowance",
+      "description": "If the cost of giving birth is less than 500,000 yen, you can receive the difference.",
+      "tips": "・If you use the direct payment system and the childbirth costs are cheaper than the lump sum, you can claim the difference.\n・Submit application to health insurance association\n・Application deadline is within 2 years from the day after birth\n・Required documents: Statement of childbirth expenses, application form"
+    },
+    "6": {
+      "title": "Preparing to apply for childcare leave benefits",
+      "description": "Apply through Hello Work at your workplace",
+      "tips": "・Payment amount: 67% of wages for the first 180 days, 50% thereafter\n・The first application must be made through the employer within 4 months of the start of childcare leave.\n・Additional application required every 2 months\n・Must be enrolled in employment insurance\n・It is possible to extend the period with maternity leave for fathers and mothers"
+    },
+    "7": {
+      "title": "Application for childcare leave benefits (male)",
+      "description": "Men can also receive benefits by taking childcare leave.",
+      "tips": "・Postpartum paternity leave (4 weeks within 8 weeks after birth) benefit is 67% of wages\n・Can be received in conjunction with regular childcare leave\n・Men taking childcare leave is good for family finances (social insurance premiums may be waived)\n・Even if the number of days taken is short, you will still be eligible for benefits."
+    },
+    "8": {
+      "title": "Preparation of final tax return (medical expense deduction)",
+      "description": "Combine your medical expenses in the year you gave birth and file a tax return the following year.",
+      "tips": "・Prenatal checkups + childbirth costs often exceed 100,000 yen\n・The amount received from childbirth and childcare lump-sum allowance will be deducted.\n- Taxi fares (in emergencies) and meal costs during hospitalization are also partially covered.\n・Easier to file electronically using e-Tax\n・Keep medical expense notifications and receipts"
+    },
+    "9": {
+      "title": "Have a medical checkup one month after giving birth",
+      "description": "Check the mother's recovery status and baby's growth",
+      "tips": "・Check the recovery of the uterus, the condition of lochia, and the degree of wound healing\n- Check for baby's weight gain (approximately 30g per day) and jaundice\n・You can also consult about breastfeeding.\n・Check for signs of postpartum depression\n・Make a list of things you are concerned about and take notes with you."
+    },
+    "10": {
+      "title": "Focus on your body's recovery after giving birth",
+      "description": "Rest is the top priority during the postpartum period (6 to 8 weeks postpartum)",
+      "tips": "・\"Floating\" has traditionally been recommended at 3 weeks after childbirth.\n-Do not lift heavy objects as your pelvis is unstable\n- Lochia gradually subsides in 4 to 6 weeks. Seek medical attention for abnormal bleeding\n・Unreasonable housework delays physical recovery\n・The golden rule is to sleep with your baby when he or she is sleeping."
+    },
+    "11": {
+      "title": "Establishing a breastfeeding/milk style",
+      "description": "Breast milk, mixed milk, full milk, in a style that suits you",
+      "tips": "・Benefits of breast milk: immune substances, economical, promotion of uterine recovery\n・Advantages of milk: Partner can also participate in breastfeeding, making it easier to go out\n・Mixture takes the best of both worlds\n- Don't blame yourself even if you have difficulty producing breast milk. Babies grow no matter what\n・If you notice any signs of mastitis (lump, fever), see your doctor as soon as possible."
+    },
+    "12": {
+      "title": "Know the signs of postpartum depression",
+      "description": "10-15% of mothers experience it after giving birth. Partner awareness is important",
+      "tips": "・Symptoms: strong anxiety, uncontrollable tears, indifference to the baby, insomnia\n・Different from maternity blues (3 to 5 days after childbirth) (be careful if they last more than 2 weeks)\n・Your partner regularly asks, “How are you doing lately?”\n・Consult with the “Yorisoi Hotline” or postpartum care center\n・It is important to see a doctor early because recovery can be achieved with specialized treatment."
+    },
+    "13": {
+      "title": "Beware of “paternity blue”",
+      "description": "Postpartum depression (about 10%) can also occur in fathers.",
+      "tips": "・Causes: lack of sleep, financial pressure, drastic changes in lifestyle\n・Symptoms: Irritability, lethargy, loss of concentration, worsening relationship with partner\n・Don't hold back and say, ``Don't whine even though you're a man.''\n・Change your mood through hobbies and interacting with friends\n・When you are having a hard time, do not hold back and consult a mental health professional."
+    },
+    "14": {
+      "title": "Consider using postnatal care facilities",
+      "description": "Local government postpartum care projects include overnight, day-care, and visiting types.",
+      "tips": "・You can receive breastfeeding guidance and breastfeeding support from midwives.\n・In the overnight type, there are facilities where you can leave your baby and rest.\n・In many cases, the out-of-pocket burden can be reduced through subsidies from local governments.\n-Especially recommended if you are giving birth for the first time and don't have much support around you.\n・It is safe to collect information and make reservations before giving birth.\n\n🔍 Find nearby postnatal care facilities → https://www.google.com/maps/search/産後ケア care"
+    },
+    "15": {
+      "title": "Actively share night-time duties",
+      "description": "Take turns breastfeeding at night and changing diapers.",
+      "tips": "・If you are using milk, you can alternate breastfeeding at night.\n- Responsible for burping and changing diapers when breastfeeding\n・It is effective to use a “shift system” to divide the first half and the second half.\n・Making sure your partner gets enough sleep is a top priority.\n・Lack of sleep is directly linked to poor judgment and risk of accidents"
+    },
+    "16": {
+      "title": "Preparation for inner prayer (return)",
+      "description": "Return gift to those who received a baby gift (around 1 month after birth)",
+      "tips": "・Estimated amount is 1/2 to 1/3 of the amount received.\n・Generally given at the time of shrine visits (around 1 month after birth)\n・Write the baby's name on the paper as a family gift\n・Catalog gifts and sweets are popular\n・It would be polite to add a message card"
+    },
+    "17": {
+      "title": "Preparation for shrine visit",
+      "description": "An event where children visit a local shrine around one month old",
+      "tips": "・Traditionally, the 31st day of birth for boys and the 32nd day of birth for girls (not strict)\n・Prioritize the baby's physical condition and the weather when deciding on the schedule.\n・The average price for first fruits is 5,000 to 10,000 yen.\n・If you want to take commemorative photos, you can also reserve a photo studio.\n・Schedule adjustment when inviting grandparents"
+    },
+    "18": {
+      "title": "Other procedures associated with birth registration",
+      "description": "My number notification, passport application, enrollment in student insurance, etc.",
+      "tips": "・My number notification will arrive after birth registration\n・Passport is required if you are planning to travel abroad (even babies are required)\n・Consider opening a bank account (for saving for child allowance, etc.)\n・Considering asset formation such as educational insurance and junior NISA\n・Don't forget to change your life insurance beneficiary"
+    },
+    "19": {
+      "title": "Self-check for postpartum depression",
+      "description": "It may occur within 2 weeks to several months after giving birth.",
+      "tips": "・Maternity blues (3 to 10 days after birth) are temporary and will resolve on their own.\n・If it lasts for more than 2 weeks, it may be postpartum depression.\n-Symptoms: depressed mood, insomnia, loss of appetite, lack of interest in the baby\n・Self-check with the Edinburgh Postnatal Depression Questionnaire (EPDS)\n・Don't worry about it alone, consult your family or a specialist"
+    },
+    "20": {
+      "title": "Be aware of your partner's postpartum depression",
+      "description": "Don't overlook postpartum changes and provide mental and physical support",
+      "tips": "・10-15% of mothers experience postpartum depression\n・“Do your best” has the opposite effect. It is important to ask “Are you okay?”\n・Provide specific support such as taking over nighttime breastfeeding and taking on housework.\n・If you notice any abnormalities, consult your obstetrics and gynecology department or health center as soon as possible.\n・Fathers themselves may experience postpartum depression (approximately 10%). Don't forget to take care of yourself"
+    },
+    "21": {
+      "title": "Pay attention to a balanced diet after giving birth",
+      "description": "Be conscious of nutritional balance for maternal recovery and breastfeeding",
+      "tips": "・Energy: While breastfeeding, aim for around 350kcal more than usual\n・Iron: consciously taken to restore blood lost during childbirth\n・Calcium: Used in breast milk, so it tends to be deficient\n・Water: Breastfeeding takes away water, so drink consciously (at least 2L per day)\n・Avoid unreasonable diets as they affect the quality and quantity of breast milk."
+    },
+    "22": {
+      "title": "Manage and secure your sleep time",
+      "description": "Tips to ensure sleep that matches your baby's breastfeeding rhythm",
+      "tips": "・The golden rule is to sleep with your baby when he or she sleeps.\n・Night-time work is organized into shifts, with alternating rest days.\n・Let go of perfect housework. Sleep is a priority\n・Lack of sleep increases the risk of poor judgment, accidents, and postpartum depression\n・Even a nap has a fatigue recovery effect in 15 to 20 minutes"
+    },
+    "23": {
+      "title": "Don't rush your postpartum diet; plan accordingly",
+      "description": "If there are no problems at the 1-month postpartum checkup, slowly start weight management.",
+      "tips": "- Do not go on a strict diet immediately after giving birth (maternal recovery is the top priority)\n- Calorie consumption naturally increases while breastfeeding (approximately 500 kcal per day)\n・Ideally, it takes six months to a year to return to your pre-pregnancy weight.\n・In parallel with pelvic care with pelvic correction belt and postpartum yoga\n-Start by replacing snacks with fruits and nuts."
+    }
+  },
+  "childcare": {
+    "1": {
+      "title": "Manage your vaccination schedule",
+      "description": "Starts from 2 months old. Schedule management is important",
+      "tips": "・2 months old: Hib, pneumococcus, hepatitis B, rotavirus\n・3 months old: Added four types of mixture (DPT-IPV)\n・5 months old: BCG\n・1 year old: MR (measles and rubella), chickenpox, mumps\n- Simultaneous vaccination reduces the number of hospital visits\n- Convenient schedule management with the maternal and child notebook app"
+    },
+    "2": {
+      "title": "Receive infant health checkup (3-4 month health checkup)",
+      "description": "Check for neck stiffness, weight gain, and hip dislocation",
+      "tips": "・Implemented as a group health checkup (free of charge) in the city, ward, town, or village\n・Check the posture of the neck, tracking (following with eyes), cradling and laughter\n・Early detection of hip dislocation is important\n・Is the weight gain steady (about twice the weight at birth)?\n・You can also consult about developmental issues that you are concerned about."
+    },
+    "3": {
+      "title": "Have a health checkup every 6 to 7 months",
+      "description": "Sit down and check the progress of baby food",
+      "tips": "・In many cases, you have to pay at your own expense (some municipalities have free tickets)\n・Check the stability of your sitting position, rolling over, and shifting.\n・Confirmation of teeth starting to grow\n・You can consult about how to proceed with baby food\n・Anemia tests may be performed"
+    },
+    "4": {
+      "title": "Start baby food (around 5 to 6 months)",
+      "description": "Start with 10x porridge and gradually increase the ingredients",
+      "tips": "- Indications for starting: The child can sit with support, shows an interest in food.\n・Start with 1 teaspoon of 10x gayu\n・Try one new ingredient a day in the morning (to prevent allergies)\n・Start with hard-boiled egg yolks. wheat in small quantities\n・No honey until 1 year old (botulism)"
+    },
+    "5": {
+      "title": "1 year and 6 months old child undergoes medical checkup",
+      "description": "Check walking, language development, dental condition, etc.",
+      "tips": "・Municipal health checkup (free/compulsory)\n- Confirmation of walking alone, pointing, meaningful words (mom, dad, etc.)\n・Dental examination and fluoride application\n・If your child does not walk or speak at the age of 1 and a half, you may need to be observed.\n・Don't worry too much because development varies greatly from person to person."
+    },
+    "6": {
+      "title": "3-year-old child undergoes health checkup",
+      "description": "Comprehensive check of vision, hearing, and development",
+      "tips": "・Municipal health checkup (free/compulsory)\n- Visual acuity test (early detection of amblyopia is important)\n・Hearing test, urine test\n・Are there two-word sentences (such as “Wang Wan Ita”)?\n・Checking social development (can play with other children)\n・Aim for early detection of delays in intellectual and language development"
+    },
+    "7": {
+      "title": "Deciding on a family pediatrician",
+      "description": "Find a reliable pediatrician near your home",
+      "tips": "- Ideally within walking distance or 15 minutes by car\n・Also check secondary emergency hospitals that are open at night and on holidays.\n・Register #8000 (pediatric emergency telephone consultation)\n・Clinics that focus on vaccinations are recommended.\n・It is convenient to make reservations online\n\n🔍 Find a pediatrician near you → https://www.google.com/maps/search/小児科"
+    },
+    "8": {
+      "title": "Baby safety measures (accident prevention)",
+      "description": "Preventive measures against choking, falls, accidental ingestion, burns, etc.",
+      "tips": "・Avoid sleeping on your stomach (SIDS prevention). Firm futon, no pillow\n・Use a bed with railings to prevent falls\n・Those with a diameter of less than 3.9cm are at risk of accidental ingestion (toilet paper roll is a guide)\n・Installation of outlet covers, corner guards, and gates\n・Drain any remaining hot water from the bath (to prevent drowning accidents)"
+    },
+    "9": {
+      "title": "Work to recover your body shape after giving birth",
+      "description": "Gradually restore your body with pelvic correction, postpartum yoga, etc.",
+      "tips": "・After being cleared to exercise during the 1-month postpartum checkup\n・Care for pelvic distortion with pelvic belts and pelvic correction\n・Many studios accept children for postnatal yoga and Pilates.\n・Be careful as excessive dieting can affect breast milk.\n・Ideally, it is best to slowly bring it back over six months to a year."
+    },
+    "10": {
+      "title": "Start brushing your teeth",
+      "description": "When teeth start to appear, wipe with gauze → switch to infant toothbrush",
+      "tips": "・Start care when the first tooth appears (around 6 months old)\n・First, wipe the surface of your teeth with gauze or a special sheet.\n・Once you get used to the toothbrush, have your parents do the final brushing.\n- Fluoride toothpaste starting from the size of a grain of rice\n・Ideally, finishing polishing should be continued until the lower grades of elementary school."
+    },
+    "11": {
+      "title": "Check nursery schools, kindergartens, and kindergartens",
+      "description": "If a 0-year-old child enrolls in April, daycare activities will begin in the summer.",
+      "tips": "- Licensed nursery school: Apply to local government. Childcare fees based on income\n・Unlicensed nursery school: Apply directly to the facility. Cost depends on facility\n・Kindergarten: From 3 years old. Emphasis on education. There are also kindergartens that offer daycare services.\n・Certified nursery school: both childcare and education\n・Visit multiple parks and compare the atmosphere and policies"
+    },
+    "12": {
+      "title": "Apply for nursery school",
+      "description": "The application deadline for April enrollment at a licensed nursery school is around October or November of the previous year.",
+      "tips": "・Required documents: Certificate of employment, document certifying the need for childcare\n・Enter multiple preferred gardens (up to about 5th choice)\n・Understand the point system and check the additional points\n・There will be a second round of recruitment even if you do not accept the first round.\n・It is safe to apply for unlicensed applications at the same time."
+    },
+    "13": {
+      "title": "prepare to return to work",
+      "description": "Preparation for returning from childcare leave",
+      "tips": "・Discuss with your workplace about adjusting your return date.\n・Considering the nursery school acclimatization period (1 to 2 weeks)\n・Confirmation of shortened working hours system (available up to age 3)\n・Share a plan for responding to sudden calls with your husband and wife.\n・Register for sick child care and family support"
+    },
+    "14": {
+      "title": "Make a plan for weaning/weaning",
+      "description": "Depending on the timing of your return to work and the condition of your children.",
+      "tips": "- Recommended by WHO until around 2 years old. In Japan, most children are around 1 year old.\n・There are two types of weaning (natural withdrawal) and weaning (intentional stopping).\n・If you stop suddenly, there is a risk of mastitis, so gradually\n・Three days are the key to weaning. Partner cooperation required\n・Establish alternative means of putting your child to bed first."
+    },
+    "15": {
+      "title": "Start saving for educational insurance/education funds",
+      "description": "The earlier you start, the lighter your monthly burden will be.",
+      "tips": "・Student insurance: Select based on return rate. Most mature at 17 or 18 years old\n・Tsumitate NISA: Long-term investment in investment trusts\n・Simple way to save child allowance in an account in your child's name\n・Approximately 2 million yen at the time of university admission (national and public)\n・Private school or living alone: 4 to 6 million yen"
+    },
+    "16": {
+      "title": "Check the details of free early childhood education",
+      "description": "Children aged 3 to 5 are free of charge up to 25,700 yen per month (up to 37,000 yen for those without permission)",
+      "tips": "・Applicable to licensed nursery schools, kindergartens, and certified kindergartens\n・Also applicable to kindergarten childcare (up to 11,300 yen per month)\n・Children aged 0 to 2 are free of charge only for households exempt from resident tax.\n・Side meal costs are not eligible for free payment.\n・Procedures are often carried out through the facility."
+    },
+    "17": {
+      "title": "Prepare age-appropriate toys and picture books",
+      "description": "Choose toys that encourage development according to age.",
+      "tips": "・0 to 3 months: Mobile, rattle (high contrast between black and white)\n・3 to 6 months: Toys that are easy to grasp, teething\n・6 to 12 months: Blocking, stacking cups, picture books\n・From 1 year old: Shaped puzzles, drawing tools, pretend play\n・Standard picture books include ``Inai-in-i-boo'' and ``Jaja Jaja Biribiri.''"
+    },
+    "18": {
+      "title": "Increase clothing size to match growth",
+      "description": "Babies grow quickly. Consider the season and size",
+      "tips": "・Size guide: Newborn 50cm → 3 months 60cm → 6 months 70cm → 1 year old 80cm\n・Be careful not to buy too much as you won't be able to wear it after one season.\n・It is cost-effective to use flea market apps and hand-me-downs◎\n・Hold on to your feet and wear non-slip socks when you start walking\n・First shoes after starting to walk (11-13cm)"
+    },
+    "19": {
+      "title": "Have a first meal (100th day celebration)",
+      "description": "An event held around 100 days after birth to pray that the baby will not have to worry about food.",
+      "tips": "・Prepare a celebratory meal with one soup and three dishes (sea bream, sekihan, soup, etc.)\n・Pray for strong teeth with “teeth hardening stone”\n・Can be used at home or at a restaurant. Recently, mail-order celebration meal sets are also popular.\n・Just pretending to feed them (not actually feeding them)\n・Good opportunity to take commemorative photos"
+    },
+    "20": {
+      "title": "celebrate the first festival",
+      "description": "Boy's Festival (May 5th), Girls' Doll's Festival (March 3rd)",
+      "tips": "・There is a custom that helmets, May dolls, and Hina dolls are given by maternal grandparents.\n・Many compact models are available.\n・Event food such as chirashi sushi and chimaki\n・Take a commemorative photo at the photo studio\n・Customs vary depending on the region, so consult with your family."
+    },
+    "21": {
+      "title": "celebrate 1st birthday",
+      "description": "Traditional events such as Isshomochi and Chosentori",
+      "tips": "・Put one sho mochi on your back (so you won't have to worry about food for the rest of your life)\n・Choose: Abacus (business acumen), brush (academics), scissors (hand dexterity), etc.\n・Smash cakes are also popular (hands on baby cakes)\n・Leave commemorative handprints and footprints\n・Let's take pictures with the whole family"
+    },
+    "22": {
+      "title": "Make time for the couple and for yourself",
+      "description": "Even if you are busy with childcare, consciously make sure to make time for the two of you.",
+      "tips": "・Make a date time as a couple once a month (use temporary childcare)\n・Value each other's \"alone time\"\n・Don't let your frustrations with childcare accumulate; instead, set up a place to discuss them regularly.\n・Conscientiously communicate “thank you” to each other\n-You don't have to be a perfect parent. Have fun together as a couple"
+    },
+    "23": {
+      "title": "Be actively involved in childcare",
+      "description": "Responsible for taking baths, putting children to bed, playing in the park, etc.",
+      "tips": "・It is important to have a mindset of “doing together” rather than “helping”\n・Bathing → Bathing is likely to be a father's specialty.\n・Establishing a bedtime routine reduces the mother's burden.\n- Actively go out with your child on holidays\n・Don't leave it up to the mother to make childcare decisions, think about them together"
+    },
+    "24": {
+      "title": "Register with local childcare support services",
+      "description": "Family support, childcare support center, etc.",
+      "tips": "・Family Support Center: Local members will take care of you (charges apply)\n・Childcare support center: A place where you can play for free and get consultations.\n・You can make friends by joining a local child-rearing circle.\n・Temporary childcare: OK for refreshment purposes\n・Private babysitting service is also an option."
+    },
+    "25": {
+      "title": "Starting baby food (5 to 6 months old)",
+      "description": "Start with 10x porridge and gradually increase the ingredients",
+      "tips": "- Signs such as neck being in a sitting position, being able to sit with support, and showing interest in food are recommended.\n・For the first time, try one type of food a day, starting from 1 teaspoon.\n-Be careful of allergies (especially eggs, milk, and wheat). Try it on a weekday morning\n・7 to 8 months: Hard enough to crush with the tongue, 9 to 11 months: Hard enough to crush with the gums.\n・From 1 year old: Cut the adult portion into small pieces."
+    },
+    "26": {
+      "title": "Adjust your child's daily rhythm",
+      "description": "Establish your baby's internal clock by going to bed early and getting up early and eating regularly.",
+      "tips": "・Wake up at a certain time in the morning and open the curtains (reset your body clock with light)\n・Be active during the day (walking/playing) and in a dark and quiet environment at night.\n・Create a bathing → breastfeeding/milk → bedtime routine\n・Avoid the light from TV and smartphones before going to bed\n・The key is to adjust the lifestyle rhythm of the parents as well."
+    },
+    "27": {
+      "title": "Continue to manage your own health",
+      "description": "Don’t put your body on the back burner even if you are busy raising children",
+      "tips": "・Don't forget to have a health checkup and cancer screening once a year\n- Get a dental checkup once every six months\n・If sleep deprivation persists, rely on family or services.\n・Eat 3 meals, even if they are simple.\n・It is important to be conscious of securing even 10 minutes of “me time”"
+    }
+  }
+}
