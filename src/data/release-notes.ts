@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.4';
+export const APP_VERSION = '1.10.5';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.5',
+    date: '2026-04-30',
+    items: [
+      '認証画面に日中英の言語切替を追加、ログイン前でも言語選択可能化、認証導線の多言語UXを改善',
+    ],
+  },
   {
     version: '1.10.4',
     date: '2026-04-30',
