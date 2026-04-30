@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.54
+> for commit 1.10.0
 
 ---
 
@@ -21,6 +21,7 @@
 - 🛍️ **低侵襲マネタイズ** — チェックリスト画面に広告リンク枠を追加
 - 🔐 **アカウント安全運用** — ログアウトと削除を分離、確認入力付きで誤操作を抑制
 - 🔗 **外部連携管理** — 設定画面で Google/LINE の連携状態確認・連携解除
+- 🌐 **3言語対応** — 日本語 / 简体中文 / English を設定画面から切替可能
 - ⚡ **体感速度改善** — 主要導線の prefetch、並列読取、キャッシュで初動を高速化
 - 📱 **モバイルファースト** — ボトムナビ + レスポンシブ対応
 - 🔒 **セキュア** — Supabase Auth + Row Level Security + SECURITY DEFINER RPC
@@ -57,6 +58,7 @@
 
 - [利用マニュアル](docs/user-manual.md)
 - [利用マニュアル（简体中文）](docs/user-manual.zh-CN.md)
+- [User Manual (English)](docs/user-manual.en.md)
 - [日中表現対照表（i18nリファレンス）](docs/i18n-reference.md)
 - [事業化企画書](docs/business-plan.md)
 
