@@ -388,6 +388,29 @@ export const ja = {
   'whatsNew.title': 'アップデート情報',
   'whatsNew.start': 'はじめる',
 
+  // Billing
+  'billing.title': 'プランと請求',
+  'billing.freeHint': '無料プランでは基本機能を利用できます。Proで高度機能が有効になります。',
+  'billing.proHint': 'Proプランをご利用中です。請求情報や契約内容を管理できます。',
+  'billing.upgradeToPro': 'Proにアップグレード',
+  'billing.manageSubscription': '請求・契約を管理',
+  'billing.exportTasksCsv': 'タスクをCSVエクスポート',
+  'billing.exportTasksCsvProOnly': 'タスクCSVエクスポート（Pro）',
+  'billing.authRequired': 'ログイン後に再度お試しください。',
+  'billing.profileRequired': 'プロフィール情報が見つかりませんでした。',
+  'billing.alreadyPro': 'すでにProプランをご利用中です。',
+  'billing.priceNotConfigured': '課金設定が未完了です。管理者にお問い合わせください。',
+  'billing.noCustomer': '請求情報が見つかりません。先にアップグレードをお試しください。',
+  'billing.checkoutFailed': '決済ページの生成に失敗しました。時間をおいて再試行してください。',
+  'billing.portalFailed': '請求ポータルの起動に失敗しました。時間をおいて再試行してください。',
+
+  // Affiliate
+  'affiliate.title': 'おすすめサービス（広告）',
+  'affiliate.disclaimer': '本枠には広告リンクが含まれる場合があります。購入時に運営へ報酬が発生することがあります。',
+  'affiliate.amazonBaby': 'Amazon ベビー用品',
+  'affiliate.rakutenBaby': '楽天 出産準備',
+  'affiliate.insurance': '学資保険を比較',
+
   // Common
   'common.all': 'すべて',
   'common.categoryFilter': 'カテゴリフィルター',

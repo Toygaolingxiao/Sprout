@@ -10,6 +10,7 @@ import { getProfile } from '@/lib/actions/profile';
 import { Button } from '@/components/ui/button';
 import { ChangePasswordSection } from '@/components/settings/change-password-section';
 import { ChangeEmailSection } from '@/components/settings/change-email-section';
+import { BillingSection } from '@/components/settings/billing-section';
 import { DeleteAccountSection } from '@/components/settings/delete-account-section';
 import { ProviderLinksSection } from '@/components/settings/provider-links-section';
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
@@ -223,6 +224,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           <CardTitle className="text-base">{t('settings.account')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
+          <BillingSection subscriptionTier={subscriptionTier} />
           <ProviderLinksSection
             googleLinked={googleLinked}
             lineLinked={lineLinked}

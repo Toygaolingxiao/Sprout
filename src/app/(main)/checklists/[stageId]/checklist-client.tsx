@@ -5,6 +5,7 @@ import { TaskList } from '@/components/checklists/task-list';
 import { TaskForm } from '@/components/checklists/task-form';
 import { CategoryFilter } from '@/components/checklists/category-filter';
 import { GenderFilter } from '@/components/checklists/gender-filter';
+import { SponsorLinks } from '@/components/checklists/sponsor-links';
 import type { Task, LifeStage, CategoryId, TargetGender } from '@/types';
 
 interface ChecklistClientProps {
@@ -30,6 +31,7 @@ export function ChecklistClient({ tasks, stageId, dbOffline }: ChecklistClientPr
         <GenderFilter value={genderFilter} onChange={setGenderFilter} />
       </div>
       <TaskList tasks={filteredTasks} />
+      <SponsorLinks categoryFilter={categoryFilter} />
       {!dbOffline && <TaskForm stageId={stageId} />}
     </div>
   );
