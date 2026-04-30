@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description: '家族メンバーの管理',
 };
 import { InviteSection } from '@/components/family/invite-section';
+import { LeaveFamilySection } from '@/components/family/leave-family-section';
 
 export default async function FamilyPage() {
   const [profile, members] = await Promise.all([getProfile(), getFamilyMembers()]);
@@ -115,6 +116,8 @@ export default async function FamilyPage() {
       </Card>
 
       <InviteSection />
+
+      {profile?.family_id && <LeaveFamilySection memberCount={members.length} />}
     </div>
   );
 }
