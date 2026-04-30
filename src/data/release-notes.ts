@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.0';
+export const APP_VERSION = '1.10.1';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.1',
+    date: '2026-04-30',
+    items: [
+      'チェックリスト項目の英語翻訳を100件全対応',
+      'sort_order基準の翻訳参照で類似項目漏れを解消',
+      '英語tips内URLを保全してリンク破損を防止',
+    ],
+  },
   {
     version: '1.10.0',
     date: '2026-04-30',

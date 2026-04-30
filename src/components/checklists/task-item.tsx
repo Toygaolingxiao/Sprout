@@ -22,12 +22,12 @@ export function TaskItem({ task }: TaskItemProps) {
   const isLocal = task.id.startsWith('local-');
   const { locale, t } = useTranslation();
 
-  const translatedTitle = translateTaskField(locale, task.stage_id, task.title, 'title');
+  const translatedTitle = translateTaskField(locale, task.stage_id, task.title, 'title', undefined, task.sort_order);
   const translatedDescription = task.description
-    ? translateTaskField(locale, task.stage_id, task.title, 'description', task.description)
+    ? translateTaskField(locale, task.stage_id, task.title, 'description', task.description, task.sort_order)
     : null;
   const translatedTips = task.tips
-    ? translateTaskField(locale, task.stage_id, task.title, 'tips', task.tips)
+    ? translateTaskField(locale, task.stage_id, task.title, 'tips', task.tips, task.sort_order)
     : null;
 
   function handleToggle() {
