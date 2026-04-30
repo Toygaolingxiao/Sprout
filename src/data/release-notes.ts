@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.1';
+export const APP_VERSION = '1.10.2';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.2',
+    date: '2026-04-30',
+    items: [
+      '設定画面の日付入力をja-JPロケール固定',
+      '英語UIでも日付プレースホルダーを年/月/日表示に維持',
+      'スケジュール設定画面の表示一貫性を改善',
+    ],
+  },
   {
     version: '1.10.1',
     date: '2026-04-30',

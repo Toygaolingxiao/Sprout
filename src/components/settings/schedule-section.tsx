@@ -93,6 +93,7 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
                 id="expected_pregnancy_date"
                 name="expected_pregnancy_date"
                 type="date"
+                lang="ja-JP"
                 value={pregnancyDate}
                 onChange={(event: { target: { value: string } }) => setPregnancyDate(event.target.value)}
               />
@@ -118,6 +119,7 @@ export function ScheduleSection({ profile }: ScheduleSectionProps) {
                 id="expected_due_date"
                 name="expected_due_date"
                 type="date"
+                lang="ja-JP"
                 value={dueDate}
                 onChange={(event: { target: { value: string } }) => setDueDate(event.target.value)}
               />
