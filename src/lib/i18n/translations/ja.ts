@@ -153,6 +153,13 @@ export const ja = {
 
   // Settings
   'settings.title': '設定',
+  'settings.pageSummary': '表示・連携・セキュリティ設定を機能ごとに管理できます。',
+  'settings.profileScheduleTitle': '👤 プロフィールと日程',
+  'settings.profileScheduleDesc': 'ニックネーム、ライフステージ、出産予定日などは家族ページから編集できます。',
+  'settings.openFamilyProfileSchedule': '家族ページで編集する',
+  'settings.displayTitle': '🪄 表示と言語',
+  'settings.dangerZone': '注意が必要な操作',
+  'settings.dangerZoneDesc': 'アカウント削除やログアウトを行います。誤操作に注意してください。',
   'settings.profile': '👤 プロフィール',
 
   // Theme
