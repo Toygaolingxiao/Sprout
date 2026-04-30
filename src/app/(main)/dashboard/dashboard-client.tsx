@@ -167,6 +167,21 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
         </CardContent>
       </Card>
 
+      {!dbOffline && total === 0 && (
+        <Card className="border-dashed">
+          <CardContent className="py-6 text-center">
+            <p className="font-semibold text-foreground">{t('dashboard.emptyTitle')}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t('dashboard.emptyDesc')}</p>
+            <Link
+              href={`/checklists/${currentStage}`}
+              className="mt-3 inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              {t('dashboard.openChecklist')}
+            </Link>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Filters */}
       <div className="space-y-2">
         <CategoryFilter value={categoryFilter} onChange={setCategoryFilter} />

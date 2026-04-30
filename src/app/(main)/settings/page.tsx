@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
+import { FontSizeSwitcher } from '@/components/theme/font-size-switcher';
 import { APP_VERSION, RELEASE_NOTES } from '@/data/release-notes';
 import { normalizeTier } from '@/lib/billing/plans';
 import { signOut } from '@/lib/actions/auth';
@@ -153,6 +154,8 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
             <p className="text-sm font-medium">{t('settings.appearance')}</p>
             <ThemeSwitcher />
           </div>
+          <Separator />
+          <FontSizeSwitcher />
         </CardContent>
       </Card>
       </section>

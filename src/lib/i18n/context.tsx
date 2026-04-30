@@ -17,7 +17,7 @@ export function LanguageProvider({ initialLocale, children }: { initialLocale: L
   // Sync from localStorage on mount (client-side override)
   useEffect(() => {
     const stored = localStorage.getItem(LOCALE_COOKIE) as Locale | null;
-    if (stored && (stored === 'ja' || stored === 'zh')) {
+    if (stored && (stored === 'ja' || stored === 'zh' || stored === 'en')) {
       setLocaleState(stored);
     }
   }, []);
@@ -27,7 +27,7 @@ export function LanguageProvider({ initialLocale, children }: { initialLocale: L
     localStorage.setItem(LOCALE_COOKIE, newLocale);
     document.cookie = `${LOCALE_COOKIE}=${newLocale};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
     // Update html lang attribute
-    document.documentElement.lang = newLocale === 'zh' ? 'zh-CN' : 'ja';
+    document.documentElement.lang = newLocale === 'zh' ? 'zh-CN' : newLocale;
   }, []);
 
   const t = useCallback(

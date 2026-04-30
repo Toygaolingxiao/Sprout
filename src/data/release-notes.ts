@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.52';
+export const APP_VERSION = '1.9.53';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.53',
+    date: '2026-04-30',
+    items: [
+      'UX改善:黄/水色テーマと文字サイズ切替を追加',
+      '英語ロケール(beta)対応とLP言語スイッチ拡張',
+      'ダッシュボード空状態CTAを追加',
+    ],
+  },
   {
     version: '1.9.52',
     date: '2026-04-30',
