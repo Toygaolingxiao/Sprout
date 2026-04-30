@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.51
+> for commit 1.9.52
 
 ---
 
@@ -93,6 +93,7 @@ STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_PRICE_PRO_MONTHLY=price_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
 AMAZON_ASSOCIATE_TAG=yourtag-22
+BILLING_ENABLED=0
 ```
 
 補足:
@@ -100,6 +101,7 @@ AMAZON_ASSOCIATE_TAG=yourtag-22
 - `SUPABASE_SERVICE_ROLE_KEY` は Stripe Webhook から課金状態を反映するために使います。
 - `STRIPE_PRICE_PRO_MONTHLY` は Stripe Product の月額価格 ID を設定してください。
 - `AMAZON_ASSOCIATE_TAG` は任意です。未設定時は通常リンクとして遷移します。
+- `BILLING_ENABLED=1` で課金UI/課金アクションを有効化します。Stripeを使わない期間は `0` を推奨します。
 
 ### 3. データベース
 
