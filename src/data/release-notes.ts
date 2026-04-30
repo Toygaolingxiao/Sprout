@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.5';
+export const APP_VERSION = '1.10.6';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.6',
+    date: '2026-04-30',
+    items: [
+      '利用規約ページを日中英の多言語表示に対応、プライバシーポリシーを日中英で提供、法務ページのlocale連動とメタタイトルを改善',
+    ],
+  },
   {
     version: '1.10.5',
     date: '2026-04-30',
