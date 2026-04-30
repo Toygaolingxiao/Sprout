@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.8';
+export const APP_VERSION = '1.10.9';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.9',
+    date: '2026-04-30',
+    items: [
+      'auth-switcher-position-unified',
+    ],
+  },
   {
     version: '1.10.8',
     date: '2026-04-30',
