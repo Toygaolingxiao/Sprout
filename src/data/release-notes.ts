@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.54';
+export const APP_VERSION = '1.10.0';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.0',
+    date: '2026-04-30',
+    items: [
+      '英語翻訳キーを全項目対応（jaと同数）',
+      '英語版ユーザーマニュアルを新規追加',
+      'READMEに英語ドキュメント導線と3言語対応を反映',
+    ],
+  },
   {
     version: '1.9.54',
     date: '2026-04-30',

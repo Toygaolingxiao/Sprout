@@ -20,7 +20,7 @@ export function t(locale: Locale, key: TranslationKey, params?: Record<string, s
 export const LOCALE_LABELS: Record<Locale, string> = {
   ja: '日本語',
   zh: '中文（简体）',
-  en: 'English (beta)',
+  en: 'English',
 };
 
 export const LOCALE_COOKIE = 'sprout-locale';
