@@ -398,6 +398,7 @@ export const zh: Record<TranslationKey, string> = {
   'billing.manageSubscription': '管理账单与订阅',
   'billing.exportTasksCsv': '导出任务 CSV',
   'billing.exportTasksCsvProOnly': '导出任务 CSV（Pro）',
+  'billing.disabled': '计费功能当前已暂停。',
   'billing.authRequired': '请登录后重试。',
   'billing.profileRequired': '未找到个人资料信息。',
   'billing.alreadyPro': '你已是 Pro 套餐用户。',

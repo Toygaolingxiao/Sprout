@@ -5,6 +5,10 @@ import { getStripeServerClient } from '@/lib/billing/stripe';
 import { normalizeTier } from '@/lib/billing/plans';
 import { createClient, getAuthUser } from '@/lib/supabase/server';
 
+function isBillingEnabled() {
+  return process.env.BILLING_ENABLED === '1';
+}
+
 async function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
   const headerStore = await headers();
@@ -14,6 +18,10 @@ async function getSiteUrl() {
 }
 
 export async function createCheckoutSession() {
+  if (!isBillingEnabled()) {
+    return { error: 'billing.disabled' };
+  }
+
   const priceId = process.env.STRIPE_PRICE_PRO_MONTHLY;
   if (!priceId) {
     return { error: 'billing.priceNotConfigured' };
@@ -94,6 +102,10 @@ export async function createCheckoutSession() {
 }
 
 export async function createBillingPortalSession() {
+  if (!isBillingEnabled()) {
+    return { error: 'billing.disabled' };
+  }
+
   const user = await getAuthUser();
   if (!user) {
     return { error: 'billing.authRequired' };

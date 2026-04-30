@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.51';
+export const APP_VERSION = '1.9.52';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.52',
+    date: '2026-04-30',
+    items: [
+      '課金UIを運用フラグで非表示化',
+      'BILLING_ENABLEDがOFF時は課金アクションを停止',
+      'READMEに課金フラグ運用手順を追記',
+    ],
+  },
   {
     version: '1.9.51',
     date: '2026-04-30',

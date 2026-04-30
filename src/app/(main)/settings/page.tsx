@@ -90,6 +90,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   const locale = await getLocale();
   const t = (key: Parameters<typeof serverT>[1], params?: Parameters<typeof serverT>[2]) => serverT(locale, key, params);
   const subscriptionTier = normalizeTier((profile as { subscription_tier?: string } | null)?.subscription_tier);
+  const billingEnabled = process.env.BILLING_ENABLED === '1';
   const isPro = subscriptionTier === 'pro';
   const compactReleaseNotes = RELEASE_NOTES.slice(0, 5).map((note) => ({
     ...note,
@@ -224,7 +225,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           <CardTitle className="text-base">{t('settings.account')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <BillingSection subscriptionTier={subscriptionTier} />
+          {billingEnabled && <BillingSection subscriptionTier={subscriptionTier} />}
           <ProviderLinksSection
             googleLinked={googleLinked}
             lineLinked={lineLinked}

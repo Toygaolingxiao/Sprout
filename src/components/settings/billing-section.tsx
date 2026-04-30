@@ -19,6 +19,7 @@ export function BillingSection({ subscriptionTier }: BillingSectionProps) {
   const isPro = subscriptionTier === 'pro';
 
   function localizeError(message: string) {
+    if (message === 'billing.disabled') return t('billing.disabled');
     if (message === 'billing.authRequired') return t('billing.authRequired');
     if (message === 'billing.profileRequired') return t('billing.profileRequired');
     if (message === 'billing.alreadyPro') return t('billing.alreadyPro');

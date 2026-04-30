@@ -396,6 +396,7 @@ export const ja = {
   'billing.manageSubscription': '請求・契約を管理',
   'billing.exportTasksCsv': 'タスクをCSVエクスポート',
   'billing.exportTasksCsvProOnly': 'タスクCSVエクスポート（Pro）',
+  'billing.disabled': '課金機能は現在停止中です。',
   'billing.authRequired': 'ログイン後に再度お試しください。',
   'billing.profileRequired': 'プロフィール情報が見つかりませんでした。',
   'billing.alreadyPro': 'すでにProプランをご利用中です。',
