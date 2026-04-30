@@ -59,6 +59,10 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
       const result = await signInWithGoogle(formData)
       if (result?.error) {
         setError(localizeError(result.error))
+        return
+      }
+      if (result?.url) {
+        window.location.assign(result.url)
       }
     } catch {
       setError(t('auth.networkError'))
