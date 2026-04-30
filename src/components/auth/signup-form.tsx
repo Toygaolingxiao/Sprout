@@ -24,6 +24,11 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
 
   function localizeError(message: string) {
     if (message === 'auth.emailExists') return t('auth.emailExists')
+    if (message === 'auth.oauthCallbackFailed') return t('auth.oauthCallbackFailed')
+    if (message === 'auth.oauthProviderUnsupported') return t('auth.oauthProviderUnsupported')
+    if (message === 'auth.oauthAccessDenied') return t('auth.oauthAccessDenied')
+    if (message === 'settings.providerUnsupportedGoogle') return t('auth.oauthProviderUnsupported')
+    if (message === 'settings.providerOperationFailed') return t('auth.oauthCallbackFailed')
     if (message === 'auth.networkError') return t('auth.networkError')
     return message
   }

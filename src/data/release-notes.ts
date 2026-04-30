@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.41';
+export const APP_VERSION = '1.9.42';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.42',
+    date: '2026-04-30',
+    items: [
+      'Googleログイン失敗時のエラー分類を改善',
+      'OAuth callback失敗を原因別に表示',
+      'ログインと登録画面の翻訳エラー表示を拡充',
+    ],
+  },
   {
     version: '1.9.41',
     date: '2026-04-26',
