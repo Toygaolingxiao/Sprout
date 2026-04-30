@@ -1,9 +1,10 @@
 import type { SubscriptionTier } from '@/types';
 
-export type PaidFeature = 'delete_all_custom_tasks';
+export type PaidFeature = 'delete_all_custom_tasks' | 'export_tasks_csv';
 
 const featureRequirements: Record<PaidFeature, SubscriptionTier> = {
   delete_all_custom_tasks: 'pro',
+  export_tasks_csv: 'pro',
 };
 
 export function canUseFeature(tier: SubscriptionTier, feature: PaidFeature): boolean {

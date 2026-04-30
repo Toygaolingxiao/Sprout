@@ -22,6 +22,9 @@ export interface Profile {
   user_gender: UserGender;
   subscription_tier: SubscriptionTier;
   subscription_updated_at: string;
+  stripe_customer_id: string | null;
+  stripe_subscription_id: string | null;
+  subscription_expires_at: string | null;
   created_at: string;
   updated_at: string;
 }

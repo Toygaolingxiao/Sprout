@@ -390,6 +390,29 @@ export const zh: Record<TranslationKey, string> = {
   'whatsNew.title': '更新信息',
   'whatsNew.start': '开始',
 
+  // Billing
+  'billing.title': '套餐与账单',
+  'billing.freeHint': '免费套餐可使用基础功能，升级 Pro 可解锁高级能力。',
+  'billing.proHint': '你当前正在使用 Pro 套餐，可管理账单与订阅信息。',
+  'billing.upgradeToPro': '升级到 Pro',
+  'billing.manageSubscription': '管理账单与订阅',
+  'billing.exportTasksCsv': '导出任务 CSV',
+  'billing.exportTasksCsvProOnly': '导出任务 CSV（Pro）',
+  'billing.authRequired': '请登录后重试。',
+  'billing.profileRequired': '未找到个人资料信息。',
+  'billing.alreadyPro': '你已是 Pro 套餐用户。',
+  'billing.priceNotConfigured': '计费配置未完成，请联系管理员。',
+  'billing.noCustomer': '未找到账单客户信息，请先尝试升级。',
+  'billing.checkoutFailed': '生成支付页面失败，请稍后重试。',
+  'billing.portalFailed': '打开账单门户失败，请稍后重试。',
+
+  // Affiliate
+  'affiliate.title': '推荐服务（广告）',
+  'affiliate.disclaimer': '该区域可能包含广告链接，完成购买后平台可能获得一定推广佣金。',
+  'affiliate.amazonBaby': 'Amazon 母婴用品',
+  'affiliate.rakutenBaby': 'Rakuten 待产准备',
+  'affiliate.insurance': '对比教育保险',
+
   // Common
   'common.all': '全部',
   'common.categoryFilter': '分类筛选',

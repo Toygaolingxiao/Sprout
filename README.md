@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.9.49
+> for commit 1.9.50
 
 ---
 
@@ -17,6 +17,8 @@
 - ♻️ **テンプレート再適用** — 優先度（高/中/低）でデフォルト項目を復元
 - 🧹 **一括整理** — 手動追加タスクをステージ単位で削除（全ステージ一括は Pro）
 - 💎 **プラン区分** — Free / Pro の機能判定基盤を実装
+- 📤 **Proエクスポート** — タスク一覧を CSV で出力可能
+- 🛍️ **低侵襲マネタイズ** — チェックリスト画面に広告リンク枠を追加
 - 🔐 **アカウント安全運用** — ログアウトと削除を分離、確認入力付きで誤操作を抑制
 - 🔗 **外部連携管理** — 設定画面で Google/LINE の連携状態確認・連携解除
 - ⚡ **体感速度改善** — 主要導線の prefetch、並列読取、キャッシュで初動を高速化
@@ -86,10 +88,18 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_LIFF_ID=your-liff-id
 SUPABASE_LINE_PROVIDER=line
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_PRICE_PRO_MONTHLY=price_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+AMAZON_ASSOCIATE_TAG=yourtag-22
 ```
 
 補足:
 - `SUPABASE_LINE_PROVIDER` は Supabase 側の設定名です（標準なら `line`、Custom OIDCの場合は `custom:line` など）。
+- `SUPABASE_SERVICE_ROLE_KEY` は Stripe Webhook から課金状態を反映するために使います。
+- `STRIPE_PRICE_PRO_MONTHLY` は Stripe Product の月額価格 ID を設定してください。
+- `AMAZON_ASSOCIATE_TAG` は任意です。未設定時は通常リンクとして遷移します。
 
 ### 3. データベース
 
@@ -117,6 +127,7 @@ Supabase SQL Editor で `supabase/migrations/` の SQL を**ファイル名順**
 18. `017_schedule_orphan_family_cleanup.sql`
 19. `018_add_leave_my_family.sql`
 20. `019_add_subscription_tier.sql`
+21. `020_add_stripe_subscription_columns.sql`
 
 注意:
 - 既存環境で `001_initial_schema.sql` を再実行しないでください（既存 enum/type 衝突の原因になります）。

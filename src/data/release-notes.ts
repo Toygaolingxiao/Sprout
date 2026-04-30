@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.9.49';
+export const APP_VERSION = '1.9.50';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.9.50',
+    date: '2026-04-30',
+    items: [
+      'Pro向けCSVエクスポート機能を追加',
+      '低侵襲アフィリエイト導線をチェックリストに追加',
+      'Stripe CheckoutとWebhook連携を実装',
+    ],
+  },
   {
     version: '1.9.49',
     date: '2026-04-30',
