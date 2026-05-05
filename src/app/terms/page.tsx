@@ -19,7 +19,7 @@ export default async function TermsPage() {
   const loginLabel = serverT(locale, 'auth.login');
 
   return (
-    <div className="min-h-screen bg-background">
+    <div data-theme="aqua" className="min-h-screen bg-background">
       <div className="mx-auto max-w-2xl px-4 py-12">
         <nav className="mb-6 flex items-center justify-end gap-2 text-sm">
           <Link
