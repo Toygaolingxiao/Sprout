@@ -425,6 +425,13 @@ export const ja = {
   'affiliate.rakutenBaby': '楽天 出産準備',
   'affiliate.insurance': '学資保険を比較',
 
+  // Ads
+  'ads.consentTitle': '広告表示の設定',
+  'ads.consentDescription': '無料プランでは、広告表示に同意するとチェックリスト内に広告を表示します。運営継続のためご協力いただける場合は「同意して表示する」を選択してください。',
+  'ads.consentAccept': '同意して表示する',
+  'ads.consentDecline': '今回は表示しない',
+  'ads.consentDeclinedHint': '広告表示は無効です。再度「同意して表示する」を押すと有効化できます。',
+
   // Common
   'common.all': 'すべて',
   'common.categoryFilter': 'カテゴリフィルター',
