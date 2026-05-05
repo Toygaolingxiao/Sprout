@@ -103,7 +103,7 @@ export function LandingPage() {
   const hasPublishedVoices = publicFeedback.length > 0;
 
   return (
-    <div data-theme="aqua" className="flex flex-col min-h-screen bg-background text-foreground">
+    <div data-theme="cream" className="flex flex-col min-h-screen bg-background text-foreground">
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
         <nav className="mx-auto max-w-5xl flex min-h-14 items-center justify-between px-4 py-2" aria-label={t('lp.mainNav')}>

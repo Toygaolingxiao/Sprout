@@ -32,7 +32,7 @@ export function InviteClient({ token, isAuthenticated }: InviteClientProps) {
   }
 
   return (
-    <div data-theme="aqua" className="flex min-h-screen items-center justify-center px-4">
+    <div data-theme="cream" className="flex min-h-screen items-center justify-center px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="text-4xl mb-2">🌱</div>
