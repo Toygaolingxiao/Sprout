@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.10';
+export const APP_VERSION = '1.10.11';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.11',
+    date: '2026-05-05',
+    items: [
+      'feedback-comment-submission',
+      'landing-voice-safety',
+      'public-feedback-api',
+    ],
+  },
   {
     version: '1.10.10',
     date: '2026-05-05',

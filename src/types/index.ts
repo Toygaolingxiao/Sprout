@@ -113,6 +113,19 @@ export interface ActivityLog {
   created_at: string;
 }
 
+export interface FeedbackComment {
+  id: string;
+  user_id: string;
+  author_alias: string;
+  comment: string;
+  stage_id: LifeStage | null;
+  locale: string;
+  consent_to_publish: boolean;
+  is_approved: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface KnowledgeArticle {
   id: string;
   stage_id: LifeStage;
@@ -181,6 +194,16 @@ export type Database = {
         Row: ActivityLog;
         Insert: Omit<ActivityLog, 'id' | 'created_at'> & { id?: string; created_at?: string };
         Update: Partial<Omit<ActivityLog, 'id'>>;
+      };
+      feedback_comments: {
+        Row: FeedbackComment;
+        Insert: Omit<FeedbackComment, 'id' | 'created_at' | 'updated_at' | 'is_approved'> & {
+          id?: string;
+          created_at?: string;
+          updated_at?: string;
+          is_approved?: boolean;
+        };
+        Update: Partial<Omit<FeedbackComment, 'id' | 'user_id'>>;
       };
       knowledge_articles: {
         Row: KnowledgeArticle;
