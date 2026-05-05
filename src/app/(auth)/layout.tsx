@@ -7,7 +7,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
   const tagline = serverT(locale, 'authLayout.tagline');
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center px-4" style={{ background: 'linear-gradient(to bottom, var(--theme-gradient-from), var(--theme-gradient-to))' }}>
+    <div data-theme="aqua" className="relative flex min-h-screen items-center justify-center px-4" style={{ background: 'linear-gradient(to bottom, var(--theme-gradient-from), var(--theme-gradient-to))' }}>
       <div className="absolute inset-x-0 top-0 z-10">
         <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-end px-4">
           <LanguageSwitcher variant="compact" />
