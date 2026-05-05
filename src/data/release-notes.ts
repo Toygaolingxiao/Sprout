@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.21';
+export const APP_VERSION = '1.10.22';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.22',
+    date: '2026-05-05',
+    items: [
+      'soften-green-pink-aqua,reduce-theme-saturation,lighter-theme-variants',
+    ],
+  },
   {
     version: '1.10.21',
     date: '2026-05-05',
