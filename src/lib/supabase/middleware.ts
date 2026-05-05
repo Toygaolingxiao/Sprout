@@ -20,7 +20,18 @@ export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const pathname = request.nextUrl.pathname;
+  const isStaticPublicAsset =
+    pathname === '/manifest.json' ||
+    pathname === '/ads.txt' ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml' ||
+    /^\/(?:icons|images)\//.test(pathname) ||
+    /\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json)$/i.test(pathname);
   const liffStateRaw = request.nextUrl.searchParams.get('liff.state');
+
+  if (isStaticPublicAsset) {
+    return supabaseResponse;
+  }
 
   if (pathname === '/' && liffStateRaw) {
     const decoded = decodeLiffState(liffStateRaw);
