@@ -17,13 +17,13 @@ export function ThemeSwitcher() {
   return (
     <div className="space-y-2">
       <p className="text-sm font-medium">{t('theme.color')}</p>
-      <div className="flex gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {THEMES.map((th) => (
           <button
             key={th.id}
             onClick={() => setTheme(th.id)}
             aria-label={t(`theme.changeTo.${th.id}` as any)}
-            className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+            className={`flex min-h-[98px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
               theme === th.id
                 ? 'border-primary bg-primary/5 shadow-sm'
                 : 'border-transparent bg-muted/50 hover:bg-muted'

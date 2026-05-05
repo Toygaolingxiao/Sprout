@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.17';
+export const APP_VERSION = '1.10.18';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.18',
+    date: '2026-05-05',
+    items: [
+      'locale-layout-stability,uniform-card-heights,multi-page-size-fix',
+    ],
+  },
   {
     version: '1.10.17',
     date: '2026-05-05',

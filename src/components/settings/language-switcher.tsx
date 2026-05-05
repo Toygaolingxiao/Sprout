@@ -29,7 +29,7 @@ export function LanguageSwitcher({ variant = 'default', className }: LanguageSwi
       className={cn(
         compact
           ? 'inline-flex flex-nowrap items-center gap-1 rounded-full border border-border/60 bg-background/70 p-1 shadow-sm backdrop-blur'
-          : 'flex gap-2 flex-wrap',
+          : 'grid w-full max-w-md grid-cols-3 gap-2',
         className,
       )}
     >
@@ -41,11 +41,11 @@ export function LanguageSwitcher({ variant = 'default', className }: LanguageSwi
           className={cn(`font-medium transition-all ${
             locale === key
               ? compact
-                ? 'rounded-full bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-sm'
-                : 'rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground shadow-sm'
+                ? 'inline-flex min-w-[4.25rem] items-center justify-center rounded-full bg-primary px-3 py-1.5 text-center text-xs text-primary-foreground shadow-sm'
+                : 'inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 py-2 text-center text-sm text-primary-foreground shadow-sm'
               : compact
-                ? 'rounded-full px-3 py-1.5 text-xs text-muted-foreground hover:bg-background/80'
-                : 'rounded-lg bg-muted px-4 py-2 text-sm text-muted-foreground hover:bg-muted/80'
+                ? 'inline-flex min-w-[4.25rem] items-center justify-center rounded-full px-3 py-1.5 text-center text-xs text-muted-foreground hover:bg-background/80'
+                : 'inline-flex h-9 items-center justify-center rounded-lg bg-muted px-4 py-2 text-center text-sm text-muted-foreground hover:bg-muted/80'
           }`)}
         >
           {label}

@@ -106,15 +106,15 @@ export function LandingPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
-        <nav className="mx-auto max-w-5xl flex items-center justify-between px-4 h-14" aria-label={t('lp.mainNav')}>
+        <nav className="mx-auto max-w-5xl flex min-h-14 items-center justify-between px-4 py-2" aria-label={t('lp.mainNav')}>
           <Link href="/" className="text-lg font-bold tracking-tight" aria-label="Sprout home">🌱 Sprout</Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-end gap-2">
             <div className="flex rounded-lg border border-border/60 bg-background/60 p-0.5">
               <button
                 type="button"
                 onClick={() => changeLocale('ja')}
                 className={cn(
-                  'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                  'min-w-12 rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
                   locale === 'ja' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -124,7 +124,7 @@ export function LandingPage() {
                 type="button"
                 onClick={() => changeLocale('zh')}
                 className={cn(
-                  'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                  'min-w-12 rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
                   locale === 'zh' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -134,7 +134,7 @@ export function LandingPage() {
                 type="button"
                 onClick={() => changeLocale('en')}
                 className={cn(
-                  'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                  'min-w-12 rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
                   locale === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -144,14 +144,14 @@ export function LandingPage() {
             <button
               type="button"
               onClick={() => router.push('/login')}
-              className={buttonVariants({ variant: 'ghost', size: 'sm' })}
+              className={buttonVariants({ variant: 'ghost', size: 'sm', className: 'min-w-16 justify-center' })}
             >
               {t('lp.login')}
             </button>
             <button
               type="button"
               onClick={() => router.push('/signup')}
-              className={buttonVariants({ size: 'sm' })}
+              className={buttonVariants({ size: 'sm', className: 'min-w-28 justify-center' })}
             >
               <Sparkles className="size-3.5" />
               {t('lp.startFree')}
@@ -169,17 +169,17 @@ export function LandingPage() {
           background: 'linear-gradient(to bottom, var(--theme-gradient-from), var(--theme-gradient-via), var(--theme-gradient-to))',
         }}
       >
-        <div className="mx-auto max-w-3xl px-4 py-14 sm:py-28 text-center">
+        <div className="mx-auto flex min-h-[420px] max-w-3xl flex-col items-center justify-center px-4 py-14 text-center sm:min-h-[500px] sm:py-28">
           <div className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <Sparkles className="size-3" />
             {t('lp.badge')}
           </div>
-          <h1 id="hero-heading" className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+          <h1 id="hero-heading" className="min-h-[5.5rem] text-3xl font-extrabold leading-tight tracking-tight sm:min-h-[7.5rem] sm:text-4xl md:text-5xl">
             {t('lp.heroTitle1')}
             <br />
             <span className="text-primary">{t('lp.heroTitle2')}</span>
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          <p className="mx-auto mt-5 min-h-[3.5rem] max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             {t('lp.heroDesc')}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -198,23 +198,23 @@ export function LandingPage() {
       </section>
 
       {/* ── Stages ── */}
-      <section className="py-16 sm:py-20 px-4">
+      <section className="min-h-[360px] px-4 py-16 sm:min-h-[400px] sm:py-20">
         <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-2xl sm:text-3xl font-bold mb-3">
+          <h2 className="mb-3 min-h-[2.5rem] text-center text-2xl font-bold sm:text-3xl">
             {t('lp.stagesTitle')}
           </h2>
-          <p className="text-center text-muted-foreground mb-10 max-w-md mx-auto">
+          <p className="mx-auto mb-10 min-h-[2.5rem] max-w-md text-center text-muted-foreground">
             {t('lp.stagesDesc')}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {STAGES.map((s) => (
               <div
                 key={s.label}
-                className="rounded-xl border border-border bg-card p-3 sm:p-5 text-center hover:shadow-md transition-shadow"
+                className="h-full min-h-[150px] rounded-xl border border-border bg-card p-3 text-center transition-shadow hover:shadow-md sm:min-h-[166px] sm:p-5"
               >
                 <span className="text-3xl">{s.emoji}</span>
-                <h3 className="mt-2 font-bold text-base sm:text-lg">{s.label}</h3>
-                <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+                <h3 className="mt-2 min-h-[1.75rem] text-base font-bold sm:text-lg">{s.label}</h3>
+                <p className="mt-1 min-h-[2.5rem] text-xs leading-relaxed text-muted-foreground">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -222,26 +222,26 @@ export function LandingPage() {
       </section>
 
       {/* ── Features ── */}
-      <section id="features" className="py-16 sm:py-20 px-4 bg-muted/30">
+      <section id="features" className="min-h-[420px] bg-muted/30 px-4 py-16 sm:min-h-[460px] sm:py-20">
         <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-2xl sm:text-3xl font-bold mb-3">
+          <h2 className="mb-3 min-h-[2.5rem] text-center text-2xl font-bold sm:text-3xl">
             {t('lp.featuresTitle')}
           </h2>
-          <p className="text-center text-muted-foreground mb-10 max-w-md mx-auto">
+          <p className="mx-auto mb-10 min-h-[2.5rem] max-w-md text-center text-muted-foreground">
             {t('lp.featuresDesc')}
           </p>
           <div className="grid sm:grid-cols-2 gap-6">
             {FEATURES.map((f) => (
               <div
                 key={f.title}
-                className="rounded-xl border border-border bg-card p-6 flex gap-4"
+                className="flex h-full min-h-[132px] gap-4 rounded-xl border border-border bg-card p-6 sm:min-h-[146px]"
               >
                 <div className="flex-shrink-0 size-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <f.icon className="size-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm">{f.title}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
+                  <h3 className="min-h-[1.25rem] text-sm font-bold">{f.title}</h3>
+                  <p className="mt-1 min-h-[2.75rem] text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
                 </div>
               </div>
             ))}
@@ -255,14 +255,14 @@ export function LandingPage() {
           <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10">
             {t('lp.stepsTitle')}
           </h2>
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
             {STEPS.map((s) => (
-              <div key={s.num} className="flex-1 text-center">
+              <div key={s.num} className="flex-1 text-center sm:min-h-[136px]">
                 <div className="mx-auto size-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold">
                   {s.num}
                 </div>
                 <h3 className="mt-3 font-bold">{s.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
+                <p className="mt-1 min-h-[2.75rem] text-sm text-muted-foreground">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -278,13 +278,13 @@ export function LandingPage() {
           <p className="text-center text-sm text-muted-foreground mb-6 max-w-xl mx-auto">
             {hasPublishedVoices ? t('lp.testimonialsDesc') : t('lp.examplesDisclaimer')}
           </p>
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid gap-5 sm:grid-cols-3">
             {displayVoices.map((t) => (
               <div
                 key={`${t.author}-${t.text.slice(0, 10)}`}
-                className="rounded-xl border border-border bg-card p-3 sm:p-5"
+                className="flex h-full flex-col rounded-xl border border-border bg-card p-3 sm:min-h-[186px] sm:p-5"
               >
-                <p className="text-sm text-foreground leading-relaxed">
+                <p className="min-h-[5rem] text-sm leading-relaxed text-foreground">
                   「{t.text}」
                 </p>
                 <div className="mt-4 flex items-center gap-2">

@@ -260,10 +260,10 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
                 return (
                   <Link key={s.stage_id} href={`/checklists/${s.stage_id}`}>
                     <Card className="hover:shadow-md transition-all border-primary/5 hover:border-primary/15">
-                      <CardContent className="py-3 px-2.5 sm:px-3.5">
+                      <CardContent className="flex min-h-[78px] flex-col justify-between py-3 px-2.5 sm:min-h-[84px] sm:px-3.5">
                         <div className="flex items-center gap-1.5 mb-1.5">
                           <span className="text-base">{info.emoji}</span>
-                          <span className="text-xs font-semibold">{t(`stage.${s.stage_id}` as TranslationKey)}</span>
+                          <span className="text-xs font-semibold leading-tight">{t(`stage.${s.stage_id}` as TranslationKey)}</span>
                           {s.total > 0 && (
                             <span className="text-[10px] text-muted-foreground ml-auto">
                               {s.completed}/{s.total}
