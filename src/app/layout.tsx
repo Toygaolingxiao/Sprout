@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
@@ -26,6 +27,7 @@ export const viewport: Viewport = {
 };
 
 const siteUrl = 'https://sprout-rose.vercel.app';
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 
 export const metadata: Metadata = {
   title: "Sprout 🌱 - 夫婦で育てる、新しい命の準備",
@@ -69,6 +71,14 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {adsenseClientId && (
+          <Script
+            id="sprout-adsense-site-verification"
+            strategy="beforeInteractive"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+            crossOrigin="anonymous"
+          />
+        )}
         <ThemeProvider>
           <LanguageProvider initialLocale={locale}>
             {children}
