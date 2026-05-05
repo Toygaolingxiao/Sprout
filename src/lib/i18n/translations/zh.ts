@@ -427,6 +427,13 @@ export const zh: Record<TranslationKey, string> = {
   'affiliate.rakutenBaby': 'Rakuten 待产准备',
   'affiliate.insurance': '对比教育保险',
 
+  // Ads
+  'ads.consentTitle': '广告展示设置',
+  'ads.consentDescription': '在免费套餐中，只有在你同意后才会在清单页展示广告。若愿意支持服务运营，请选择“同意展示广告”。',
+  'ads.consentAccept': '同意展示广告',
+  'ads.consentDecline': '暂不展示',
+  'ads.consentDeclinedHint': '广告当前已关闭。再次点击“同意展示广告”即可启用。',
+
   // Common
   'common.all': '全部',
   'common.categoryFilter': '分类筛选',

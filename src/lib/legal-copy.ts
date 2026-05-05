@@ -248,7 +248,7 @@ export const PRIVACY_COPY: Record<LegalLocale, LegalDocumentCopy> = {
   ja: {
     heading: 'プライバシーポリシー',
     updatedAtLabel: '最終更新日',
-    updatedAt: '2026年4月14日',
+    updatedAt: '2026年5月5日',
     sections: [
       {
         title: '1. 収集する情報',
@@ -300,7 +300,7 @@ export const PRIVACY_COPY: Record<LegalLocale, LegalDocumentCopy> = {
       {
         title: '6. Cookieの使用',
         paragraphs: [
-          '本サービスでは、認証セッションの維持のためにCookieを使用します。これは本サービスの適切な動作に必要なもので、トラッキング目的のCookieは使用していません。',
+          '本サービスでは、認証セッションの維持のために必要なCookieを使用します。加えて、ユーザーが広告表示に同意した場合に限り、広告配信・効果測定のため外部広告事業者（Google等）がCookieを使用することがあります。広告表示に同意しない場合、認証維持に必要なCookie以外は利用しません。',
         ],
       },
       {
@@ -326,7 +326,7 @@ export const PRIVACY_COPY: Record<LegalLocale, LegalDocumentCopy> = {
   en: {
     heading: 'Privacy Policy',
     updatedAtLabel: 'Last updated',
-    updatedAt: 'April 14, 2026',
+    updatedAt: 'May 5, 2026',
     sections: [
       {
         title: '1. Information We Collect',
@@ -378,7 +378,7 @@ export const PRIVACY_COPY: Record<LegalLocale, LegalDocumentCopy> = {
       {
         title: '6. Use of Cookies',
         paragraphs: [
-          'We use cookies to maintain authentication sessions. These cookies are necessary for proper operation of the Service, and we do not use tracking cookies for advertising purposes.',
+          'We use cookies required to maintain authentication sessions. In addition, only when users consent to ad display, external advertising partners (such as Google) may use cookies for ad delivery and performance measurement. If users do not consent, we do not use cookies beyond those necessary for authentication.',
         ],
       },
       {
@@ -404,7 +404,7 @@ export const PRIVACY_COPY: Record<LegalLocale, LegalDocumentCopy> = {
   zh: {
     heading: '隐私政策',
     updatedAtLabel: '最后更新',
-    updatedAt: '2026年4月14日',
+    updatedAt: '2026年5月5日',
     sections: [
       {
         title: '1. 我们收集的信息',
@@ -456,7 +456,7 @@ export const PRIVACY_COPY: Record<LegalLocale, LegalDocumentCopy> = {
       {
         title: '6. Cookie 使用',
         paragraphs: [
-          '本服务使用 Cookie 维持认证会话。这些 Cookie 为保证服务正常运行所必需，不用于广告追踪目的。',
+          '本服务会使用维持认证会话所必需的 Cookie。此外，仅在用户同意展示广告时，外部广告合作方（如 Google）可能使用 Cookie 用于广告投放与效果测量。若用户不同意，我们不会使用认证所必需之外的 Cookie。',
         ],
       },
       {

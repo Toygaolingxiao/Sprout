@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.10.9
+> for commit 1.10.10
 
 ---
 
@@ -19,6 +19,7 @@
 - 💎 **プラン区分** — Free / Pro の機能判定基盤を実装
 - 📤 **Proエクスポート** — タスク一覧を CSV で出力可能
 - 🛍️ **低侵襲マネタイズ** — チェックリスト画面に広告リンク枠を追加
+- 📣 **同意制AdSense** — Freeプランのみ、同意後にチェックリスト内へ広告表示
 - 🔐 **アカウント安全運用** — ログアウトと削除を分離、確認入力付きで誤操作を抑制
 - 🔗 **外部連携管理** — 設定画面で Google/LINE の連携状態確認・連携解除
 - 🌐 **3言語対応** — 日本語 / 简体中文 / English を設定画面から切替可能
@@ -95,6 +96,9 @@ STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_PRICE_PRO_MONTHLY=price_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
 AMAZON_ASSOCIATE_TAG=yourtag-22
+NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-xxxxxxxxxxxxxxxx
+NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_TOP=1234567890
+NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_BOTTOM=0987654321
 BILLING_ENABLED=0
 ```
 
@@ -103,6 +107,8 @@ BILLING_ENABLED=0
 - `SUPABASE_SERVICE_ROLE_KEY` は Stripe Webhook から課金状態を反映するために使います。
 - `STRIPE_PRICE_PRO_MONTHLY` は Stripe Product の月額価格 ID を設定してください。
 - `AMAZON_ASSOCIATE_TAG` は任意です。未設定時は通常リンクとして遷移します。
+- `NEXT_PUBLIC_ADSENSE_CLIENT_ID` と `NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_*` は任意です。設定時のみ AdSense 枠が表示されます。
+- AdSense 枠は無料プランユーザーにのみ表示され、同意前は非表示です。
 - `BILLING_ENABLED=1` で課金UI/課金アクションを有効化します。Stripeを使わない期間は `0` を推奨します。
 
 ### 3. データベース

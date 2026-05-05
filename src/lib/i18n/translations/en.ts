@@ -427,6 +427,13 @@ export const en: Record<TranslationKey, string> = {
   'affiliate.rakutenBaby': 'Rakuten maternity prep',
   'affiliate.insurance': 'Compare education insurance',
 
+  // Ads
+  'ads.consentTitle': 'Ad display settings',
+  'ads.consentDescription': 'On the Free plan, ads can be shown in the checklist after your consent. If you want to support operation costs, choose "Allow ads".',
+  'ads.consentAccept': 'Allow ads',
+  'ads.consentDecline': 'Not now',
+  'ads.consentDeclinedHint': 'Ads are currently disabled. You can enable them by selecting "Allow ads".',
+
   // Common
   'common.all': 'All',
   'common.categoryFilter': 'Category filter',
