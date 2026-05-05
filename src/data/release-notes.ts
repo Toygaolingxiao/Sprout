@@ -1,6 +1,13 @@
-export const APP_VERSION = '1.10.16';
+export const APP_VERSION = '1.10.17';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.17',
+    date: '2026-05-05',
+    items: [
+      'copy-cleanup-ja-en-zh,remove-dev-facing-auth-messages,hide-provider-error-code-from-ui',
+    ],
+  },
   {
     version: '1.10.16',
     date: '2026-05-05',
