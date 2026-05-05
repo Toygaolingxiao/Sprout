@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.12';
+export const APP_VERSION = '1.10.13';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.13',
+    date: '2026-05-05',
+    items: [
+      'proxy-static-file-bypass',
+      'manifest-redirect-fix',
+      'ads-txt-crawler-access',
+    ],
+  },
   {
     version: '1.10.12',
     date: '2026-05-05',
