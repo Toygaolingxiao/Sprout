@@ -253,6 +253,52 @@
   --theme-restore-text: #0284c7;
 }
 
+[data-theme="cream"] {
+  --background: #fff8df;
+  --foreground: #3a2f12;
+  --card: #fffdf4;
+  --card-foreground: #3a2f12;
+  --popover: #fffdf4;
+  --popover-foreground: #3a2f12;
+  --primary: #b7791f;
+  --primary-foreground: #fffdf4;
+  --secondary: #fff4cd;
+  --secondary-foreground: #4a3b16;
+  --muted: #fff6d5;
+  --muted-foreground: #6a5b34;
+  --accent: #ffefbc;
+  --accent-foreground: #4a3b16;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #f0dd9a;
+  --input: #f0dd9a;
+  --ring: #c38a24;
+  --chart-1: #c38a24;
+  --chart-2: #9c6d1b;
+  --chart-3: #e3b23c;
+  --chart-4: #7f5a17;
+  --chart-5: #d89f2e;
+  --radius: 0.75rem;
+  --sidebar: #fff7d7;
+  --sidebar-foreground: #3a2f12;
+  --sidebar-primary: #b7791f;
+  --sidebar-primary-foreground: #fffdf4;
+  --sidebar-accent: #fff1c3;
+  --sidebar-accent-foreground: #4a3b16;
+  --sidebar-border: #f0dd9a;
+  --sidebar-ring: #c38a24;
+  --theme-gradient-from: #fff2b8;
+  --theme-gradient-via: #fff9de;
+  --theme-gradient-to: #fff4c680;
+  --theme-completed-bg: #fff7d240;
+  --theme-completed-border: #f0dd9a90;
+  --theme-tip-bg: #fff6d470;
+  --theme-tip-border: #eed38a;
+  --theme-tip-title: #7a5512;
+  --theme-tip-text: #8d6519cc;
+  --theme-restore-bg: #fff7dd;
+  --theme-restore-text: #b7791f;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
