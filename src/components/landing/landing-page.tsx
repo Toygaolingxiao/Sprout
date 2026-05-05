@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/lib/i18n';
+import type { LifeStage } from '@/types';
 import {
   CheckCircle2,
   Users,
@@ -14,6 +16,12 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n/context';
+
+interface PublicFeedbackItem {
+  comment: string;
+  author_alias: string;
+  stage_id: LifeStage | null;
+}
 
 /* ─────────────────────────── component ────────────────────── */
 
@@ -52,6 +60,47 @@ export function LandingPage() {
     { text: t('lp.testimonial2'), author: t('lp.testimonial2Author'), detail: t('lp.testimonial2Detail') },
     { text: t('lp.testimonial3'), author: t('lp.testimonial3Author'), detail: t('lp.testimonial3Detail') },
   ];
+
+  const [publicFeedback, setPublicFeedback] = useState<PublicFeedbackItem[]>([]);
+
+  useEffect(() => {
+    let active = true;
+
+    (async () => {
+      try {
+        const response = await fetch('/api/public-feedback?limit=3', { cache: 'no-store' });
+        if (!response.ok) return;
+
+        const json = await response.json() as { items?: PublicFeedbackItem[] };
+        if (!active) return;
+
+        setPublicFeedback(Array.isArray(json.items) ? json.items : []);
+      } catch {
+        if (!active) return;
+        setPublicFeedback([]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const displayVoices = useMemo(() => {
+    if (publicFeedback.length === 0) {
+      return TESTIMONIALS;
+    }
+
+    return publicFeedback.map((item) => ({
+      text: item.comment,
+      author: item.author_alias,
+      detail: item.stage_id
+        ? t(`stage.${item.stage_id}` as Parameters<typeof t>[0])
+        : t('lp.feedbackFromUsers'),
+    }));
+  }, [publicFeedback, TESTIMONIALS, t]);
+
+  const hasPublishedVoices = publicFeedback.length > 0;
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -224,12 +273,15 @@ export function LandingPage() {
       <section className="py-16 sm:py-20 px-4 bg-muted/30">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-center text-2xl sm:text-3xl font-bold mb-10">
-            {t('lp.testimonialsTitle')}
+            {hasPublishedVoices ? t('lp.testimonialsTitle') : t('lp.examplesTitle')}
           </h2>
+          <p className="text-center text-sm text-muted-foreground mb-6 max-w-xl mx-auto">
+            {hasPublishedVoices ? t('lp.testimonialsDesc') : t('lp.examplesDisclaimer')}
+          </p>
           <div className="grid sm:grid-cols-3 gap-5">
-            {TESTIMONIALS.map((t) => (
+            {displayVoices.map((t) => (
               <div
-                key={t.author}
+                key={`${t.author}-${t.text.slice(0, 10)}`}
                 className="rounded-xl border border-border bg-card p-3 sm:p-5"
               >
                 <p className="text-sm text-foreground leading-relaxed">

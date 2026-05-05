@@ -15,6 +15,7 @@ import { BillingSection } from '@/components/settings/billing-section';
 import { DeleteAccountSection } from '@/components/settings/delete-account-section';
 import { ProviderLinksSection } from '@/components/settings/provider-links-section';
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
+import { FeedbackSection } from '@/components/settings/feedback-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
 import { ProfileSection } from '@/components/settings/profile-section';
 import { ScheduleSection } from '@/components/settings/schedule-section';
@@ -105,6 +106,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
     { id: 'profile-schedule', label: t('settings.quickProfileSchedule') },
     { id: 'display', label: t('settings.quickDisplay') },
     { id: 'template-data', label: t('settings.quickTemplateData') },
+    { id: 'feedback', label: t('settings.quickFeedback') },
     { id: 'app-info', label: t('settings.quickAppInfo') },
     { id: 'account', label: t('settings.quickAccount') },
     { id: 'danger-zone', label: t('settings.quickDanger') },
@@ -162,6 +164,10 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
 
       <section id="template-data" className="scroll-mt-24">
         {profile && <TemplateManagementSection defaultStage={profile.current_stage} subscriptionTier={subscriptionTier} />}
+      </section>
+
+      <section id="feedback" className="scroll-mt-24">
+        <FeedbackSection />
       </section>
 
       <section id="app-info" className="scroll-mt-24">
