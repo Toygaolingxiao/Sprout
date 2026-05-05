@@ -452,6 +452,8 @@ export const ja = {
   'ads.consentAccept': '同意して表示する',
   'ads.consentDecline': '今回は表示しない',
   'ads.consentDeclinedHint': '広告表示は無効です。再度「同意して表示する」を押すと有効化できます。',
+  'ads.slotPendingTitle': '広告準備中',
+  'ads.slotPendingDescription': '審査中または配信準備中のため、広告が表示されるまで少し時間がかかる場合があります。',
 
   // Common
   'common.all': 'すべて',

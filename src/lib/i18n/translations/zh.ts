@@ -454,6 +454,8 @@ export const zh: Record<TranslationKey, string> = {
   'ads.consentAccept': '同意展示广告',
   'ads.consentDecline': '暂不展示',
   'ads.consentDeclinedHint': '广告当前已关闭。再次点击“同意展示广告”即可启用。',
+  'ads.slotPendingTitle': '广告位准备中',
+  'ads.slotPendingDescription': '审核中或投放准备中时，广告出现可能需要一些时间。',
 
   // Common
   'common.all': '全部',

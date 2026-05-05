@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.14';
+export const APP_VERSION = '1.10.15';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.15',
+    date: '2026-05-05',
+    items: [
+      'ad-slot-pending-placeholder',
+      'localized-placeholder-copy',
+      'ad-creative-detection',
+    ],
+  },
   {
     version: '1.10.14',
     date: '2026-05-05',
