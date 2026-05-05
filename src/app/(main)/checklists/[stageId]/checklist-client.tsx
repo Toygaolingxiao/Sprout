@@ -107,6 +107,8 @@ export function ChecklistClient({ tasks, stageId, subscriptionTier, dbOffline }:
           ready={adsReady}
           slotId={process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_TOP}
           className="min-h-[110px]"
+          placeholderTitle={t('ads.slotPendingTitle')}
+          placeholderDescription={t('ads.slotPendingDescription')}
         />
       )}
 
@@ -117,6 +119,8 @@ export function ChecklistClient({ tasks, stageId, subscriptionTier, dbOffline }:
           ready={adsReady}
           slotId={process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_BOTTOM}
           className="min-h-[110px]"
+          placeholderTitle={t('ads.slotPendingTitle')}
+          placeholderDescription={t('ads.slotPendingDescription')}
         />
       )}
 

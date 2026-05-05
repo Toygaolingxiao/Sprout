@@ -454,6 +454,8 @@ export const en: Record<TranslationKey, string> = {
   'ads.consentAccept': 'Allow ads',
   'ads.consentDecline': 'Not now',
   'ads.consentDeclinedHint': 'Ads are currently disabled. You can enable them by selecting "Allow ads".',
+  'ads.slotPendingTitle': 'Ad area is preparing',
+  'ads.slotPendingDescription': 'Ads may take a while to appear while review or ad delivery becomes available.',
 
   // Common
   'common.all': 'All',
