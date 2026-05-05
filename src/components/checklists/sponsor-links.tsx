@@ -29,7 +29,7 @@ export function SponsorLinks({ categoryFilter }: SponsorLinksProps) {
             href="/api/affiliate/amazon-baby"
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'w-full')}
+            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'h-auto min-h-12 w-full whitespace-normal px-3 py-2 text-center leading-tight')}
           >
             {t('affiliate.amazonBaby')}
           </a>
@@ -37,7 +37,7 @@ export function SponsorLinks({ categoryFilter }: SponsorLinksProps) {
             href="/api/affiliate/rakuten-baby"
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'w-full')}
+            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'h-auto min-h-12 w-full whitespace-normal px-3 py-2 text-center leading-tight')}
           >
             {t('affiliate.rakutenBaby')}
           </a>
@@ -45,7 +45,7 @@ export function SponsorLinks({ categoryFilter }: SponsorLinksProps) {
             href="/api/affiliate/insurance"
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'w-full')}
+            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'h-auto min-h-12 w-full whitespace-normal px-3 py-2 text-center leading-tight')}
           >
             {t('affiliate.insurance')}
           </a>

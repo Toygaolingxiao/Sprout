@@ -55,7 +55,7 @@ export default async function FamilyPage() {
               href={nearbyPediatricsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-input bg-background px-3 py-2 text-center text-sm font-medium leading-tight hover:bg-muted"
             >
               {t('family.searchNearbyPediatrics')}
             </a>
@@ -63,7 +63,7 @@ export default async function FamilyPage() {
               href={pediatricsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-input bg-background px-3 py-2 text-center text-sm font-medium leading-tight hover:bg-muted"
             >
               {t('family.searchPediatrics')}
             </a>
@@ -71,7 +71,7 @@ export default async function FamilyPage() {
               href={obgynUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-3 text-sm font-medium hover:bg-muted"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-input bg-background px-3 py-2 text-center text-sm font-medium leading-tight hover:bg-muted"
             >
               {t('family.searchObgyn')}
             </a>

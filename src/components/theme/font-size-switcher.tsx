@@ -16,14 +16,14 @@ export function FontSizeSwitcher() {
   return (
     <div className="space-y-2">
       <p className="text-sm font-medium">{t('settings.textSize')}</p>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-3 gap-2">
         {FONT_SIZES.map((option) => (
           <button
             key={option.id}
             type="button"
             onClick={() => setFontSize(option.id)}
             aria-label={t(`settings.textSize.${option.id}` as any)}
-            className={`rounded-lg border px-3 py-2 transition-colors ${
+            className={`h-10 w-full rounded-lg border px-3 py-2 text-center transition-colors ${
               fontSize === option.id
                 ? 'border-primary bg-primary/10 text-primary'
                 : 'border-border bg-background text-muted-foreground hover:bg-muted/70'

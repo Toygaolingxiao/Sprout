@@ -45,7 +45,7 @@ export function Header() {
                 href={item.href}
                 prefetch
                 onMouseEnter={() => router.prefetch(item.href)}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
+                className={`min-w-20 rounded-md px-3 py-1.5 text-center text-sm font-medium whitespace-nowrap transition-colors ${
                   isActive
                     ? 'bg-muted text-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
