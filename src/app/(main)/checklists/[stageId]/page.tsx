@@ -1,14 +1,12 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTasks, initializeTasksFromTemplates } from '@/lib/actions/tasks';
-import { getProfile } from '@/lib/actions/profile';
 import { STAGE_MAP, STAGES } from '@/data/seed/stages';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import { ProgressOverview } from '@/components/checklists/progress-overview';
 import { ChecklistClient } from './checklist-client';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { normalizeTier } from '@/lib/billing/plans';
 import { getLocale, serverT } from '@/lib/i18n/server';
 import type { TranslationKey } from '@/lib/i18n';
 import type { LifeStage, Task } from '@/types';
@@ -21,8 +19,6 @@ export default async function StageChecklistPage({ params }: Props) {
   const { stageId } = await params;
   const stage = STAGE_MAP[stageId as LifeStage];
   if (!stage) notFound();
-  const profile = await getProfile();
-  const subscriptionTier = normalizeTier((profile as { subscription_tier?: string } | null)?.subscription_tier);
 
   const initResult = await initializeTasksFromTemplates(stageId as LifeStage);
 
@@ -125,7 +121,6 @@ export default async function StageChecklistPage({ params }: Props) {
         tasks={tasks}
         stageId={stageId as LifeStage}
         dbOffline={dbOffline}
-        subscriptionTier={subscriptionTier}
       />
     </div>
   );
