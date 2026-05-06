@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const ADSENSE_FALLBACK_CLIENT_ID = 'ca-pub-3719155026592660';
+const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID ?? ADSENSE_FALLBACK_CLIENT_ID;
 
 declare global {
   interface Window {

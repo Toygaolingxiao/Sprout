@@ -1,11 +1,22 @@
-export const APP_VERSION = '1.10.24';
+export const APP_VERSION = '1.10.25';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.25',
+    date: '2026-05-06',
+    items: [
+      '更新履歴日本語化',
+      'AdSenseスクリプト読み込みを安定化',
+      '広告初回表示の改善',
+    ],
+  },
   {
     version: '1.10.24',
     date: '2026-05-06',
     items: [
-      'lighter-background,opaque-bottom-nav,fix-language-button-wrap',
+      '背景色を明るく調整し、画面全体の視認性を改善',
+      '下部メニューバーを不透明化して見やすさを向上',
+      '言語切替ボタンの改行崩れを修正',
     ],
   },
   {

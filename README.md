@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.10.24
+> for commit 1.10.25
 
 ---
 
@@ -192,7 +192,7 @@ Supabase Dashboard → Authentication → URL Configuration:
 機能更新後は次のコマンドで一括実行できます。
 
 ```bash
-npm run release:auto -- --type patch --notes "項目1|項目2|項目3"
+npm run release:auto -- --type patch --notes "項目1,項目2,項目3"
 ```
 
 主なオプション:
