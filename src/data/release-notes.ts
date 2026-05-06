@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.30';
+export const APP_VERSION = '1.10.31';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.31',
+    date: '2026-05-06',
+    items: [
+      '公開LP広告枠をファーストビューへ移動',
+      '審査用ラベルを常時表示',
+      '審査確認しやすさを改善',
+    ],
+  },
   {
     version: '1.10.30',
     date: '2026-05-06',
