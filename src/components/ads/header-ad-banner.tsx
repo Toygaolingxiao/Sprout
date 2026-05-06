@@ -105,14 +105,16 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
             <AdsenseSlot
               ready={adsReady}
               slotId={topSlotId}
-              className="min-h-[96px]"
+              compact
+              className="!h-[108px] sm:!h-[120px]"
               placeholderTitle={t('ads.slotPendingTitle')}
               placeholderDescription={t('ads.slotPendingDescription')}
             />
             <AdsenseSlot
               ready={adsReady}
               slotId={bottomSlotId}
-              className="mt-2 min-h-[96px]"
+              compact
+              className="mt-2 !h-[108px] sm:!h-[120px]"
               placeholderTitle={t('ads.slotPendingTitle')}
               placeholderDescription={t('ads.slotPendingDescription')}
             />

@@ -15,6 +15,7 @@ declare global {
 interface AdsenseSlotProps {
   slotId?: string;
   ready: boolean;
+  compact?: boolean;
   className?: string;
   placeholderTitle?: string;
   placeholderDescription?: string;
@@ -23,6 +24,7 @@ interface AdsenseSlotProps {
 export function AdsenseSlot({
   slotId,
   ready,
+  compact = false,
   className,
   placeholderTitle,
   placeholderDescription,
@@ -75,16 +77,21 @@ export function AdsenseSlot({
   }
 
   const showPlaceholder = !hasCreative;
+  const adFormat = compact ? 'horizontal' : 'auto';
 
   return (
     <div className="space-y-2">
       <ins
         ref={slotRef}
-        className={cn('adsbygoogle block w-full overflow-hidden rounded-lg border border-border/60 bg-muted/20', className)}
-        style={{ display: 'block' }}
+        className={cn(
+          'adsbygoogle block w-full overflow-hidden rounded-lg border border-border/60 bg-muted/20',
+          compact && '!h-[108px] sm:!h-[120px]',
+          className,
+        )}
+        style={{ display: 'block', ...(compact ? { height: '108px' } : {}) }}
         data-ad-client={ADSENSE_CLIENT_ID}
         data-ad-slot={slotId}
-        data-ad-format="auto"
+        data-ad-format={adFormat}
         data-full-width-responsive="true"
       />
       {showPlaceholder && (
