@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from 'react';
 import Script from 'next/script';
 
 const ADSENSE_FALLBACK_CLIENT_ID = 'ca-pub-3719155026592660';
@@ -11,6 +12,15 @@ interface AdsenseScriptProps {
 }
 
 export function AdsenseScript({ enabled, onLoaded }: AdsenseScriptProps) {
+  useEffect(() => {
+    if (!enabled) return;
+
+    const adsState = (window as Window & { adsbygoogle?: unknown[] }).adsbygoogle;
+    if (Array.isArray(adsState)) {
+      onLoaded?.();
+    }
+  }, [enabled, onLoaded]);
+
   if (!enabled || !ADSENSE_CLIENT_ID) {
     return null;
   }
