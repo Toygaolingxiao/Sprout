@@ -456,6 +456,18 @@ export const en: Record<TranslationKey, string> = {
   'ads.consentDeclinedHint': 'Ads are currently disabled. You can enable them by selecting "Allow ads".',
   'ads.slotPendingTitle': 'Ad area is preparing',
   'ads.slotPendingDescription': 'Ads may take a while to appear while review or ad delivery becomes available.',
+  'ads.adblockHelp.title': 'Please allow ads on our site',
+  'ads.adblockHelp.question': 'Which extension are you using?',
+  'ads.adblockHelp.description': 'An ad blocker may be preventing ad display. This site is supported by ads.',
+  'ads.adblockHelp.option.adblock': 'AdBlock',
+  'ads.adblockHelp.option.abp': 'Adblock Plus',
+  'ads.adblockHelp.option.ublock': 'uBlock Origin',
+  'ads.adblockHelp.option.other': 'Other',
+  'ads.adblockHelp.step1': 'Click the {name} extension icon in your browser toolbar.',
+  'ads.adblockHelp.step2': 'Allow this site, or disable blocking for this page.',
+  'ads.adblockHelp.step3': 'After changing settings, refresh this page.',
+  'ads.adblockHelp.refresh': 'Refresh page',
+  'ads.adblockHelp.close': 'Close',
 
   // Common
   'common.all': 'All',

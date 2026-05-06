@@ -454,6 +454,18 @@ export const ja = {
   'ads.consentDeclinedHint': '広告表示は無効です。再度「同意して表示する」を押すと有効化できます。',
   'ads.slotPendingTitle': '広告準備中',
   'ads.slotPendingDescription': '審査中または配信準備中のため、広告が表示されるまで少し時間がかかる場合があります。',
+  'ads.adblockHelp.title': '広告ブロック解除のお願い',
+  'ads.adblockHelp.question': 'どの拡張機能を使っていますか？',
+  'ads.adblockHelp.description': '広告ブロッカーが有効のため、広告が表示されない可能性があります。',
+  'ads.adblockHelp.option.adblock': 'AdBlock',
+  'ads.adblockHelp.option.abp': 'Adblock Plus',
+  'ads.adblockHelp.option.ublock': 'uBlock Origin',
+  'ads.adblockHelp.option.other': 'その他',
+  'ads.adblockHelp.step1': 'ブラウザ右上の拡張機能エリアで {name} のアイコンをクリックします。',
+  'ads.adblockHelp.step2': 'このサイトでは無効化する（または許可する）設定に変更します。',
+  'ads.adblockHelp.step3': '設定後にページを再読み込みしてください。',
+  'ads.adblockHelp.refresh': 'ページを再読み込み',
+  'ads.adblockHelp.close': '閉じる',
 
   // Common
   'common.all': 'すべて',

@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.31';
+export const APP_VERSION = '1.10.32';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.32',
+    date: '2026-05-06',
+    items: [
+      '广告拦截提示弹窗',
+      '扩展程序选项引导',
+      '刷新页面操作按钮',
+    ],
+  },
   {
     version: '1.10.31',
     date: '2026-05-06',
