@@ -4,7 +4,7 @@
 
 > https://sprout-rose.vercel.app
 >
-> for commit 1.10.32
+> for commit 1.10.33
 
 ---
 
@@ -109,6 +109,7 @@ BILLING_ENABLED=0
 - `AMAZON_ASSOCIATE_TAG` は任意です。未設定時は通常リンクとして遷移します。
 - `NEXT_PUBLIC_ADSENSE_CLIENT_ID` と `NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_*` は任意です。設定時のみ AdSense 枠が表示されます。
 - AdSense 枠は無料プランユーザーにのみ表示され、同意前は非表示です。
+- AdSense の審査・配信安定性のため、`NEXT_PUBLIC_SITE_URL` は独自ドメイン（例: `https://app.example.com`）を推奨します。`*.vercel.app` サブドメインでは審査で不利になる場合があります。
 - `BILLING_ENABLED=1` で課金UI/課金アクションを有効化します。Stripeを使わない期間は `0` を推奨します。
 
 ### 3. データベース
@@ -164,11 +165,16 @@ curl -X POST http://localhost:3000/api/seed
 Vercel にGitHub連携でデプロイ。環境変数3つを設定:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_SITE_URL` → `https://your-app.vercel.app`
+- `NEXT_PUBLIC_SITE_URL` → `https://app.example.com`（独自ドメイン推奨）
+
+AdSense を利用する場合の推奨:
+- Vercel で独自ドメインを追加し、運用ドメインを一本化する
+- AdSense 側には独自ドメインを登録する
+- `public/ads.txt` が本番ドメインの `/ads.txt` で配信されることを確認する
 
 Supabase Dashboard → Authentication → URL Configuration:
 - Site URL: 本番URL
-- Redirect URLs: `https://your-app.vercel.app/**`
+- Redirect URLs: `https://app.example.com/**`
 
 ### 5.2 LIFF + LINEログイン設定
 

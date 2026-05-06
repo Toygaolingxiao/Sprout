@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.32';
+export const APP_VERSION = '1.10.33';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.33',
+    date: '2026-05-06',
+    items: [
+      'Site URL环境变量化',
+      'AdSense独自ドメイン運用注意追記',
+      'README部署示例更新',
+    ],
+  },
   {
     version: '1.10.32',
     date: '2026-05-06',
