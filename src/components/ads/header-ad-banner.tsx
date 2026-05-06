@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { AdsenseScript } from '@/components/ads/adsense-script';
 import { AdsenseSlot } from '@/components/ads/adsense-slot';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ interface HeaderAdBannerProps {
 
 export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
   const { t } = useTranslation();
+  const pathname = usePathname();
   const [adsConsent, setAdsConsent] = useState<AdsConsentState>(null);
   const [adsReady, setAdsReady] = useState(false);
 
@@ -95,6 +97,9 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
   const showAdsense = adsConsent === 'granted';
   const topSlotId = process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_TOP ?? ADSENSE_FALLBACK_SLOT_TOP;
   const bottomSlotId = process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_BOTTOM ?? ADSENSE_FALLBACK_SLOT_BOTTOM;
+  const activeSlotId = pathname.startsWith('/dashboard') || pathname.startsWith('/settings')
+    ? bottomSlotId
+    : topSlotId;
 
   return (
     <div className="w-full border-b border-border/40 bg-background/95">
@@ -104,17 +109,9 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
             <AdsenseScript enabled onLoaded={() => setAdsReady(true)} />
             <AdsenseSlot
               ready={adsReady}
-              slotId={topSlotId}
+              slotId={activeSlotId}
               compact
               className="!h-[108px] sm:!h-[120px]"
-              placeholderTitle={t('ads.slotPendingTitle')}
-              placeholderDescription={t('ads.slotPendingDescription')}
-            />
-            <AdsenseSlot
-              ready={adsReady}
-              slotId={bottomSlotId}
-              compact
-              className="mt-2 !h-[108px] sm:!h-[120px]"
               placeholderTitle={t('ads.slotPendingTitle')}
               placeholderDescription={t('ads.slotPendingDescription')}
             />
