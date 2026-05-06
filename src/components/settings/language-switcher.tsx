@@ -38,7 +38,7 @@ export function LanguageSwitcher({ variant = 'default', className }: LanguageSwi
           key={key}
           type="button"
           onClick={() => handleChange(key)}
-          className={cn(`font-medium transition-all ${
+          className={cn(`whitespace-nowrap font-medium transition-all ${
             locale === key
               ? compact
                 ? 'inline-flex min-w-[4.25rem] items-center justify-center rounded-full bg-primary px-3 py-1.5 text-center text-xs text-primary-foreground shadow-sm'
