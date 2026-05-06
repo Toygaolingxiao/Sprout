@@ -26,7 +26,7 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 };
 
-const siteUrl = 'https://sprout-rose.vercel.app';
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sprout-rose.vercel.app').replace(/\/$/, '');
 const ADSENSE_FALLBACK_CLIENT_ID = 'ca-pub-3719155026592660';
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID ?? ADSENSE_FALLBACK_CLIENT_ID;
 
