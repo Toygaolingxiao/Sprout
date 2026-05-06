@@ -21,7 +21,7 @@ function parseArgs(argv) {
     }
     if (arg === '--notes' && argv[i + 1]) {
       options.notes = argv[i + 1]
-        .split('|')
+        .split(/[|,]/)
         .map((v) => v.trim())
         .filter(Boolean);
       i += 1;

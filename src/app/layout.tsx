@@ -27,7 +27,8 @@ export const viewport: Viewport = {
 };
 
 const siteUrl = 'https://sprout-rose.vercel.app';
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const ADSENSE_FALLBACK_CLIENT_ID = 'ca-pub-3719155026592660';
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID ?? ADSENSE_FALLBACK_CLIENT_ID;
 
 export const metadata: Metadata = {
   title: "Sprout 🌱 - 夫婦で育てる、新しい命の準備",

@@ -28,7 +28,11 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
     const saved = localStorage.getItem(ADS_CONSENT_KEY);
     if (saved === 'granted' || saved === 'denied') {
       setAdsConsent(saved);
+      return;
     }
+
+    setAdsConsent('granted');
+    localStorage.setItem(ADS_CONSENT_KEY, 'granted');
   }, [isFreePlan]);
 
   useEffect(() => {
