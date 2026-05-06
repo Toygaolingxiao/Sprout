@@ -8,6 +8,8 @@ import { useTranslation } from '@/lib/i18n/context';
 import type { SubscriptionTier } from '@/types';
 
 const ADS_CONSENT_KEY = 'sprout-ads-consent-v1';
+const ADSENSE_FALLBACK_SLOT_TOP = '5167037122';
+const ADSENSE_FALLBACK_SLOT_BOTTOM = '6169127600';
 
 type AdsConsentState = 'granted' | 'denied' | null;
 
@@ -44,6 +46,36 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
     }
   }, [isFreePlan]);
 
+  useEffect(() => {
+    if (!isFreePlan || adsConsent !== 'granted') return;
+
+    const hasAdsSdk = () => {
+      const adsState = (window as Window & { adsbygoogle?: unknown[] }).adsbygoogle;
+      return Array.isArray(adsState);
+    };
+
+    if (hasAdsSdk()) {
+      setAdsReady(true);
+      return;
+    }
+
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+      attempts += 1;
+      if (hasAdsSdk()) {
+        setAdsReady(true);
+        window.clearInterval(timer);
+        return;
+      }
+
+      if (attempts >= 40) {
+        window.clearInterval(timer);
+      }
+    }, 250);
+
+    return () => window.clearInterval(timer);
+  }, [isFreePlan, adsConsent]);
+
   const updateAdsConsent = (value: Exclude<AdsConsentState, null>) => {
     setAdsConsent(value);
     localStorage.setItem(ADS_CONSENT_KEY, value);
@@ -61,6 +93,8 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
   }
 
   const showAdsense = adsConsent === 'granted';
+  const topSlotId = process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_TOP ?? ADSENSE_FALLBACK_SLOT_TOP;
+  const bottomSlotId = process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_BOTTOM ?? ADSENSE_FALLBACK_SLOT_BOTTOM;
 
   return (
     <div className="w-full border-b border-border/40 bg-background/95">
@@ -70,14 +104,14 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
             <AdsenseScript enabled onLoaded={() => setAdsReady(true)} />
             <AdsenseSlot
               ready={adsReady}
-              slotId={process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_TOP}
+              slotId={topSlotId}
               className="min-h-[96px]"
               placeholderTitle={t('ads.slotPendingTitle')}
               placeholderDescription={t('ads.slotPendingDescription')}
             />
             <AdsenseSlot
               ready={adsReady}
-              slotId={process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_BOTTOM}
+              slotId={bottomSlotId}
               className="mt-2 min-h-[96px]"
               placeholderTitle={t('ads.slotPendingTitle')}
               placeholderDescription={t('ads.slotPendingDescription')}
