@@ -456,6 +456,18 @@ export const zh: Record<TranslationKey, string> = {
   'ads.consentDeclinedHint': '广告当前已关闭。再次点击“同意展示广告”即可启用。',
   'ads.slotPendingTitle': '广告位准备中',
   'ads.slotPendingDescription': '审核中或投放准备中时，广告出现可能需要一些时间。',
+  'ads.adblockHelp.title': '请允许在我们的网站上展示广告',
+  'ads.adblockHelp.question': '您安装了下列哪个扩展程序？',
+  'ads.adblockHelp.description': '检测到广告可能被拦截，网站运营依赖广告支持。',
+  'ads.adblockHelp.option.adblock': 'AdBlock',
+  'ads.adblockHelp.option.abp': 'Adblock Plus',
+  'ads.adblockHelp.option.ublock': 'uBlock Origin',
+  'ads.adblockHelp.option.other': '其他',
+  'ads.adblockHelp.step1': '在浏览器右上角点击 {name} 扩展图标。',
+  'ads.adblockHelp.step2': '把本站加入允许列表，或设置为“不要在此网站运行”。',
+  'ads.adblockHelp.step3': '设置完成后，请刷新页面。',
+  'ads.adblockHelp.refresh': '刷新页面',
+  'ads.adblockHelp.close': '关闭',
 
   // Common
   'common.all': '全部',
