@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.10.25';
+export const APP_VERSION = '1.10.26';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.26',
+    date: '2026-05-06',
+    items: [
+      'adsense-top-bottom-unit-enabled',
+      'checklist-bottom-slot-wired',
+      'dual-slot-rendering',
+    ],
+  },
   {
     version: '1.10.25',
     date: '2026-05-06',
