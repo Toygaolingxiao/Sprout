@@ -114,7 +114,7 @@ export function LandingPage() {
                 type="button"
                 onClick={() => changeLocale('ja')}
                 className={cn(
-                  'min-w-12 rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
+                  'min-w-12 whitespace-nowrap rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
                   locale === 'ja' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -124,7 +124,7 @@ export function LandingPage() {
                 type="button"
                 onClick={() => changeLocale('zh')}
                 className={cn(
-                  'min-w-12 rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
+                  'min-w-12 whitespace-nowrap rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
                   locale === 'zh' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -134,7 +134,7 @@ export function LandingPage() {
                 type="button"
                 onClick={() => changeLocale('en')}
                 className={cn(
-                  'min-w-12 rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
+                  'min-w-12 whitespace-nowrap rounded-md px-2.5 py-1 text-center text-xs font-medium transition-colors',
                   locale === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
