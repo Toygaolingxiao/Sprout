@@ -75,6 +75,13 @@ export function HeaderAdBanner({ subscriptionTier }: HeaderAdBannerProps) {
               placeholderTitle={t('ads.slotPendingTitle')}
               placeholderDescription={t('ads.slotPendingDescription')}
             />
+            <AdsenseSlot
+              ready={adsReady}
+              slotId={process.env.NEXT_PUBLIC_ADSENSE_SLOT_CHECKLIST_BOTTOM}
+              className="mt-2 min-h-[96px]"
+              placeholderTitle={t('ads.slotPendingTitle')}
+              placeholderDescription={t('ads.slotPendingDescription')}
+            />
           </>
         ) : (
           <div className="rounded-md border border-border/70 bg-muted/30 px-3 py-2">
