@@ -161,6 +161,8 @@ export function LandingPage() {
         </nav>
       </header>
 
+      <PublicReviewAd />
+
       {/* ── Hero ── */}
       <main>
       <section
@@ -197,8 +199,6 @@ export function LandingPage() {
           </p>
         </div>
       </section>
-
-      <PublicReviewAd />
 
       {/* ── Stages ── */}
       <section className="min-h-[360px] px-4 py-16 sm:min-h-[400px] sm:py-20">

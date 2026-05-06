@@ -44,6 +44,9 @@ export function PublicReviewAd() {
   return (
     <section aria-label="sponsored" className="px-4 py-6 sm:py-8">
       <div className="mx-auto max-w-3xl">
+        <p className="mb-2 text-center text-[11px] tracking-wide text-muted-foreground">
+          {t('affiliate.title')}
+        </p>
         <AdsenseScript enabled onLoaded={() => setAdsReady(true)} />
         <AdsenseSlot
           ready={adsReady}
