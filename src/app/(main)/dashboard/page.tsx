@@ -1,4 +1,6 @@
 import { getTasks, initializeTasksFromTemplates, getTaskStats } from '@/lib/actions/tasks';
+import { getRecentActivity } from '@/lib/actions/activity';
+import type { ActivityFeedItem } from '@/types';
 import { getProfile } from '@/lib/actions/profile';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
 import { DashboardClient } from './dashboard-client';
@@ -16,6 +18,7 @@ export default async function DashboardPage() {
   let stats: Awaited<ReturnType<typeof getTaskStats>> = null;
   let dbOffline = false;
   let dbError = '';
+  let activity: ActivityFeedItem[] = [];
 
   try {
     profile = await getProfile();
@@ -66,6 +69,7 @@ export default async function DashboardPage() {
         } satisfies Task));
     }
 
+    activity = await getRecentActivity();
   } catch (e) {
     console.error('[DashboardPage] Task loading failed:', e);
     dbOffline = true;
@@ -80,6 +84,7 @@ export default async function DashboardPage() {
       stats={stats}
       dbOffline={dbOffline}
       dbError={dbError}
+      activity={activity}
     />
   );
 }

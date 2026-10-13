@@ -4,6 +4,8 @@ import { revalidatePath } from 'next/cache';
 import { createClient, getAuthUser, getFamilyId } from '@/lib/supabase/server';
 import { canUseFeature, normalizeTier } from '@/lib/billing/plans';
 import { CHECKLIST_TEMPLATES } from '@/data/seed/templates';
+import { recordTaskActivity } from '@/lib/actions/activity';
+import { notifyPartnerTaskCompleted } from '@/lib/push/send';
 import type { LifeStage, CategoryId, Task, TaskPriority } from '@/types';
 
 function resolveTemplatePriority(input: { priority?: TaskPriority; category_id: CategoryId }): TaskPriority {
@@ -81,7 +83,7 @@ export async function createTask(input: {
     .limit(1)
     .single() as { data: { sort_order: number } | null };
 
-  const { error } = await supabase.from('tasks').insert({
+  const { data: created, error } = await supabase.from('tasks').insert({
     family_id: familyId,
     stage_id: input.stage_id,
     category_id: input.category_id,
@@ -92,9 +94,17 @@ export async function createTask(input: {
     sort_order: (maxTask?.sort_order ?? 0) + 1,
     is_custom: true,
     created_by: user.id,
-  } as Record<string, unknown>);
+  } as Record<string, unknown>).select('id, title').single();
 
-  if (error) return { error: error.message };
+  if (error || !created) return { error: error?.message ?? 'タスクを追加できませんでした' };
+
+  await recordTaskActivity({
+    familyId,
+    userId: user.id,
+    action: 'create',
+    taskId: created.id,
+    title: created.title,
+  });
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');
@@ -106,6 +116,12 @@ export async function toggleTask(taskId: string, isCompleted: boolean) {
   if (!user) return { error: '認証されていません' };
 
   const supabase = await createClient();
+  const { data: existing } = await supabase
+    .from('tasks')
+    .select('id, title, family_id')
+    .eq('id', taskId)
+    .maybeSingle();
+
   const { error } = await supabase
     .from('tasks')
     .update({
@@ -116,6 +132,23 @@ export async function toggleTask(taskId: string, isCompleted: boolean) {
     .eq('id', taskId);
 
   if (error) return { error: error.message };
+
+  if (existing?.family_id) {
+    await recordTaskActivity({
+      familyId: existing.family_id,
+      userId: user.id,
+      action: isCompleted ? 'complete' : 'uncomplete',
+      taskId,
+      title: existing.title,
+    });
+    if (isCompleted) {
+      await notifyPartnerTaskCompleted({
+        familyId: existing.family_id,
+        actorId: user.id,
+        taskTitle: existing.title,
+      });
+    }
+  }
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');
@@ -133,6 +166,11 @@ export async function updateTask(taskId: string, input: {
   if (!user) return { error: '認証されていません' };
 
   const supabase = await createClient();
+  const { data: existing } = await supabase
+    .from('tasks')
+    .select('id, title, family_id')
+    .eq('id', taskId)
+    .maybeSingle();
 
   const { error } = await supabase
     .from('tasks')
@@ -140,6 +178,16 @@ export async function updateTask(taskId: string, input: {
     .eq('id', taskId);
 
   if (error) return { error: error.message };
+
+  if (existing?.family_id) {
+    await recordTaskActivity({
+      familyId: existing.family_id,
+      userId: user.id,
+      action: 'update',
+      taskId,
+      title: input.title ?? existing.title,
+    });
+  }
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');
@@ -151,6 +199,11 @@ export async function deleteTask(taskId: string) {
   if (!user) return { error: '認証されていません' };
 
   const supabase = await createClient();
+  const { data: existing } = await supabase
+    .from('tasks')
+    .select('id, title, family_id')
+    .eq('id', taskId)
+    .maybeSingle();
 
   const { error } = await supabase
     .from('tasks')
@@ -158,6 +211,16 @@ export async function deleteTask(taskId: string) {
     .eq('id', taskId);
 
   if (error) return { error: error.message };
+
+  if (existing?.family_id) {
+    await recordTaskActivity({
+      familyId: existing.family_id,
+      userId: user.id,
+      action: 'delete',
+      taskId,
+      title: existing.title,
+    });
+  }
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');
@@ -360,6 +423,15 @@ export async function deleteCustomTasksByStage(stageId: LifeStage) {
 
   if (countError) return { error: countError.message };
 
+  const { data: sample } = await supabase
+    .from('tasks')
+    .select('id, title')
+    .eq('family_id', familyId)
+    .eq('stage_id', stageId)
+    .eq('is_custom', true)
+    .limit(1)
+    .maybeSingle();
+
   const { error } = await supabase
     .from('tasks')
     .delete()
@@ -368,6 +440,17 @@ export async function deleteCustomTasksByStage(stageId: LifeStage) {
     .eq('is_custom', true);
 
   if (error) return { error: error.message };
+
+  if (sample && (count ?? 0) > 0) {
+    await recordTaskActivity({
+      familyId,
+      userId: user.id,
+      action: 'delete',
+      taskId: sample.id,
+      title: sample.title,
+      count: count ?? undefined,
+    });
+  }
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');
@@ -401,6 +484,14 @@ export async function deleteAllCustomTasks() {
 
   if (countError) return { error: countError.message };
 
+  const { data: sample } = await supabase
+    .from('tasks')
+    .select('id, title')
+    .eq('family_id', familyId)
+    .eq('is_custom', true)
+    .limit(1)
+    .maybeSingle();
+
   const { error } = await supabase
     .from('tasks')
     .delete()
@@ -408,6 +499,17 @@ export async function deleteAllCustomTasks() {
     .eq('is_custom', true);
 
   if (error) return { error: error.message };
+
+  if (sample && (count ?? 0) > 0) {
+    await recordTaskActivity({
+      familyId,
+      userId: user.id,
+      action: 'delete',
+      taskId: sample.id,
+      title: sample.title,
+      count: count ?? undefined,
+    });
+  }
 
   revalidatePath('/checklists');
   revalidatePath('/dashboard');

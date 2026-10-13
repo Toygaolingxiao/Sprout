@@ -62,6 +62,9 @@ export default async function TermsPage() {
               )}
             </section>
           ))}
+          <p className="pt-4 text-sm">
+            <Link href="/tokusho" className="text-primary hover:underline">{serverT(locale, 'legal.tokushoLink')}</Link>
+          </p>
         </div>
       </div>
     </div>

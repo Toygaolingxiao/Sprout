@@ -25,6 +25,8 @@ export async function updateSession(request: NextRequest) {
     pathname === '/ads.txt' ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
+    pathname === '/sw.js' ||
+    pathname === '/offline.html' ||
     /^\/(?:icons|images)\//.test(pathname) ||
     /\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json)$/i.test(pathname);
   const liffStateRaw = request.nextUrl.searchParams.get('liff.state');
@@ -48,7 +50,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(new URL(safePath, request.url));
   }
 
-  const publicPaths = ['/login', '/signup', '/reset-password', '/auth/', '/invite', '/api/', '/terms', '/privacy'];
+  const publicPaths = ['/login', '/signup', '/reset-password', '/auth/', '/invite', '/api/', '/terms', '/privacy', '/tokusho'];
   const isPublicPath = pathname === '/' || publicPaths.some((path) => pathname.startsWith(path));
   const hasAuthCookie = request.cookies
     .getAll()
