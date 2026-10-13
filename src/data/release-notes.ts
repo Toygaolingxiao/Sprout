@@ -1,6 +1,18 @@
-export const APP_VERSION = '1.10.33';
+export const APP_VERSION = '1.10.34';
 
 export const RELEASE_NOTES: { version: string; date: string; items: string[] }[] = [
+  {
+    version: '1.10.34',
+    date: '2026-10-13',
+    items: [
+      '模板写入改为管理员密钥',
+      '首页显示家庭动态',
+      '离线页与推送通知',
+      '可选 Sentry',
+      '特定商取引法页面',
+      '公开项目说明',
+    ],
+  },
   {
     version: '1.10.33',
     date: '2026-05-06',
