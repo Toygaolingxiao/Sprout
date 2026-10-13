@@ -113,6 +113,15 @@ export interface ActivityLog {
   created_at: string;
 }
 
+export interface ActivityFeedItem {
+  id: string;
+  action: ActivityAction;
+  createdAt: string;
+  actorName: string;
+  taskTitle: string;
+  count: number;
+}
+
 export interface FeedbackComment {
   id: string;
   user_id: string;

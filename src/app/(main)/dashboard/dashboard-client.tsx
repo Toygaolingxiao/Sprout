@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { useTranslation } from '@/lib/i18n/context';
 import { translateTaskField } from '@/lib/i18n/task-translations';
 import type { TranslationKey } from '@/lib/i18n';
-import type { Task, LifeStage, CategoryId, TargetGender, Profile } from '@/types';
+import type { ActivityFeedItem, Task, LifeStage, CategoryId, TargetGender, Profile } from '@/types';
 
 interface StageStats {
   stage_id: string;
@@ -29,6 +29,7 @@ interface DashboardClientProps {
   stats: { stages: StageStats[]; upcoming: { stage_id: string; due_date: string | null; title: string }[] } | null;
   dbOffline: boolean;
   dbError?: string;
+  activity: ActivityFeedItem[];
 }
 
 function priorityRank(priority: Task['priority']) {
@@ -52,7 +53,7 @@ function sortByPriorityAndDueDate(a: Task, b: Task) {
   return a.sort_order - b.sort_order;
 }
 
-export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError }: DashboardClientProps) {
+export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline, dbError, activity }: DashboardClientProps) {
   const [categoryFilter, setCategoryFilter] = useState<CategoryId | 'all'>('all');
   const [genderFilter, setGenderFilter] = useState<TargetGender | 'all'>('all');
   const { t, locale } = useTranslation();
@@ -112,6 +113,39 @@ export function DashboardClient({ profile, tasks, currentStage, stats, dbOffline
           </div>
         )}
       </div>
+
+      <Card>
+        <CardContent className="pt-5 pb-4">
+          <h2 className="text-sm font-semibold">{t('activity.title')}</h2>
+          {activity.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">{t('activity.empty')}</p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {activity.map((item) => {
+                const key = item.count > 1 && item.action === 'delete'
+                  ? 'activity.bulkDelete'
+                  : `activity.${item.action}` as TranslationKey;
+                const when = new Intl.DateTimeFormat(
+                  locale === 'zh' ? 'zh-CN' : locale === 'en' ? 'en-US' : 'ja-JP',
+                  { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' },
+                ).format(new Date(item.createdAt));
+                return (
+                  <li key={item.id} className="text-sm">
+                    <span>
+                      {t(key, {
+                        name: item.actorName || t('activity.unknown'),
+                        title: item.taskTitle,
+                        count: item.count,
+                      })}
+                    </span>
+                    <span className="ml-2 text-xs text-muted-foreground">{when}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
 
       {/* DB offline warning */}
       {dbOffline && (

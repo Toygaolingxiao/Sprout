@@ -107,7 +107,21 @@ function updateReadmeVersion(nextVersion) {
   const filePath = resolve(process.cwd(), 'README.md');
   let source = readFileSync(filePath, 'utf8');
   source = source.replace(/for commit \d+\.\d+\.\d+/, `for commit ${nextVersion}`);
+  source = source.replace(/\*\*Version:\*\* \d+\.\d+\.\d+/, `**Version:** ${nextVersion}`);
   writeFileSync(filePath, source, 'utf8');
+}
+
+function updatePackageVersion(nextVersion) {
+  const packagePath = resolve(process.cwd(), 'package.json');
+  const pkg = JSON.parse(readFileSync(packagePath, 'utf8'));
+  pkg.version = nextVersion;
+  writeFileSync(packagePath, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8');
+
+  const lockPath = resolve(process.cwd(), 'package-lock.json');
+  const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
+  lock.version = nextVersion;
+  if (lock.packages?.['']) lock.packages[''].version = nextVersion;
+  writeFileSync(lockPath, `${JSON.stringify(lock, null, 2)}\n`, 'utf8');
 }
 
 function main() {
@@ -127,6 +141,7 @@ function main() {
 
   updateReleaseNotes(nextVersion, options.notes.length > 0 ? options.notes : ['🔧 機能更新を反映']);
   updateReadmeVersion(nextVersion);
+  updatePackageVersion(nextVersion);
 
   console.log(`🧾 Version updated: ${currentVersion} -> ${nextVersion}`);
 
