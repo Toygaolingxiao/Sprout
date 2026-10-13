@@ -119,6 +119,9 @@ export function SignupForm({ nextPath = '/dashboard' }: SignupFormProps) {
             <Link href="/privacy" className="text-primary hover:underline">{t('auth.privacyLink')}</Link>
             {t('auth.termsConsent3')}
           </p>
+          <p className="text-center text-xs">
+            <Link href="/tokusho" className="text-primary hover:underline">{t('legal.tokushoLink')}</Link>
+          </p>
         </form>
 
         <div className="relative">

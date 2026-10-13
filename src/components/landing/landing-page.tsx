@@ -142,13 +142,12 @@ export function LandingPage() {
                 {t('lp.langEn')}
               </button>
             </div>
-            <button
-              type="button"
-              onClick={() => router.push('/login')}
+            <Link
+              href="/login"
               className={buttonVariants({ variant: 'ghost', size: 'sm', className: 'min-w-16 justify-center' })}
             >
               {t('lp.login')}
-            </button>
+            </Link>
             <button
               type="button"
               onClick={() => router.push('/signup')}
@@ -339,6 +338,9 @@ export function LandingPage() {
             </Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors py-2">
               {t('lp.privacy')}
+            </Link>
+            <Link href="/tokusho" className="hover:text-foreground transition-colors py-2">
+              {t('lp.tokusho')}
             </Link>
             <Link href="/login" className="hover:text-foreground transition-colors py-2">
               {t('lp.login')}

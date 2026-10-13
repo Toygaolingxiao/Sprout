@@ -17,6 +17,7 @@ import { ProviderLinksSection } from '@/components/settings/provider-links-secti
 import { TemplateManagementSection } from '@/components/settings/template-management-section';
 import { FeedbackSection } from '@/components/settings/feedback-section';
 import { LanguageSwitcher } from '@/components/settings/language-switcher';
+import { NotificationSection } from '@/components/settings/notification-section';
 import { ProfileSection } from '@/components/settings/profile-section';
 import { ScheduleSection } from '@/components/settings/schedule-section';
 import { createClient } from '@/lib/supabase/server';
@@ -105,6 +106,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   const sectionLinks = [
     { id: 'profile-schedule', label: t('settings.quickProfileSchedule') },
     { id: 'display', label: t('settings.quickDisplay') },
+    { id: 'notifications', label: t('notify.short') },
     { id: 'template-data', label: t('settings.quickTemplateData') },
     { id: 'feedback', label: t('settings.quickFeedback') },
     { id: 'app-info', label: t('settings.quickAppInfo') },
@@ -160,6 +162,10 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           <FontSizeSwitcher />
         </CardContent>
       </Card>
+      </section>
+
+      <section id="notifications" className="scroll-mt-24">
+        <NotificationSection vapidPublicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? ''} />
       </section>
 
       <section id="template-data" className="scroll-mt-24">

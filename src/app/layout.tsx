@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
+import { ServiceWorkerRegister } from "@/components/pwa/service-worker-register";
 import { LanguageProvider } from "@/lib/i18n/context";
 import { getLocale } from "@/lib/i18n/server";
 import "./globals.css";
@@ -86,6 +87,7 @@ export default async function RootLayout({
           </LanguageProvider>
           <Toaster />
           <Analytics />
+          <ServiceWorkerRegister />
         </ThemeProvider>
       </body>
     </html>
